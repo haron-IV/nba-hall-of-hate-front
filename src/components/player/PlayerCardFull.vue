@@ -36,17 +36,33 @@
             <a href="#" class="btn btn-primary">Hate or Respect</a>
 
 
+
+            <!-- should be a separated component -->
+            <!-- container for 2 list like this (default hidden container) -->
+            <div class="container-fluid player-feed-box">
+                <Player-card-collapse 
+                    class="mr-2"
+                    title="Hate"
+                    heading="Here is throwing meat."
+                />
+                
+                <Player-card-collapse 
+                    class="ml-2"
+                    title="Respect"
+                    heading="Here is throwning respect."
+                />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import PlayerCardCollapse from '@/components/player/PlayerCardCollapse';
 
 export default {
   name: "Player-card",
   components: {
-  
+    'Player-card-collapse': PlayerCardCollapse
   },
   data() {
     return {
@@ -70,6 +86,10 @@ export default {
         .list-group {
             
         }   
+    }
+
+    .player-feed-box {
+        display: flex;
     }
 }
 
