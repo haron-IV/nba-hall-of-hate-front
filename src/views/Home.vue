@@ -1,7 +1,7 @@
 <template>
   <article class="mt-3">
     <!-- <Player-card></Player-card> -->
-    <Player-card-full v-show="$store.state.player.playerCardFullView"></Player-card-full>
+    <Player-card-full v-if="$store.state.player.playerCardFullView"></Player-card-full>
   </article>
 </template>
 

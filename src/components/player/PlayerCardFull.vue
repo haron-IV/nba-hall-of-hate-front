@@ -24,7 +24,7 @@
                         <b>Height:</b> {{$store.state.player.selectedPlayer.heightInMeters}}m
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <b>Number:</b> 23
+                        <b>Number:</b> {{playerNumber}}
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <b>Hate points:</b> [in future]
@@ -78,7 +78,19 @@ export default {
   computed: {
     playerAge(){ 
         return new Date().getFullYear() - JSON.parse(this.$store.state.player.selectedPlayer.dateOfBirth.split('-')[0])
+    },
+    playerNumber(){
+        const leagues = this.$store.state.player.selectedPlayer.leagues;
+
+        if (leagues) {
+            if (leagues.standard) {
+                return leagues.standard.jersey
+            }
+        }
     }
+  },
+
+  methods: {
   }
 };
 </script>
