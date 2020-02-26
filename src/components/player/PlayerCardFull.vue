@@ -17,13 +17,13 @@
             <h5 class="card-title">{{$store.state.player.selectedPlayer.firstName}} {{$store.state.player.selectedPlayer.lastName}}</h5>
             <div class="card-text">
                 <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <li class="list-group-item d-flex justify-content-between align-items-center" v-if="$store.state.player.selectedPlayer.dateOfBirth">
                         <b>Birth:</b> {{$store.state.player.selectedPlayer.dateOfBirth}} ({{playerAge}})
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <li class="list-group-item d-flex justify-content-between align-items-center" v-if="$store.state.player.selectedPlayer.heightInMeters">
                         <b>Height:</b> {{$store.state.player.selectedPlayer.heightInMeters}}m
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <li class="list-group-item d-flex justify-content-between align-items-center" v-if="playerNumber">
                         <b>Number:</b> {{playerNumber}}
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -78,7 +78,11 @@ export default {
   
   computed: {
     playerAge(){ 
-        return new Date().getFullYear() - JSON.parse(this.$store.state.player.selectedPlayer.dateOfBirth.split('-')[0])
+        if (this.$store.state.player.selectedPlayer.dateOfBirth){
+            return new Date().getFullYear() - JSON.parse(this.$store.state.player.selectedPlayer.dateOfBirth.split('-')[0])
+        }
+        
+        return "";
     },
     playerNumber(){
         const leagues = this.$store.state.player.selectedPlayer.leagues;
