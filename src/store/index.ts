@@ -9,9 +9,16 @@ export default new Vuex.Store({
     headersAuth: {
       "x-rapidapi-host":"api-nba-v1.p.rapidapi.com",
       "x-rapidapi-key":"4137e79b32msh43112b0a5a690e6p170fe7jsnab0eef0292ea"
+    },
+    player: {
+      playerCardFullView: false
     }
   },
-  mutations: {},
+  mutations: {
+    playerCardFullViewToggle(state) {
+      state.player.playerCardFullView = !state.player.playerCardFullView;
+    }
+  },
   actions: {},
   modules: {}
 });

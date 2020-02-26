@@ -9,8 +9,8 @@
 
         <button class="btn btn-outline-success my-2 my-sm-0" @click="searchPlayers()">Search player</button>
 
-        <ul class="list-group list-group--search" v-if="response !== null">
-            <a class="list-group-item" v-for="player in response" :key="player.playerId">
+        <ul class="list-group list-group--search" v-if="response !== null && searcherList">
+            <a class="list-group-item" v-for="player in response" :key="player.playerId" @click="showPlayerCard(), closeSearchList()">
                 <div class="bmd-list-group-col item-info">
                     <img :src="getPlayerImg(player.firstName, player.lastName)" class="img">
                     <div class="information">
@@ -33,6 +33,7 @@ export default {
   data(){
     return {
         searchingContent: null,
+        searcherList: false,
         response: null
     }
   },
@@ -49,6 +50,7 @@ export default {
         .then((res) => {
             if (res.status === 200){
                 this.response = this.removeDoubledPlayers(res.data.api.players);
+                this.showSearchList();
             }
         }).catch((err) => {})
     }, 1000),
@@ -61,6 +63,18 @@ export default {
         // return `https://nba-players.herokuapp.com/players/${playerLastName}/${playerName}` <-- if way under have not anu pic of this player should us this api
 
         return `http://d2cwpp38twqe55.cloudfront.net/req/202002141/images/players/${playerLastName.toLowerCase().slice(0, 5)}${playerName.toLowerCase().slice(0, 2)}01.jpg`
+    },
+
+    showSearchList() {
+        this.searcherList = true;
+    },
+
+    closeSearchList() {
+        this.searcherList = false;
+    },
+
+    showPlayerCard() {
+        this.$store.commit("playerCardFullViewToggle");
     }
   }
 }

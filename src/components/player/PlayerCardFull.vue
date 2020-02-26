@@ -33,13 +33,11 @@
 
                 <img src="http://d2cwpp38twqe55.cloudfront.net/req/202002141/images/players/jamesle01.jpg" alt="" class="img ml-3">
             </div>
-            <a href="#" class="btn btn-primary">Hate or Respect</a>
-
-
+            <button class="btn btn-primary" @click="playerFeedBox = !playerFeedBox">Hate or Respect</button>
 
             <!-- should be a separated component -->
             <!-- container for 2 list like this (default hidden container) -->
-            <div class="container-fluid player-feed-box">
+            <div class="container-fluid player-feed-box" v-show="playerFeedBox">
                 <Player-card-collapse 
                     class="mr-2"
                     title="Hate"
@@ -72,7 +70,8 @@ export default {
             birth: null,
             id: null,
             height: null
-        }    
+        },
+        playerFeedBox: false
     }
   }
 };
