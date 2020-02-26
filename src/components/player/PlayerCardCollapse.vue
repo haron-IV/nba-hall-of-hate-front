@@ -1,5 +1,5 @@
 <template>
-<div id="accordion" class="collapse-box" v-bind:class="this.class">
+<div id="accordion" class="collapse-box" v-bind:class="this.spacer">
     <div class="card">
         <div class="card-header" id="headingOne">
             <h5 class="mb-0">
@@ -47,7 +47,7 @@
 export default {
     name: 'Player-card-collapse', 
     props: {
-        class: { type: String },
+        spacer: { type: String },
         title: { type: String },
         heading: { type: String }
     },

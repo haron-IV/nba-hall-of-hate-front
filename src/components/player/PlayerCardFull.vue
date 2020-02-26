@@ -14,20 +14,20 @@
             </ul>
         </div>
         <div class="card-body">
-            <h5 class="card-title">LeBron James</h5>
+            <h5 class="card-title">{{$store.state.player.selectedPlayer.firstName}} {{$store.state.player.selectedPlayer.lastName}}</h5>
             <div class="card-text">
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <b>Birth:</b> 1988-02-11 (35)
+                        <b>Birth:</b> {{$store.state.player.selectedPlayer.dateOfBirth}} ({{playerAge}})
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <b>Height:</b> 2.06m
+                        <b>Height:</b> {{$store.state.player.selectedPlayer.heightInMeters}}m
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <b>Number:</b> 23
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <b>Hate points:</b> 2333
+                        <b>Hate points:</b> [in future]
                     </li>
                 </ul>
 
@@ -39,13 +39,13 @@
             <!-- container for 2 list like this (default hidden container) -->
             <div class="container-fluid player-feed-box" v-show="playerFeedBox">
                 <Player-card-collapse 
-                    class="mr-2"
+                    spacer="mr-2"
                     title="Hate"
                     heading="Here is throwing meat."
                 />
                 
                 <Player-card-collapse 
-                    class="ml-2"
+                    spacer="ml-2"
                     title="Respect"
                     heading="Here is throwning respect."
                 />
@@ -72,6 +72,12 @@ export default {
             height: null
         },
         playerFeedBox: false
+    }
+  },
+  
+  computed: {
+    playerAge(){ 
+        return new Date().getFullYear() - JSON.parse(this.$store.state.player.selectedPlayer.dateOfBirth.split('-')[0])
     }
   }
 };

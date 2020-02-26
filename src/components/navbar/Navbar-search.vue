@@ -10,7 +10,7 @@
         <button class="btn btn-outline-success my-2 my-sm-0" @click="searchPlayers()">Search player</button>
 
         <ul class="list-group list-group--search" v-if="response !== null && searcherList">
-            <a class="list-group-item" v-for="player in response" :key="player.playerId" @click="showPlayerCard(), closeSearchList()">
+            <a class="list-group-item" v-for="player in response" :key="player.playerId" @click="showPlayerCard(player), closeSearchList()">
                 <div class="bmd-list-group-col item-info">
                     <img :src="getPlayerImg(player.firstName, player.lastName)" class="img">
                     <div class="information">
@@ -73,8 +73,9 @@ export default {
         this.searcherList = false;
     },
 
-    showPlayerCard() {
-        this.$store.commit("playerCardFullViewToggle");
+    showPlayerCard(player) {
+        this.$store.commit("showPlayerCardFullView");
+        this.$store.commit("setSelectedPlayer", player);
     }
   }
 }
