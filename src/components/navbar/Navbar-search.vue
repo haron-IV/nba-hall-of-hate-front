@@ -12,7 +12,7 @@
         <ul class="list-group list-group--search" v-if="response !== null && searcherList">
             <a class="list-group-item" v-for="player in response" :key="player.playerId" @click="showPlayerCard(player), closeSearchList()">
                 <div class="bmd-list-group-col item-info">
-                    <img :src="getPlayerImg(player.firstName, player.lastName)" class="img">
+                    <img :src="playerImg(player.firstName, player.lastName)" class="img">
                     <div class="information">
                         <p class="list-group-item-heading">{{player.firstName}} {{player.lastName}}</p>
                         <p class="list-group-item-text">{{player.dateOfBirth}}</p>
@@ -28,6 +28,8 @@ import Axios from "axios";
 import debounce from "lodash/debounce";
 import uniq from "lodash/uniq";
 
+import { getPlayerImg } from '@/components/utility/player.js';
+
 export default {
   components: {},
   data(){
@@ -42,6 +44,8 @@ export default {
         this.searchPlayers();
     }
   },
+  computed: {
+  },
   methods: {
     searchPlayers: debounce( function() {
         this.response = null;
@@ -55,14 +59,12 @@ export default {
         }).catch((err) => {})
     }, 1000),
 
-    removeDoubledPlayers(players) {
-        return [...new Map(players.map(item => [item['dateOfBirth'], item])).values()]
+    playerImg(name, lastName) {
+        return getPlayerImg(name, lastName)
     },
 
-    getPlayerImg(playerName, playerLastName){
-        // return `https://nba-players.herokuapp.com/players/${playerLastName}/${playerName}` <-- if way under have not anu pic of this player should us this api
-
-        return `http://d2cwpp38twqe55.cloudfront.net/req/202002141/images/players/${playerLastName.toLowerCase().slice(0, 5)}${playerName.toLowerCase().slice(0, 2)}01.jpg`
+    removeDoubledPlayers(players) {
+        return [...new Map(players.map(item => [item['dateOfBirth'], item])).values()]
     },
 
     showSearchList() {

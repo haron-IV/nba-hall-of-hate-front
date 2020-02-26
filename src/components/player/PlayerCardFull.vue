@@ -31,7 +31,7 @@
                     </li>
                 </ul>
 
-                <img src="http://d2cwpp38twqe55.cloudfront.net/req/202002141/images/players/jamesle01.jpg" alt="" class="img ml-3">
+                <img :src="playerImg($store.state.player.selectedPlayer.firstName, $store.state.player.selectedPlayer.lastName)" alt="" class="img ml-3">
             </div>
             <button class="btn btn-primary" @click="playerFeedBox = !playerFeedBox">Hate or Respect</button>
 
@@ -56,6 +56,7 @@
 
 <script>
 import PlayerCardCollapse from '@/components/player/PlayerCardCollapse';
+import { getPlayerImg } from '@/components/utility/player.js';
 
 export default {
   name: "Player-card",
@@ -91,6 +92,9 @@ export default {
   },
 
   methods: {
+    playerImg(name, lastName) {
+        return getPlayerImg(name, lastName);
+    }
   }
 };
 </script>
