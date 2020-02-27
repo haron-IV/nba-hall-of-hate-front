@@ -19,10 +19,10 @@
         aria-labelledby="headingTwo"
         data-parent="#accordion">
             
-            <!-- comment owner nickname -->
-            <!-- comment owner img -->
-            <!-- comment likes -->
-            <!-- raport - spam -->
+            
+            
+            
+
             <!-- each comment should be uncollapse -->
             <!-- each comment should have max long -->
 
@@ -37,8 +37,18 @@
                     </p>
                 </div>
 
-                <div class="comment-content">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur porro hic soluta dolorem eveniet fugit ex autem ad eum inventore nihil, perspiciatis, ullam exercitationem officiis facere possimus placeat molestiae. Nihil!
+                <div class="comment-content pl-1">
+                    <!-- raport - spam -->
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur porro hic soluta dolorem eveniet fugit ex autem ad eum inventore nihil, perspiciatis, ullam exercitationem officiis facere possimus placeat molestiae. Nihil!</p>
+                    
+                    <div class="social-section">
+                        <icon name="like" />
+                        <icon name="dislike" />
+                        
+                        <!-- dislike -->
+                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -46,13 +56,18 @@
 </template>
 
 <script>
+import likeIcon from "@/components/icons/Icon";
+
 export default {
     name: 'Player-card-collapse-comment', 
     props:{},
     data(){
         return {
-            showComment: false
+            showComment: true
         }
+    },
+    components: {
+        icon: likeIcon
     },
     methods:{
         toggleComment(){
@@ -67,6 +82,10 @@ export default {
     display: flex;
 
     .comment-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
         border: 1px solid rgba(#000, .1);
         border-width: 0 1px 0 0;
         padding-right: 1rem;

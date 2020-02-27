@@ -29,6 +29,9 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <b>Hate points:</b> [in future]
                     </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <b>Hate lvl:</b> [in future]
+                    </li>
                 </ul>
 
                 <img :src="playerImg($store.state.player.selectedPlayer.firstName, $store.state.player.selectedPlayer.lastName)" alt="" class="img ml-3">
