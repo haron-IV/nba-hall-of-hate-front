@@ -26,6 +26,16 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center" v-if="playerNumber">
                         <b>Number:</b> {{playerNumber}}
                     </li>
+
+                    <p>
+                        Hate Statistics:
+                    </p>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <b>Hate:</b> [in future]
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <b>Respect:</b> [in future]
+                    </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <b>Hate points:</b> [in future]
                     </li>
@@ -34,7 +44,7 @@
                     </li>
                 </ul>
 
-                <img :src="playerImg($store.state.player.selectedPlayer.firstName, $store.state.player.selectedPlayer.lastName)" alt="" class="img ml-3">
+                <img :src="playerImg($store.state.player.selectedPlayer.firstName, $store.state.player.selectedPlayer.lastName)" alt="" class="img ml-3" style="max-height: 175px; align-self: center">
             </div>
             <button class="btn btn-primary" @click="playerFeedBox = !playerFeedBox">Hate or Respect</button>
 
@@ -78,6 +88,8 @@ export default {
         playerFeedBox: false
     }
   },
+
+  watch: {},
   
   computed: {
     playerAge(){ 

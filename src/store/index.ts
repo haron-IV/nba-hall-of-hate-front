@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import { clearSelectedPlayer } from '@/store/player';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -22,7 +24,9 @@ export default new Vuex.Store({
 
     setSelectedPlayer(state, player) {
       state.player.selectedPlayer = player; 
-    }
+    },
+
+    clearSelectedPlayer: state => clearSelectedPlayer(state)
   },
   actions: {},
   modules: {}

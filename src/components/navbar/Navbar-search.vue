@@ -13,7 +13,7 @@
         <ul class="list-group list-group--search" v-if="response !== null && searcherList">
             <a class="list-group-item" v-for="player in response" :key="player.playerId" @click="showPlayerCard(player), closeSearchList()">
                 <div class="bmd-list-group-col item-info">
-                    <img :src="playerImg(player.firstName, player.lastName)" class="img">
+                    <img :src="playerImg(player.firstName, player.lastName)" class="img" v-show="playerImg(player.firstName, player.lastName)">
                     <div class="information">
                         <p class="list-group-item-heading">{{player.firstName}} {{player.lastName}}</p>
                         <p class="list-group-item-text">{{player.dateOfBirth}}</p>
@@ -78,7 +78,12 @@ export default {
 
     showPlayerCard(player) {
         this.$store.commit("showPlayerCardFullView");
+
+        this.$store.commit('clearSelectedPlayer');
+        console.log(this.$store.state.player.selectedPlayer);
         this.$store.commit("setSelectedPlayer", player);
+        console.log(this.$store.state.player.selectedPlayer);
+
     }
   }
 }

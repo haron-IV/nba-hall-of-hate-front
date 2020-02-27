@@ -42,10 +42,13 @@
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur porro hic soluta dolorem eveniet fugit ex autem ad eum inventore nihil, perspiciatis, ullam exercitationem officiis facere possimus placeat molestiae. Nihil!</p>
                     
                     <div class="social-section">
-                        <icon name="like" />
-                        <icon name="dislike" />
+                        <button class="btn">
+                            <icon name="like" />
+                        </button>
                         
-                        <!-- dislike -->
+                        <button class="btn">
+                            <icon name="dislike" />
+                        </button>
                     </div>
 
 
@@ -56,7 +59,7 @@
 </template>
 
 <script>
-import likeIcon from "@/components/icons/Icon";
+import likeIcon from "@/components/utility/Icon";
 
 export default {
     name: 'Player-card-collapse-comment', 
