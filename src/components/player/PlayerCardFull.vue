@@ -68,6 +68,8 @@
 </template>
 
 <script>
+import Axios from 'axios';
+
 import PlayerCardCollapse from '@/components/player/PlayerCardCollapse';
 import { getPlayerImg } from '@/components/utility/player.js';
 
@@ -90,6 +92,21 @@ export default {
   },
 
   watch: {},
+  updated(){
+    Axios.post('http://localhost:8080/api/player', {
+        name: this.$store.state.player.selectedPlayer.firstName,
+        surname: this.$store.state.player.selectedPlayer.lastName,
+        jerseyNumber: this.playerNumber, 
+        height: this.$store.state.player.selectedPlayer.heightInMeters,
+        birthDate: this.$store.state.player.selectedPlayer.dateOfBirth,
+        hateCount: 0,
+        respectCount: 0,
+        followCount: 0
+    }, { params:{}, headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+    } })
+  },
   
   computed: {
     playerAge(){ 
