@@ -31,10 +31,13 @@
                         Hate Statistics:
                     </p>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <b>Hate:</b> [in future]
+                        <b>Hate:</b> {{this.$store.state.player.selectedPlayer.hateCount}}
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <b>Respect:</b> [in future]
+                        <b>Respect:</b> {{this.$store.state.player.selectedPlayer.respectCount}}
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <b>Followers:</b> {{this.$store.state.player.selectedPlayer.followCount}}
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <b>Hate points:</b> [in future]
@@ -85,7 +88,10 @@ export default {
             lastName: null,
             birth: null,
             id: null,
-            height: null
+            height: null,
+            hateCount: null,
+            respectCount: null,
+            followCount: null
         },
         playerFeedBox: false
     }
@@ -94,6 +100,7 @@ export default {
   watch: {},
   updated(){
     Axios.post('http://localhost:8080/api/player', {
+        playerId: this.$store.state.player.selectedPlayer.playerId,
         name: this.$store.state.player.selectedPlayer.firstName,
         surname: this.$store.state.player.selectedPlayer.lastName,
         jerseyNumber: this.playerNumber, 
@@ -105,7 +112,23 @@ export default {
     }, { params:{}, headers: {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
-    } })
+    } }).then(()=>{
+        Axios.get(`http://localhost:8080/api/player/${this.$store.state.player.selectedPlayer.playerId}`, { params:{}, headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+        } }).then(res => {
+            if (res.status === 200) {
+                const player = this.$store.state.player.selectedPlayer;
+
+                player.hateCount = res.data.hateCount;
+                player.respectCount = res.data.respectCount;
+                player.followCount = res.data.followCount;
+
+                this.$store.commit("setSelectedPlayer", player);
+            }
+        })
+    });
+
   },
   
   computed: {
