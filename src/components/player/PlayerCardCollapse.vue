@@ -1,10 +1,11 @@
 <template>
-<div id="accordion" class="collapse-box" v-bind:class="this.class">
+<div id="accordion" class="collapse-box" v-bind:class="this.spacer">
     <div class="card">
         <div class="card-header" id="headingOne">
             <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <button class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                     {{title}}
+                    <!-- TODO: click make full width for this column for better reading -->
                 </button>
             </h5>
         </div>
@@ -19,35 +20,21 @@
     <div class="card">
         <!-- card will be generated -->
         <!-- add specyfic id to each card -->
-        <div class="card-header" id="headingTwo">
-            <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Collapsible Group Item #2
-                </button>
-            </h5>
-        </div>
-
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-            <!-- toggle this on click button aboce. This sould be working with id from database and should be new component as comment -->
-            <!-- comment owner nickname -->
-            <!-- comment owner img -->
-            <!-- comment likes -->
-            <!-- raport - spam -->
-            <!-- each comment should be uncollapse -->
-            <!-- each comment should have max long -->
-            <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-            </div>
-        </div>
+        <Player-card-collapse-comment></Player-card-collapse-comment>
     </div>
 </div>
 </template>
 
 <script>
+import PlayerCardCollapseComment from '@/components/player/PlayerCardCollapseComment';
+
 export default {
     name: 'Player-card-collapse', 
+    components: {
+        "Player-card-collapse-comment": PlayerCardCollapseComment
+    },
     props: {
-        class: { type: String },
+        spacer: { type: String },
         title: { type: String },
         heading: { type: String }
     },

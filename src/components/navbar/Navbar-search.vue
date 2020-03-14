@@ -5,14 +5,15 @@
         placeholder="Search player by last name"
         aria-label="Search"
         v-on:keyup.enter.prevent="searchPlayers()"
+        @focus="searcherList = true"
         v-model="searchingContent">
 
         <button class="btn btn-outline-success my-2 my-sm-0" @click="searchPlayers()">Search player</button>
 
-        <ul class="list-group list-group--search" v-if="response !== null">
-            <a class="list-group-item" v-for="player in response" :key="player.playerId">
+        <ul class="list-group list-group--search" v-if="response !== null && searcherList">
+            <a class="list-group-item" v-for="player in response" :key="player.playerId" @click="showPlayerCard(player), closeSearchList()">
                 <div class="bmd-list-group-col item-info">
-                    <img :src="getPlayerImg(player.firstName, player.lastName)" class="img">
+                    <img :src="playerImg(player.firstName, player.lastName)" class="img" v-show="playerImg(player.firstName, player.lastName)">
                     <div class="information">
                         <p class="list-group-item-heading">{{player.firstName}} {{player.lastName}}</p>
                         <p class="list-group-item-text">{{player.dateOfBirth}}</p>
@@ -28,11 +29,14 @@ import Axios from "axios";
 import debounce from "lodash/debounce";
 import uniq from "lodash/uniq";
 
+import { getPlayerImg } from '@/components/utility/player.js';
+
 export default {
   components: {},
   data(){
     return {
         searchingContent: null,
+        searcherList: false,
         response: null
     }
   },
@@ -40,6 +44,8 @@ export default {
     searchingContent(){
         this.searchPlayers();
     }
+  },
+  computed: {
   },
   methods: {
     searchPlayers: debounce( function() {
@@ -49,18 +55,35 @@ export default {
         .then((res) => {
             if (res.status === 200){
                 this.response = this.removeDoubledPlayers(res.data.api.players);
+                this.showSearchList();
             }
         }).catch((err) => {})
     }, 1000),
+
+    playerImg(name, lastName) {
+        return getPlayerImg(name, lastName)
+    },
 
     removeDoubledPlayers(players) {
         return [...new Map(players.map(item => [item['dateOfBirth'], item])).values()]
     },
 
-    getPlayerImg(playerName, playerLastName){
-        // return `https://nba-players.herokuapp.com/players/${playerLastName}/${playerName}` <-- if way under have not anu pic of this player should us this api
+    showSearchList() {
+        this.searcherList = true;
+    },
 
-        return `http://d2cwpp38twqe55.cloudfront.net/req/202002141/images/players/${playerLastName.toLowerCase().slice(0, 5)}${playerName.toLowerCase().slice(0, 2)}01.jpg`
+    closeSearchList() {
+        this.searcherList = false;
+    },
+
+    showPlayerCard(player) {
+        this.$store.commit("showPlayerCardFullView");
+
+        this.$store.commit('clearSelectedPlayer');
+        console.log(this.$store.state.player.selectedPlayer);
+        this.$store.commit("setSelectedPlayer", player);
+        console.log(this.$store.state.player.selectedPlayer);
+
     }
   }
 }
