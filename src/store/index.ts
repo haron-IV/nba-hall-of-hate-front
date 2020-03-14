@@ -28,6 +28,7 @@ export default new Vuex.Store({
 
     clearSelectedPlayer: state => clearSelectedPlayer(state)
   },
-  actions: {},
+  actions: {
+  },
   modules: {}
 });

@@ -23,7 +23,7 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center" v-if="$store.state.player.selectedPlayer.heightInMeters">
                         <b>Height:</b> {{$store.state.player.selectedPlayer.heightInMeters}}m
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center" v-if="playerNumber">
+                    <li class="list-group-item d-flex justify-content-between align-items-center" v-if="playerNumber != null">
                         <b>Number:</b> {{playerNumber}}
                     </li>
 
@@ -31,13 +31,13 @@
                         Hate Statistics:
                     </p>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <b>Hate:</b> {{this.$store.state.player.selectedPlayer.hateCount}}
+                        <b>Hate:</b> {{player.hateCount}}
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <b>Respect:</b> {{this.$store.state.player.selectedPlayer.respectCount}}
+                        <b>Respect:</b> {{player.respectCount}}
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <b>Followers:</b> {{this.$store.state.player.selectedPlayer.followCount}}
+                        <b>Followers:</b> {{player.followCount}}
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <b>Hate points:</b> [in future]
@@ -73,6 +73,7 @@
 <script>
 import Axios from 'axios';
 
+import { axiosHeaders } from '@/components/utility/config';
 import PlayerCardCollapse from '@/components/player/PlayerCardCollapse';
 import { getPlayerImg } from '@/components/utility/player.js';
 
@@ -98,37 +99,13 @@ export default {
   },
 
   watch: {},
-  updated(){
-    Axios.post('http://localhost:8080/api/player', {
-        playerId: this.$store.state.player.selectedPlayer.playerId,
-        name: this.$store.state.player.selectedPlayer.firstName,
-        surname: this.$store.state.player.selectedPlayer.lastName,
-        jerseyNumber: this.playerNumber, 
-        height: this.$store.state.player.selectedPlayer.heightInMeters,
-        birthDate: this.$store.state.player.selectedPlayer.dateOfBirth,
-        hateCount: 0,
-        respectCount: 0,
-        followCount: 0
-    }, { params:{}, headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json',
-    } }).then(()=>{
-        Axios.get(`http://localhost:8080/api/player/${this.$store.state.player.selectedPlayer.playerId}`, { params:{}, headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
-        } }).then(res => {
-            if (res.status === 200) {
-                const player = this.$store.state.player.selectedPlayer;
-
-                player.hateCount = res.data.hateCount;
-                player.respectCount = res.data.respectCount;
-                player.followCount = res.data.followCount;
-
-                this.$store.commit("setSelectedPlayer", player);
-            }
-        })
-    });
-
+  
+  async onrender(){
+    await this.getPlayer()
+  },
+  async updated(){
+    await this.setPlayer();
+    await this.getPlayer();
   },
   
   computed: {
@@ -153,6 +130,42 @@ export default {
   methods: {
     playerImg(name, lastName) {
         return getPlayerImg(name, lastName);
+    },
+    async setPlayer() {
+        Axios.post('http://localhost:8080/api/player', {
+            playerId: this.$store.state.player.selectedPlayer.playerId,
+            name: this.$store.state.player.selectedPlayer.firstName,
+            surname: this.$store.state.player.selectedPlayer.lastName,
+            jerseyNumber: this.playerNumber, 
+            height: this.$store.state.player.selectedPlayer.heightInMeters,
+            birthDate: this.$store.state.player.selectedPlayer.dateOfBirth,
+            hateCount: 0,
+            respectCount: 0,
+            followCount: 0
+        }, axiosHeaders() );
+    },
+    async getPlayer() {
+        const id = this.$store.state.player.selectedPlayer.playerId;
+
+        setTimeout(() => {
+            Axios.get(`http://localhost:8080/api/player/${id}`, axiosHeaders() ).then( res => {
+                const player = this.$store.state.player.selectedPlayer;
+                
+
+                player.hateCount = res.data.hateCount;
+                player.respectCount = res.data.respectCount;
+                player.followCount = res.data.followCount;
+
+                this.player.hateCount = res.data.hateCount;
+                this.player.respectCount = res.data.respectCount;
+                this.player.followCount = res.data.followCount;
+                
+
+                this.$store.commit("setSelectedPlayer", player);
+                console.log("PLAYER: ", this.$store.state.player.selectedPlayer);
+            });    
+        }, 550);
+        
     }
   }
 };
