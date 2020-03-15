@@ -101,6 +101,8 @@ export default {
   },
   
   async updated(){
+    
+    // this method shouldn't be here cause runs on toggle comment block 
     await this.setPlayer();
     await this.getPlayer();
   },
