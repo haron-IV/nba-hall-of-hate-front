@@ -78,12 +78,8 @@ export default {
 
     showPlayerCard(player) {
         this.$store.commit("showPlayerCardFullView");
-
         this.$store.commit('clearSelectedPlayer');
-        console.log(this.$store.state.player.selectedPlayer);
         this.$store.commit("setSelectedPlayer", player);
-        console.log(this.$store.state.player.selectedPlayer);
-
     }
   }
 }

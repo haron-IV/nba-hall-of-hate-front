@@ -31,13 +31,13 @@
                         Hate Statistics:
                     </p>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <b>Hate:</b> {{player.hateCount}}
+                        <b>Hate:</b> {{hateCount}}
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <b>Respect:</b> {{player.respectCount}}
+                        <b>Respect:</b> {{respectCount}}
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <b>Followers:</b> {{player.followCount}}
+                        <b>Followers:</b> {{followCount}}
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <b>Hate points:</b> [in future]
@@ -84,27 +84,23 @@ export default {
   },
   data() {
     return {
-        player: {
-            name: null,
-            lastName: null,
-            birth: null,
-            id: null,
-            height: null,
-            hateCount: null,
-            respectCount: null,
-            followCount: null
-        },
-        playerFeedBox: false
+        playerFeedBox: false,
+        hateCount: null,
+        respectCount: null,
+        followCount: null
     }
   },
 
   watch: {},
   
-  async onrender(){
-    await this.getPlayer()
-  },
-  async updated(){
+  async created(){
+    //hacked problem with not loading countes at load component first time
+    await this.getPlayer();
     await this.setPlayer();
+    await this.getPlayer();
+  },
+  
+  async updated(){
     await this.getPlayer();
   },
   
@@ -132,7 +128,7 @@ export default {
         return getPlayerImg(name, lastName);
     },
     async setPlayer() {
-        Axios.post('http://localhost:8080/api/player', {
+        await Axios.post('http://localhost:8080/api/player', {
             playerId: this.$store.state.player.selectedPlayer.playerId,
             name: this.$store.state.player.selectedPlayer.firstName,
             surname: this.$store.state.player.selectedPlayer.lastName,
@@ -144,28 +140,19 @@ export default {
             followCount: 0
         }, axiosHeaders() );
     },
+
     async getPlayer() {
         const id = this.$store.state.player.selectedPlayer.playerId;
+    
+        await Axios.get(`http://localhost:8080/api/player/${id}`, axiosHeaders() ).then( res => {
+            const player = this.$store.state.player.selectedPlayer;
+            
+            this.hateCount = res.data.hateCount;
+            this.respectCount = res.data.respectCount;
+            this.followCount = res.data.followCount;
 
-        setTimeout(() => {
-            Axios.get(`http://localhost:8080/api/player/${id}`, axiosHeaders() ).then( res => {
-                const player = this.$store.state.player.selectedPlayer;
-                
-
-                player.hateCount = res.data.hateCount;
-                player.respectCount = res.data.respectCount;
-                player.followCount = res.data.followCount;
-
-                this.player.hateCount = res.data.hateCount;
-                this.player.respectCount = res.data.respectCount;
-                this.player.followCount = res.data.followCount;
-                
-
-                this.$store.commit("setSelectedPlayer", player);
-                console.log("PLAYER: ", this.$store.state.player.selectedPlayer);
-            });    
-        }, 550);
-        
+            this.$store.commit("setSelectedPlayer", player);
+        });
     }
   }
 };
