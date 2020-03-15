@@ -73,7 +73,7 @@
 <script>
 import Axios from 'axios';
 
-import { axiosHeaders } from '@/components/utility/config';
+import { axiosHeaders, host_origin } from '@/components/utility/config';
 import PlayerCardCollapse from '@/components/player/PlayerCardCollapse';
 import { getPlayerImg } from '@/components/utility/player.js';
 
@@ -101,6 +101,7 @@ export default {
   },
   
   async updated(){
+    await this.setPlayer();
     await this.getPlayer();
   },
   
@@ -128,7 +129,7 @@ export default {
         return getPlayerImg(name, lastName);
     },
     async setPlayer() {
-        await Axios.post('http://localhost:8080/api/player', {
+        await Axios.post( `${host_origin()}/api/player`, {
             playerId: this.$store.state.player.selectedPlayer.playerId,
             name: this.$store.state.player.selectedPlayer.firstName,
             surname: this.$store.state.player.selectedPlayer.lastName,
@@ -144,9 +145,9 @@ export default {
     async getPlayer() {
         const id = this.$store.state.player.selectedPlayer.playerId;
     
-        await Axios.get(`http://localhost:8080/api/player/${id}`, axiosHeaders() ).then( res => {
+        await Axios.get(`${host_origin()}/api/player/${id}`, axiosHeaders() ).then( res => {
             const player = this.$store.state.player.selectedPlayer;
-            
+
             this.hateCount = res.data.hateCount;
             this.respectCount = res.data.respectCount;
             this.followCount = res.data.followCount;
