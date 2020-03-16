@@ -21,7 +21,7 @@
                         <b>Birth:</b> {{$store.state.player.selectedPlayer.dateOfBirth}} ({{playerAge}})
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center" v-if="$store.state.player.selectedPlayer.heightInMeters">
-                        <b>Height:</b> {{$store.state.player.selectedPlayer.heightInMeters}}
+                        <b>Height:</b> {{$store.state.player.selectedPlayer.heightInMeters}}m
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center" v-if="playerNumber != null">
                         <b>Number:</b> {{playerNumber}}
