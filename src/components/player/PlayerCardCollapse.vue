@@ -31,7 +31,7 @@
     <div class="card">
         <!-- card will be generated -->
         <!-- add specyfic id to each card -->
-        <Player-card-collapse-comment></Player-card-collapse-comment>
+        <Player-card-collapse-comment />
     </div>
 </div>
 </template>

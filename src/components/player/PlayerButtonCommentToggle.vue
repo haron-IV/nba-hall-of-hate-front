@@ -1,10 +1,10 @@
 <template>
-<div class="btn btn-primary comment-toggle-button" @click="playerFeedBox = !playerFeedBox">
-    <div class="hate">
-        <span class="title">Hate</span>
-        <button type="button" class="btn btn-primary bmd-btn-fab comment-toggle-button--hate">
+<div class="btn btn-primary comment-toggle-button">
+    <div class="hate" @click="showHateComments()">
+        <span class="title" :class="{ hideTitle: buttonVisibility.hate }">Hate</span>
+        <button type="button" class="btn btn-primary bmd-btn-fab comment-toggle-button--hate" :class="{ visibleButton: buttonVisibility.hate }">
             <Icon
-            :name="title === 'Hate' ? 'hate' : 'respect'"
+            name="hate"
             externalStyle=""
             parentStyle="background-color: transparent;"
             width=23
@@ -13,11 +13,11 @@
         </button>
     </div>
     or
-    <div class="respect">
-        <span class="title">Respect</span>
-        <button type="button" class="btn btn-primary bmd-btn-fab comment-toggle-button--respect">
+    <div class="respect" @click="showRespectComments()">
+        <span class="title" :class="{ hideTitle: buttonVisibility.respect }">Respect</span>
+        <button type="button" class="btn btn-primary bmd-btn-fab comment-toggle-button--respect" :class="{ visibleButton: buttonVisibility.respect }">
             <Icon
-            :name="title === 'Hate' ? 'hate' : 'respect'"
+            name="respect"
             externalStyle=""
             parentStyle="background-color: transparent;"
             width=23
@@ -38,6 +38,8 @@ export default {
   },
   data() {
     return {
+        activeCommentBox: [],
+        buttonVisibility: { hate: false, respect: false }
     }
   },
 
@@ -52,6 +54,14 @@ export default {
   },
 
   methods: {
+    showHateComments() {
+        this.$store.commit('showPlayerCommentBox', 'hate');
+        this.buttonVisibility.hate = !this.buttonVisibility.hate;
+    },
+    showRespectComments() {
+        this.$store.commit('showPlayerCommentBox', 'respect');
+        this.buttonVisibility.respect = !this.buttonVisibility.respect;
+    }
   }
 };
 </script>
@@ -67,10 +77,22 @@ export default {
 
     .hate, .respect {
         position: relative;
+        
+        .hideTitle {
+            opacity: 0;
+        }
+
+        .visibleButton {
+            visibility: inherit;
+            opacity: 1;
+            background-color: #fff !important;
+        }
 
         .title {
             transition: opacity ease-in-out 800ms;
             margin: 0 .7rem;
+            background-color: rgba(0, 0, 0, .1);
+            padding: .3rem .5rem;
         }
 
         &:hover {
@@ -91,7 +113,7 @@ export default {
 
     &--hate, &--respect {
         position: absolute;
-        left: -10%;
+        left: 10%;
         top: -100%;
         visibility: hidden;
         opacity: 0;
@@ -101,6 +123,5 @@ export default {
     &--respect {
         left: 20%;
     }
-
 }
 </style>

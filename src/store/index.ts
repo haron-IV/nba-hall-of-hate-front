@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { clearSelectedPlayer } from '@/store/player';
+import { clearSelectedPlayer, showPlayerCommentBox } from '@/store/player';
 
 Vue.use(Vuex);
 
@@ -14,7 +14,11 @@ export default new Vuex.Store({
     },
     player: {
       playerCardFullView: false,
-      selectedPlayer: null
+      selectedPlayer: null,
+      commentBox: {
+        hate: false,
+        respect: false
+      }
     }
   },
   mutations: {
@@ -26,7 +30,8 @@ export default new Vuex.Store({
       state.player.selectedPlayer = player; 
     },
 
-    clearSelectedPlayer: state => clearSelectedPlayer(state)
+    clearSelectedPlayer: state => clearSelectedPlayer(state),
+    showPlayerCommentBox: (state, which) => showPlayerCommentBox(state, which)
   },
 
   getters: {

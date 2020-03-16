@@ -53,14 +53,16 @@
             <Player-button-comment-toggle /> 
             
             <!-- container for 2 list like this (default hidden container) -->
-            <div class="container-fluid player-feed-box" v-show="playerFeedBox">
-                <Player-card-collapse 
+            <div class="container-fluid player-feed-box">
+                <Player-card-collapse
+                    v-show="$store.state.player.commentBox.hate"
                     spacer="mr-2"
                     title="Hate"
                     heading="Here is throwing meat."
                 />
                 
-                <Player-card-collapse 
+                <Player-card-collapse
+                    v-show="$store.state.player.commentBox.respect"
                     spacer="ml-2"
                     title="Respect"
                     heading="Here is throwning respect."
@@ -90,7 +92,10 @@ export default {
   },
   data() {
     return {
-        playerFeedBox: false,
+        playerFeedBox: {
+            hate: false,
+            respect: false
+        },
         hateCount: null,
         respectCount: null,
         followCount: null
