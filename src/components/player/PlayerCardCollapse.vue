@@ -5,20 +5,8 @@
             <h5 class="mb-0">
                 <button class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                     {{title}}
-                    <!-- TODO: click make full width for this column for better reading -->
                 </button>
             </h5>
-            
-            <!-- <button type="button" class="btn btn-primary bmd-btn-fab">
-                <Icon 
-                :name="title === 'Hate' ? 'hate' : 'respect'"
-                parentStyle="background-color: transparent; width: 23px; height: auto"
-                width=23
-                height=23
-                />
-            </button> -->
-
-
         </div>
 
         <div id="" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
