@@ -28,6 +28,13 @@ export default new Vuex.Store({
 
     clearSelectedPlayer: state => clearSelectedPlayer(state)
   },
+
+  getters: {
+    SelectedPlayer(state) {
+      return state.player.selectedPlayer;
+    }
+  },
+
   actions: {
   },
   modules: {}

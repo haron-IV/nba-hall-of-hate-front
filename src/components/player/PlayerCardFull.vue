@@ -91,7 +91,12 @@ export default {
     }
   },
 
-  watch: {},
+  watch: {
+    async '$store.state.player.selectedPlayer'() {
+        await this.setPlayer();
+        await this.getPlayer();    
+    }
+  },
   
   async created(){
     //hacked problem with not loading countes at load component first time
@@ -99,12 +104,9 @@ export default {
     await this.setPlayer();
     await this.getPlayer();
   },
-  
-  async updated(){
-    
-    // this method shouldn't be here cause runs on toggle comment block 
-    await this.setPlayer();
-    await this.getPlayer();
+
+  destroyed() {
+    //   alert();
   },
   
   computed: {
@@ -150,9 +152,11 @@ export default {
         await Axios.get(`${host_origin()}/api/player/${id}`, axiosHeaders() ).then( res => {
             const player = this.$store.state.player.selectedPlayer;
 
-            this.hateCount = res.data.hateCount;
-            this.respectCount = res.data.respectCount;
-            this.followCount = res.data.followCount;
+                if (res.data) {
+                    this.hateCount = res.data.hateCount;
+                    this.respectCount = res.data.respectCount;
+                    this.followCount = res.data.followCount;
+                }
 
             this.$store.commit("setSelectedPlayer", player);
         });
