@@ -49,8 +49,8 @@
 
                 <img :src="playerImg($store.state.player.selectedPlayer.firstName, $store.state.player.selectedPlayer.lastName)" alt="" class="img ml-3" style="max-height: 175px; align-self: center">
             </div>
-            <button class="btn btn-primary" @click="playerFeedBox = !playerFeedBox">Hate or Respect</button>
 
+            <Player-button-comment-toggle /> 
             
             <!-- container for 2 list like this (default hidden container) -->
             <div class="container-fluid player-feed-box" v-show="playerFeedBox">
@@ -73,14 +73,20 @@
 <script>
 import Axios from 'axios';
 
+import Icon from '@/components/utility/Icon';
 import { axiosHeaders, host_origin } from '@/components/utility/config';
-import PlayerCardCollapse from '@/components/player/PlayerCardCollapse';
 import { getPlayerImg } from '@/components/utility/player.js';
+
+import PlayerCardCollapse from '@/components/player/PlayerCardCollapse';
+import PlayerButtonCommentToggle from '@/components/player/PlayerButtonCommentToggle';
+
 
 export default {
   name: "Player-card",
   components: {
-    'Player-card-collapse': PlayerCardCollapse
+    'Player-card-collapse': PlayerCardCollapse,
+    Icon,
+    'Player-button-comment-toggle': PlayerButtonCommentToggle
   },
   data() {
     return {

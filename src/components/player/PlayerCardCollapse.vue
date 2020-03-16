@@ -9,12 +9,14 @@
                 </button>
             </h5>
             
-            <button type="button" class="btn btn-primary bmd-btn-fab">
+            <!-- <button type="button" class="btn btn-primary bmd-btn-fab">
                 <Icon 
                 :name="title === 'Hate' ? 'hate' : 'respect'"
-                parentStyle="background-color: red !important;"
+                parentStyle="background-color: transparent; width: 23px; height: auto"
+                width=23
+                height=23
                 />
-            </button>
+            </button> -->
 
 
         </div>

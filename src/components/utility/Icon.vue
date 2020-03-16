@@ -1,5 +1,11 @@
 <template>
-  <img :src="src" :style="externalStyle" ref="icon">
+  <img 
+  :src="src" 
+  :style="externalStyle" 
+  ref="icon"
+  :width="width"
+  :height="height"
+  >
 </template>
 
 <script>
