@@ -51,7 +51,7 @@
             </div>
             <button class="btn btn-primary" @click="playerFeedBox = !playerFeedBox">Hate or Respect</button>
 
-            g
+            
             <!-- container for 2 list like this (default hidden container) -->
             <div class="container-fluid player-feed-box" v-show="playerFeedBox">
                 <Player-card-collapse 

@@ -32,3 +32,14 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Project overview
+* bootstrap 4 material
+* Vue cli 3
+* Vuex
+* Vue router
+* Axios
+* lodash
+* sass/scss
+* TypeScript
+
