@@ -10,7 +10,7 @@
             </h5>
             
             <button type="button" class="btn btn-primary bmd-btn-fab">
-                
+                <Icon name="hate" parentStyle="background-color: red !important;"/>
             </button>
 
         </div>
@@ -32,11 +32,13 @@
 
 <script>
 import PlayerCardCollapseComment from '@/components/player/PlayerCardCollapseComment';
+import Icon from '@/components/utility/Icon';
 
 export default {
     name: 'Player-card-collapse', 
     components: {
-        "Player-card-collapse-comment": PlayerCardCollapseComment
+        "Player-card-collapse-comment": PlayerCardCollapseComment,
+        Icon
     },
     props: {
         spacer: { type: String },
