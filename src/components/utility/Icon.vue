@@ -39,10 +39,13 @@ export default {
     }
   },
   mounted() {
-    this.iconParent.style = this.parentStyle;
+    this.addParentStyle();
   },
+
   methods: {
-    
+    addParentStyle() {
+      this.iconParent.style = this.parentStyle;
+    }
   }
   
 }

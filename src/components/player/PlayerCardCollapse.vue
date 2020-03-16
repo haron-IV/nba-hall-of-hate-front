@@ -10,8 +10,12 @@
             </h5>
             
             <button type="button" class="btn btn-primary bmd-btn-fab">
-                <Icon name="hate" parentStyle="background-color: red !important;"/>
+                <Icon 
+                :name="title === 'Hate' ? 'hate' : 'respect'"
+                parentStyle="background-color: red !important;"
+                />
             </button>
+
 
         </div>
 
