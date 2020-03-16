@@ -30,9 +30,9 @@ export default new Vuex.Store({
   },
 
   getters: {
-    SelectedPlayer(state) {
-      return state.player.selectedPlayer;
-    }
+    // SelectedPlayer(state) {
+    //   return state.player.selectedPlayer;
+    // }
   },
 
   actions: {
