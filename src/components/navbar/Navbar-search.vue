@@ -48,10 +48,10 @@ export default {
   computed: {
   },
   methods: {
-    searchPlayers: debounce( function() {
+    searchPlayers: debounce( async function() {
         this.response = null;
 
-        Axios.get( this.$store.state.urlApiNba + "/players/lastName" + `/${this.searchingContent}`, { params:{}, headers: this.$store.state.headersAuth })
+        await Axios.get( this.$store.state.urlApiNba + "/players/lastName" + `/${this.searchingContent}`, { params:{}, headers: this.$store.state.headersAuth })
         .then((res) => {
             if (res.status === 200){
                 this.response = this.removeDoubledPlayers(res.data.api.players);

@@ -51,14 +51,14 @@
             </div>
 
             <Player-button-comment-toggle /> 
-            
-            <!-- container for 2 list like this (default hidden container) -->
+
             <div class="container-fluid player-feed-box">
                 <Player-card-collapse
                     v-show="$store.state.player.commentBox.hate"
                     spacer="mr-2"
                     title="Hate"
                     heading="Here is throwing meat."
+                    :comments="playerFeedBox.hateComments"
                 />
                 
                 <Player-card-collapse
@@ -66,6 +66,7 @@
                     spacer="ml-2"
                     title="Respect"
                     heading="Here is throwning respect."
+                    :comments="playerFeedBox.respectComments"
                 />
             </div>
         </div>
@@ -94,7 +95,9 @@ export default {
     return {
         playerFeedBox: {
             hate: false,
-            respect: false
+            respect: false,
+            hateComments: null,
+            respectComments: null
         },
         hateCount: null,
         respectCount: null,
@@ -104,16 +107,12 @@ export default {
 
   watch: {
     async '$store.state.player.selectedPlayer'() {
-        await this.setPlayer();
-        await this.getPlayer();    
+        await this.requestPack();
     }
   },
   
   async created(){
-    //hacked problem with not loading countes at load component first time
-    await this.getPlayer();
-    await this.setPlayer();
-    await this.getPlayer();
+    await this.requestPack();
   },
   
   computed: {
@@ -150,14 +149,16 @@ export default {
             hateCount: 0,
             respectCount: 0,
             followCount: 0
-        }, axiosHeaders() );
+        }, axiosHeaders() ).then( res => {}, err => {
+            console.error(err);
+        });
     },
-
     async getPlayer() {
         const id = this.$store.state.player.selectedPlayer.playerId;
     
-        await Axios.get(`${host_origin()}/api/player/${id}`, axiosHeaders() ).then( res => {
-            const player = this.$store.state.player.selectedPlayer;
+        await Axios.get(`${host_origin()}/api/player/${id}`, axiosHeaders() ).then( 
+            res => {
+                const player = this.$store.state.player.selectedPlayer;
 
                 if (res.data) {
                     this.hateCount = res.data.hateCount;
@@ -165,8 +166,29 @@ export default {
                     this.followCount = res.data.followCount;
                 }
 
-            this.$store.commit("setSelectedPlayer", player);
+                this.$store.commit("setSelectedPlayer", player);
+            },
+            err => {
+                console.error(err);
+            }
+        );
+    },
+    async getPlayerHateComments() {
+        await Axios.get(`${host_origin()}/api/player-comments/hate/${this.$store.state.player.selectedPlayer.playerId}`, axiosHeaders() ).then( res => {
+            this.playerFeedBox.hateComments = res.data;
         });
+    },
+    async getPlayerRespectComments() {
+        await Axios.get(`${host_origin()}/api/player-comments/respect/${this.$store.state.player.selectedPlayer.playerId}`, axiosHeaders() ).then( res => {
+            this.playerFeedBox.respectComments = res.data;
+        });
+    },
+    async requestPack() {
+        // all request needed for update player components
+        await this.setPlayer();
+        await this.getPlayer();
+        await this.getPlayerHateComments();
+        await this.getPlayerRespectComments();
     }
   }
 };

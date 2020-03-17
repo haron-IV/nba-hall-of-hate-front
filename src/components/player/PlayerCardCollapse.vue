@@ -19,7 +19,7 @@
     <div class="card">
 
         <!-- add searching only user comments and show in right place. Hate in hate and respect in respect -->
-        <Player-card-collapse-comment v-for="comment in hateComments" :key="comment.commentId"/>
+        <Player-card-collapse-comment v-for="comment in comments" :key="comment.commentId"/>
     </div>
 </div>
 </template>
@@ -39,21 +39,15 @@ export default {
     },
     data() {
         return {
-            hateComments: null
         }
     },
     props: {
         spacer: { type: String },
         title: { type: String },
-        heading: { type: String }
+        heading: { type: String },
+        comments: { type: Object }
     },
-    watch: {
-        async '$store.state.player.selectedPlayer.playerId'() {
-            await Axios.get(`${host_origin()}/api/player-comments/hate/${this.$store.state.player.selectedPlayer.playerId}`, axiosHeaders() ).then( res => {
-                this.hateComments = res.data;
-            });
-        }
-    },
+    watch: {},
     
     methods:{}
 };
