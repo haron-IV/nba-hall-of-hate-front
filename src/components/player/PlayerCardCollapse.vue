@@ -47,11 +47,14 @@ export default {
         title: { type: String },
         heading: { type: String }
     },
-    async mounted() {
-        await Axios.get(`${host_origin()}/api/player-comments/hate`, axiosHeaders() ).then( res => {
-            this.hateComments = res.data;
-        });
+    watch: {
+        async '$store.state.player.selectedPlayer.playerId'() {
+            await Axios.get(`${host_origin()}/api/player-comments/hate/${this.$store.state.player.selectedPlayer.playerId}`, axiosHeaders() ).then( res => {
+                this.hateComments = res.data;
+            });
+        }
     },
+    
     methods:{}
 };
 </script>
