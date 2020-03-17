@@ -70,6 +70,7 @@ export default {
 .comment-toggle-button {
     display: flex;
     justify-content: center;
+    margin: 1rem 0;
 
     &:hover{
         background-color: transparent !important;
