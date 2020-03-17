@@ -17,14 +17,17 @@
     </div>
 
     <div class="card">
-        <!-- card will be generated -->
-        <!-- add specyfic id to each card -->
-        <Player-card-collapse-comment />
+
+        <!-- add searching only user comments and show in right place. Hate in hate and respect in respect -->
+        <Player-card-collapse-comment v-for="comment in hateComments" :key="comment.commentId"/>
     </div>
 </div>
 </template>
 
 <script>
+import Axios from 'axios';
+import { axiosHeaders, host_origin } from '@/components/utility/config';
+
 import PlayerCardCollapseComment from '@/components/player/PlayerCardCollapseComment';
 import Icon from '@/components/utility/Icon';
 
@@ -34,10 +37,20 @@ export default {
         "Player-card-collapse-comment": PlayerCardCollapseComment,
         Icon
     },
+    data() {
+        return {
+            hateComments: null
+        }
+    },
     props: {
         spacer: { type: String },
         title: { type: String },
         heading: { type: String }
+    },
+    async mounted() {
+        await Axios.get(`${host_origin()}/api/player-comments/hate`, axiosHeaders() ).then( res => {
+            this.hateComments = res.data;
+        });
     },
     methods:{}
 };

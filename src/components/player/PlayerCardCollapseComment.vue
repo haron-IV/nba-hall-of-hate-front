@@ -9,6 +9,7 @@
                 aria-controls="collapseTwo"
                 @click="toggleComment()">
                     Collapsible Group Item #2
+                    <!-- TODO: here should be a few words from comment content -- as title -->
                 </button>
             </h5>
         </div>
