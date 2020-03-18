@@ -19,7 +19,11 @@
     <div class="card">
 
         <!-- add searching only user comments and show in right place. Hate in hate and respect in respect -->
-        <Player-card-collapse-comment v-for="comment in comments" :key="comment.commentId"/>
+        <Player-card-collapse-comment 
+        v-for="comment in comments" 
+        :key="comment.commentId"
+        :comment="comment"
+        />
     </div>
 </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
     <div class="comment">
-        <div class="card-header" id="headingTwo">
+        <!-- <div class="card-header" id="headingTwo">
             <h5 class="mb-0">
                 <button class="btn btn-link collapsed" 
                 data-toggle="collapse"
@@ -8,39 +8,33 @@
                 aria-expanded="false"
                 aria-controls="collapseTwo"
                 @click="toggleComment()">
-                    Collapsible Group Item #2
-                    <!-- TODO: here should be a few words from comment content -- as title -->
+                    {{comment.content.slice(0, 30)}}...
+                    TODO: here should be a few words from comment content -- as title
                 </button>
             </h5>
-        </div>
+        </div>  -->
 
         <div id="collapseTwo"
         class="collapse"
         :class="{ show : showComment }"
         aria-labelledby="headingTwo"
         data-parent="#accordion">
-            
-            
-            
-            
-
             <!-- each comment should be uncollapse -->
-            <!-- each comment should have max long -->
 
             <div class="card-body">
                 <div class="comment-info">
                     <p class="user-name">
-                        Tommy
+                        <b> {{comment.author}} </b>
                     </p>
 
                     <p class="comment-date">
-                        10.02.2020
+                        <i> {{comment.createdDate.slice(0, 10)}} </i>
                     </p>
                 </div>
 
                 <div class="comment-content pl-1">
                     <!-- raport - spam -->
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur porro hic soluta dolorem eveniet fugit ex autem ad eum inventore nihil, perspiciatis, ullam exercitationem officiis facere possimus placeat molestiae. Nihil!</p>
+                    <p>{{comment.content}}</p>
                     
                     <div class="social-section">
                         <button class="btn">
@@ -70,6 +64,9 @@ export default {
             showComment: true
         }
     },
+    props: {
+        comment: { type: Object }
+    },
     components: {
         icon: likeIcon
     },
@@ -82,17 +79,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card-body {
-    display: flex;
-
-    .comment-info {
+.comment {
+    margin-bottom: .5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.30);
+    
+    .card-body {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
 
-        border: 1px solid rgba(#000, .1);
-        border-width: 0 1px 0 0;
-        padding-right: 1rem;
+        .comment-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            border: 1px solid rgba(#000, .1);
+            border-width: 0 1px 0 0;
+            padding-right: 1rem;
+        }
+        .comment-date {
+            width: max-content;
+        }
+        .comment-content {
+            flex-grow: inherit;
+        }
     }
 }
 </style>
