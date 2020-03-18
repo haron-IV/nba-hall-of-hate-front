@@ -95,6 +95,7 @@ export default {
 
 .list-group {
     &--search{
+        min-width: 233px;
         position: absolute;
         top: 3rem;
         border: 1px solid gray;
