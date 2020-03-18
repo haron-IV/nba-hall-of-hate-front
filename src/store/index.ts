@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import { clearSelectedPlayer, showPlayerCommentBox } from '@/store/player';
-import { playerSearcher, showSearcherList } from '@/store/playerSearcher';
+import { playerSearcher, showSearcherList, hideSearcherList } from '@/store/playerSearcher';
 
 Vue.use(Vuex);
 
@@ -35,7 +35,8 @@ export default new Vuex.Store({
     clearSelectedPlayer: state => clearSelectedPlayer(state),
     showPlayerCommentBox: (state, which) => showPlayerCommentBox(state, which),
 
-    showSearcherList: state => showSearcherList(state)
+    showSearcherList: state => showSearcherList(state),
+    hideSearcherList: state => hideSearcherList(state)
   },
 
   getters: {

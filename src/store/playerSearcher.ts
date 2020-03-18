@@ -11,4 +11,4 @@ const hideSearcherList = (state: any) => {
 }
 
 
-export { playerSearcher, showSearcherList };
+export { playerSearcher, showSearcherList, hideSearcherList };

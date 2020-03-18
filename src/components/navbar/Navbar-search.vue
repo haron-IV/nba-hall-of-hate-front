@@ -5,7 +5,7 @@
         placeholder="Search player by last name"
         aria-label="Search"
         v-on:keyup.enter.prevent="searchPlayers()"
-        @focus="searcherList = true"
+        @focus="$store.commit('showSearcherList')"
         v-model="searchingContent">
 
         <button class="btn btn-outline-success my-2 my-sm-0" @click="searchPlayers()">Search player</button>
