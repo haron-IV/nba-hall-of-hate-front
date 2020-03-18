@@ -53,17 +53,23 @@ export default {
   },
   methods: {
     searchPlayers: debounce( async function() {
-        this.showLoader = true;
         this.response = null;
-        this.showSearchList();
+        
+        if (this.searchingContent != ""){
+            this.showLoader = true;
+            this.showSearchList();
 
-        await Axios.get( this.$store.state.urlApiNba + "/players/lastName" + `/${this.searchingContent}`, { params:{}, headers: this.$store.state.headersAuth })
-        .then((res) => {
-            if (res.status === 200){
-                this.response = this.removeDoubledPlayers(res.data.api.players);
-                this.showLoader = false;
-            }
-        }).catch((err) => {})
+            await Axios.get( this.$store.state.urlApiNba + "/players/lastName" + `/${this.searchingContent}`, { params:{}, headers: this.$store.state.headersAuth })
+            .then((res) => {    
+                if (res.status === 200 && res.data.api.players.length >= 1){
+                    this.response = this.removeDoubledPlayers(res.data.api.players);
+                    this.showLoader = false;
+                }
+            }).catch((err) => {});
+        } else if (this.searchingContent == ""){
+            this.showLoader = false;
+        }
+        
     }, 1000),
 
     playerImg(name, lastName) {
