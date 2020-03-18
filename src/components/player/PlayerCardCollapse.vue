@@ -3,7 +3,12 @@
     <div class="card">
         <div class="card-header" id="headingOne">
             <h5 class="mb-0">
-                {{title}} comments
+                <span>
+                    {{title}} comments
+                </span>
+                <button class="btn" :title="'add ' + title.toLowerCase() + ' comment'">
+                    <Icon name="add"></Icon>
+                </button>
             </h5>
         </div>
     </div>
