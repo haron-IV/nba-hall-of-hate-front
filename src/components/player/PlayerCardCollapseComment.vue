@@ -32,17 +32,19 @@
                     </p>
                 </div>
 
-                <div class="comment-content pl-1">
+                <div class="comment__content pl-1">
                     <!-- raport - spam -->
                     <p>{{comment.content}}</p>
                     
-                    <div class="social-section">
+                    <div class="like-section">
                         <button class="btn">
-                            <icon name="like" />
+                            <icon name="like" class="btn__icon"/>
+                            <span class="count">{{comment.commentLike}}</span>
                         </button>
                         
                         <button class="btn">
-                            <icon name="dislike" />
+                            <icon name="dislike" class="btn__icon"/>
+                            <span class="count">{{comment.commentDislike}}</span>
                         </button>
                     </div>
 
@@ -83,6 +85,10 @@ export default {
     margin-bottom: .5rem;
     border-bottom: 1px solid rgba(0, 0, 0, .2);
     box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.30);
+
+    &:last-child {
+        margin-bottom: 0;
+    }
     
     .card-body {
         display: flex;
@@ -99,8 +105,37 @@ export default {
         .comment-date {
             width: max-content;
         }
-        .comment-content {
+        .comment__content {
             flex-grow: inherit;
+
+            .like-section {
+                display: flex;
+                justify-content: center;;
+
+                .btn {
+                    display: flex;
+                    flex-direction: column;
+
+                    &__icon {
+                        opacity: .2;
+                        transition: opacity ease-in-out 400ms;
+                    }
+
+                    &:hover {
+                        .btn__icon {
+                            
+                            opacity: 1;
+                        }
+                    }
+                    
+
+                    .count {
+                        margin-top: .3rem;
+                        color: rgba(0, 0, 0, .5);
+                        width: -webkit-fill-available;
+                    }
+                }
+            }
         }
     }
 }
