@@ -1,5 +1,5 @@
 <template>
-    <div class="card text-center">
+    <div class="card text-center" @click="$store.commit('hideSearcherList')">
         <div class="card-header">
             <ul class="nav nav-pills card-header-pills">
             <li class="nav-item">

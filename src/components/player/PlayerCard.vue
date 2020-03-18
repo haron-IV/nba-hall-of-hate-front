@@ -22,8 +22,6 @@
 
 export default {
   name: "Player-card",
-  components: {
-  
-  }
+  components: {}
 };
 </script>

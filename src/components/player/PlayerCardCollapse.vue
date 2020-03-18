@@ -49,7 +49,7 @@ export default {
         spacer: { type: String },
         title: { type: String },
         heading: { type: String },
-        comments: { type: Object }
+        comments: { type: Array }
     },
     watch: {},
     
