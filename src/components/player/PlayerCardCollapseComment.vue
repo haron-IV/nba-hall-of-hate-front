@@ -19,23 +19,21 @@
 
                 <div class="comment__content pl-1">
                     <button class="btn btn--spam" title="report as spam">
-                        <icon name="spam" />
+                        <Icon name="spam" />
                     </button>
                     <p>{{comment.content}}</p>
                     
                     <div class="like-section">
                         <button class="btn">
-                            <icon name="like" class="btn__icon"/>
+                            <Icon name="like" class="btn__icon"/>
                             <span class="count">{{comment.commentLike}}</span>
                         </button>
                         
                         <button class="btn">
-                            <icon name="dislike" class="btn__icon"/>
+                            <Icon name="dislike" class="btn__icon"/>
                             <span class="count">{{comment.commentDislike}}</span>
                         </button>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -43,11 +41,10 @@
 </template>
 
 <script>
-import likeIcon from "@/components/utility/Icon";
+import Icon from "@/components/utility/Icon";
 
 export default {
-    name: 'Player-card-collapse-comment', 
-    props:{},
+    name: 'Player-card-collapse-comment',
     data(){
         return {
             showComment: true
@@ -57,7 +54,7 @@ export default {
         comment: { type: Object }
     },
     components: {
-        icon: likeIcon
+        Icon
     },
     methods:{
         toggleComment(){
