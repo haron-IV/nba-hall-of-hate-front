@@ -8,17 +8,9 @@
                 </button>
             </h5>
         </div>
-
-        <div id="" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
-                {{heading}}        
-            </div>
-        </div>
     </div>
 
     <div class="card">
-
-        <!-- add searching only user comments and show in right place. Hate in hate and respect in respect -->
         <Player-card-collapse-comment 
         v-for="comment in comments" 
         :key="comment.commentId"

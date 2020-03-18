@@ -57,7 +57,7 @@
                     v-show="$store.state.player.commentBox.hate"
                     spacer="mr-2"
                     title="Hate"
-                    heading="Here is throwing meat."
+                    heading=""
                     :comments="playerFeedBox.hateComments"
                 />
                 
@@ -65,7 +65,7 @@
                     v-show="$store.state.player.commentBox.respect"
                     spacer="ml-2"
                     title="Respect"
-                    heading="Here is throwning respect."
+                    heading=""
                     :comments="playerFeedBox.respectComments"
                 />
             </div>
