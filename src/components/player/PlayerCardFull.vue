@@ -57,7 +57,6 @@
                     v-show="$store.state.player.commentBox.hate"
                     spacer="mr-2"
                     title="Hate"
-                    heading=""
                     :comments="playerFeedBox.hateComments"
                 />
                 
@@ -65,7 +64,6 @@
                     v-show="$store.state.player.commentBox.respect"
                     spacer="ml-2"
                     title="Respect"
-                    heading=""
                     :comments="playerFeedBox.respectComments"
                 />
             </div>
@@ -198,10 +196,6 @@ export default {
 .card-body {
     .card-text {
         display: flex;
-
-        .list-group {
-            
-        }   
     }
 
     .player-feed-box {

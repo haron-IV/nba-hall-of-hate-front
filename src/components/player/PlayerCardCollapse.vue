@@ -40,7 +40,6 @@ export default {
     props: {
         spacer: { type: String },
         title: { type: String },
-        heading: { type: String },
         comments: { type: Array }
     },
     watch: {},
