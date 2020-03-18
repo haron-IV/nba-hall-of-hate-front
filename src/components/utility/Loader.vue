@@ -21,7 +21,6 @@ export default {
 <style lang="scss">
 .loader {
   display: flex;
-  height: 50vh;
   justify-content: center;
   align-items: center;
 }

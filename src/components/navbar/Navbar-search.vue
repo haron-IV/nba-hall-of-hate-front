@@ -10,7 +10,9 @@
 
         <button class="btn btn-outline-success my-2 my-sm-0" @click="searchPlayers()">Search player</button>
 
-        <ul class="list-group list-group--search" v-if="response !== null && $store.state.playerSearcher.searcherList">
+        <ul class="list-group list-group--search" v-if="$store.state.playerSearcher.searcherList">
+            <Loader :visible="showLoader" />
+
             <a class="list-group-item" v-for="player in response" :key="player.playerId" @click="showPlayerCard(player), closeSearchList()">
                 <div class="bmd-list-group-col item-info">
                     <img :src="playerImg(player.firstName, player.lastName)" class="img" v-show="playerImg(player.firstName, player.lastName)">
@@ -30,14 +32,16 @@ import debounce from "lodash/debounce";
 import uniq from "lodash/uniq";
 
 import { getPlayerImg } from '@/components/utility/player.js';
+import Loader from '@/components/utility/Loader';
 
 export default {
-  components: {},
+  components: { Loader },
   data(){
     return {
         searchingContent: null,
         searcherList: false,
-        response: null
+        response: null,
+        showLoader: false
     }
   },
   watch: {
@@ -49,13 +53,15 @@ export default {
   },
   methods: {
     searchPlayers: debounce( async function() {
+        this.showLoader = true;
         this.response = null;
+        this.showSearchList();
 
         await Axios.get( this.$store.state.urlApiNba + "/players/lastName" + `/${this.searchingContent}`, { params:{}, headers: this.$store.state.headersAuth })
         .then((res) => {
             if (res.status === 200){
                 this.response = this.removeDoubledPlayers(res.data.api.players);
-                this.showSearchList();
+                this.showLoader = false;
             }
         }).catch((err) => {})
     }, 1000),
