@@ -1,25 +1,10 @@
 <template>
     <div class="comment">
-        <!-- <div class="card-header" id="headingTwo">
-            <h5 class="mb-0">
-                <button class="btn btn-link collapsed" 
-                data-toggle="collapse"
-                data-target="#collapseTwo"
-                aria-expanded="false"
-                aria-controls="collapseTwo"
-                @click="toggleComment()">
-                    {{comment.content.slice(0, 30)}}...
-                    TODO: here should be a few words from comment content -- as title
-                </button>
-            </h5>
-        </div>  -->
-
         <div id="collapseTwo"
         class="collapse"
         :class="{ show : showComment }"
         aria-labelledby="headingTwo"
         data-parent="#accordion">
-            <!-- each comment should be uncollapse -->
 
             <div class="card-body">
                 <div class="comment-info">
@@ -33,7 +18,9 @@
                 </div>
 
                 <div class="comment__content pl-1">
-                    <!-- raport - spam -->
+                    <button class="btn btn--spam" title="report as spam">
+                        <icon name="spam" />
+                    </button>
                     <p>{{comment.content}}</p>
                     
                     <div class="like-section">
@@ -107,6 +94,20 @@ export default {
         }
         .comment__content {
             flex-grow: inherit;
+            display: flex;
+            flex-direction: column;
+
+            .btn {
+                &--spam {
+                    align-self: flex-end;
+                    position: absolute;
+                }
+
+                &__icon {
+                    opacity: .2;
+                    transition: opacity ease-in-out 400ms;
+                }
+            }
 
             .like-section {
                 display: flex;
@@ -116,19 +117,12 @@ export default {
                     display: flex;
                     flex-direction: column;
 
-                    &__icon {
-                        opacity: .2;
-                        transition: opacity ease-in-out 400ms;
-                    }
-
                     &:hover {
                         .btn__icon {
-                            
                             opacity: 1;
                         }
                     }
                     
-
                     .count {
                         margin-top: .3rem;
                         color: rgba(0, 0, 0, .5);
