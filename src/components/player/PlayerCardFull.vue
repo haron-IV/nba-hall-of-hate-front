@@ -68,6 +68,8 @@
                 />
             </div>
         </div>
+
+        <Add-comment-modal />
     </div>
 </template>
 
@@ -80,6 +82,7 @@ import { getPlayerImg } from '@/components/utility/player.js';
 
 import PlayerCardCollapse from '@/components/player/PlayerCardCollapse';
 import PlayerButtonCommentToggle from '@/components/player/PlayerButtonCommentToggle';
+import AddCommentModal from '@/components/utility/AddCommentModal';
 
 
 export default {
@@ -87,7 +90,8 @@ export default {
   components: {
     'Player-card-collapse': PlayerCardCollapse,
     Icon,
-    'Player-button-comment-toggle': PlayerButtonCommentToggle
+    'Player-button-comment-toggle': PlayerButtonCommentToggle,
+    'Add-comment-modal': AddCommentModal
   },
   data() {
     return {

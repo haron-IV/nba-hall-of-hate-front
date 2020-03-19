@@ -18,7 +18,8 @@ export default new Vuex.Store({
       selectedPlayer: null,
       commentBox: {
         hate: false,
-        respect: false
+        respect: false,
+        isVisibleAddCommentModal: false
       }
     },
     playerSearcher

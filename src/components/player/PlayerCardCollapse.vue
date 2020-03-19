@@ -6,15 +6,15 @@
                 <span>
                     {{title}} comments
                 </span>
-                <button class="btn" :title="'add ' + title.toLowerCase() + ' comment'">
-                    <Icon name="add"></Icon>
+                <button class="btn" :title="'add ' + title.toLowerCase() + ' comment'" @click="showAddCommentModal()">
+                    <Icon name="add" />
                 </button>
             </h5>
         </div>
     </div>
 
     <div class="card">
-        <Player-card-collapse-comment 
+        <Player-card-collapse-comment
         v-for="comment in comments" 
         :key="comment.commentId"
         :comment="comment"
@@ -47,7 +47,13 @@ export default {
     },
     watch: {},
     
-    methods:{}
+    methods:{
+        showAddCommentModal() {
+            if ( this.$store.state.player.commentBox.isVisibleAddCommentModal === false ) {
+                this.$store.state.player.commentBox.isVisibleAddCommentModal = true;
+            }
+        }
+    }
 };
 </script>
 
