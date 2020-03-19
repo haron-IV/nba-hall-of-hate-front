@@ -1,10 +1,10 @@
 <template>
-<div id="addCommentModal" tabindex="-1" aria-labelledby="exampleModalLabel" v-show="$store.state.player.commentBox.isVisibleAddCommentModal">
+<div class="add-comment-modal" id="addCommentModal" tabindex="-1" aria-labelledby="exampleModalLabel" v-show="$store.state.player.commentBox.isVisibleAddCommentModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="$store.state.player.commentBox.isVisibleAddCommentModal = false">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -43,5 +43,11 @@ export default {
 </script>
 
 <style lang="scss">
+.add-comment-modal {
+    position: fixed;
+    min-width: 100%;
+    justify-self: center;
+    align-self: center;
+}
 
 </style>
