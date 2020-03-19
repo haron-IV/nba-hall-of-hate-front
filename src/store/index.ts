@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { clearSelectedPlayer } from '@/store/player';
+import { playerComments, clearSelectedPlayer } from '@/store/player';
 import { playerSearcher, showSearcherList, hideSearcherList } from '@/store/playerSearcher';
 import { commentBox, showPlayerCommentBox } from '@/store/commentBox';
 
@@ -17,7 +17,8 @@ export default new Vuex.Store({
     player: {
       playerCardFullView: false,
       selectedPlayer: null,
-      commentBox
+      commentBox,
+      playerComments
     },
     playerSearcher
   },
@@ -37,11 +38,7 @@ export default new Vuex.Store({
     hideSearcherList: state => hideSearcherList(state)
   },
 
-  getters: {
-    // SelectedPlayer(state) {
-    //   return state.player.selectedPlayer;
-    // }
-  },
+  getters: {},
 
   actions: {
   },

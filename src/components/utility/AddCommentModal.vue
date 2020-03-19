@@ -5,7 +5,7 @@
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
                 <span>Add</span>
-                <button class="btn btn-change-comment-type" @click="toggleCommentType($store.state.player.commentBox.commentType.toLowerCase())">{{$store.state.player.commentBox.commentType.toLowerCase()}}</button>
+                <button class="btn btn-change-comment-type" @click="toggleCommentType($store.state.player.commentBox.commentType)">{{$store.state.player.commentBox.commentType}}</button>
                 <span>comment</span>
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="$store.state.player.commentBox.isVisibleAddCommentModal = false">
@@ -58,7 +58,7 @@ export default {
   computed: {},
   methods: {
     async addComment() {
-        const commentType = this.$store.state.player.commentBox.commentType.toLowerCase();
+        const commentType = this.$store.state.player.commentBox.commentType;
 
         await Axios.post( `${host_origin()}/api/player-comment/${commentType}`, { 
             playerId: this.$store.state.player.selectedPlayer.playerId,
@@ -68,7 +68,16 @@ export default {
             commentLike: 0,
             commentDislike: 0
         },
-        axiosHeaders() ).then( res => {}, err => {
+        axiosHeaders() ).then( res => {
+            switch(commentType) {
+                case 'hate':
+                    this.$store.state.player.playerComments.hate.push(res.data);
+                    break;
+                case 'respect':
+                    this.$store.state.player.playerComments.respect.push(res.data);
+                    break;
+            }
+        }, err => {
             console.error(err);
         });
     },

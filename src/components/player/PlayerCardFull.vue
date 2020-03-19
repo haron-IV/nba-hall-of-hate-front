@@ -57,14 +57,14 @@
                     v-show="$store.state.player.commentBox.hate"
                     spacer="mr-2"
                     title="Hate"
-                    :comments="playerFeedBox.hateComments"
+                    :comments="$store.state.player.playerComments.hate"
                 />
                 
                 <Player-card-collapse
                     v-show="$store.state.player.commentBox.respect"
                     spacer="ml-2"
                     title="Respect"
-                    :comments="playerFeedBox.respectComments"
+                    :comments="$store.state.player.playerComments.respect"
                 />
             </div>
         </div>
@@ -106,6 +106,7 @@ export default {
         followCount: null
     }
   },
+  computed: {},
 
   watch: {
     async '$store.state.player.selectedPlayer'() {
@@ -177,12 +178,12 @@ export default {
     },
     async getPlayerHateComments() {
         await Axios.get(`${host_origin()}/api/player-comments/hate/${this.$store.state.player.selectedPlayer.playerId}`, axiosHeaders() ).then( res => {
-            this.playerFeedBox.hateComments = res.data;
+            this.$store.state.player.playerComments.hate = res.data;
         });
     },
     async getPlayerRespectComments() {
         await Axios.get(`${host_origin()}/api/player-comments/respect/${this.$store.state.player.selectedPlayer.playerId}`, axiosHeaders() ).then( res => {
-            this.playerFeedBox.respectComments = res.data;
+            this.$store.state.player.playerComments.respect = res.data;
         });
     },
     async requestPack() {
@@ -197,13 +198,18 @@ export default {
 </script>
 
 <style lang="scss">
-.card-body {
-    .card-text {
-        display: flex;
-    }
+.card {
+    display: flex;
+    flex-direction: column-reverse;
+    
+    .card-body {
+        .card-text {
+            display: flex;
+        }
 
-    .player-feed-box {
-        display: flex;
+        .player-feed-box {
+            display: flex;   
+        }
     }
 }
 

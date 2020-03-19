@@ -37,8 +37,7 @@ export default {
         Icon
     },
     data() {
-        return {
-        }
+        return {}
     },
     props: {
         spacer: { type: String },
