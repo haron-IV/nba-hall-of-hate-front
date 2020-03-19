@@ -198,19 +198,18 @@ export default {
 </script>
 
 <style lang="scss">
-.card {
-    display: flex;
-    flex-direction: column-reverse;
-    
-    .card-body {
-        .card-text {
-            display: flex;
-        }
-
-        .player-feed-box {
-            display: flex;   
+.card-body {
+    .collapse-box {
+        .card {
+            flex-direction: column-reverse;
         }
     }
-}
+    .card-text {
+        display: flex;
+    }
 
+    .player-feed-box {
+        display: flex;   
+    }
+}
 </style>
