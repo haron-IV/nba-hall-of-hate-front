@@ -4,13 +4,16 @@
         <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-                <!--TODO: dropdown for change -->
-                Add {{$store.state.player.commentBox.commentType}} comment
+                <span>Add</span>
+                <button class="btn btn-change-comment-type" @click="toggleCommentType($store.state.player.commentBox.commentType.toLowerCase())">{{$store.state.player.commentBox.commentType.toLowerCase()}}</button>
+                <span>comment</span>
+                
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="$store.state.player.commentBox.isVisibleAddCommentModal = false">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+
         <div class="modal-body">
             <form>
                 <div class="form-group">
@@ -23,8 +26,8 @@
                 </div>
             </form>
         </div>
+
         <div class="modal-footer">
-            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
             <button type="button" class="btn btn-primary btn-add-comment">
                 <span class="btn-add-comment__text" @click="addComment()">Add comment</span>
                 <Icon :name="$store.state.player.commentBox.commentType" v-if="$store.state.player.commentBox.commentType" width="30" height="30" />
@@ -69,6 +72,18 @@ export default {
         axiosHeaders() ).then( res => {}, err => {
             console.error(err);
         });
+    },
+
+    toggleCommentType(commentType) {
+        
+        switch(commentType) {
+            case 'hate':
+                this.$store.state.player.commentBox.commentType = "respect";
+                break;
+            case 'respect':
+                this.$store.state.player.commentBox.commentType = "hate";
+                break;
+        }
     }
   }
 };
@@ -80,6 +95,14 @@ export default {
     min-width: 100%;
     justify-self: center;
     align-self: center;
+
+    .btn-change-comment-type {
+        text-transform: lowercase;
+        font-family: Arial, sans-serif;
+        font-size: 1.15rem;
+        margin-top: 1px;
+        padding: 0 .5rem;
+    }
 
     .btn-add-comment {
         display: flex;
