@@ -7,7 +7,6 @@
                 <span>Add</span>
                 <button class="btn btn-change-comment-type" @click="toggleCommentType($store.state.player.commentBox.commentType.toLowerCase())">{{$store.state.player.commentBox.commentType.toLowerCase()}}</button>
                 <span>comment</span>
-                
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="$store.state.player.commentBox.isVisibleAddCommentModal = false">
                 <span aria-hidden="true">&times;</span>
@@ -100,6 +99,8 @@ export default {
         text-transform: lowercase;
         font-family: Arial, sans-serif;
         font-size: 1.15rem;
+        font-weight: 400;
+        opacity: .85;
         margin-top: 1px;
         padding: 0 .5rem;
     }
