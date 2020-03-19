@@ -3,26 +3,32 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+            <h5 class="modal-title" id="exampleModalLabel">
+                <!--TODO: dropdown for change -->
+                Add {{$store.state.player.commentBox.commentType}} comment
+            </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="$store.state.player.commentBox.isVisibleAddCommentModal = false">
-            <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
             <form>
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">Recipient:</label>
-                <input type="text" class="form-control" id="recipient-name">
-            </div>
-            <div class="form-group">
-                <label for="message-text" class="col-form-label">Message:</label>
-                <textarea class="form-control" id="message-text"></textarea>
-            </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Set nickname:</label>
+                    <input type="text" class="form-control" id="recipient-name" v-model="userNickname">
+                </div>
+                <div class="form-group">
+                    <label for="message-text" class="col-form-label">Comment:</label>
+                    <textarea class="form-control" id="message-text" v-model="commentContent"></textarea>
+                </div>
             </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Send message</button>
+            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+            <button type="button" class="btn btn-primary btn-add-comment">
+                <span class="btn-add-comment__text" @click="addComment()">Add comment</span>
+                <Icon :name="$store.state.player.commentBox.commentType" v-if="$store.state.player.commentBox.commentType" width="30" height="30" />
+            </button>
         </div>
         </div>
     </div>
@@ -30,15 +36,41 @@
 </template>
 
 <script>
+import Axios from 'axios';
+
+import { axiosHeaders, host_origin } from '@/components/utility/config';
+import Icon from "@/components/utility/Icon";
+
 export default {
   name: "Add-comment-modal",
-  components: {},
-  props: {
+  components: { Icon },
+  data() {
+    return {
+        userNickname: null,
+        commentContent: null
+    }
   },
+  props: {},
   watch: {},
   created(){},
   computed: {},
-  methods: {}
+  methods: {
+    async addComment() {
+        const commentType = this.$store.state.player.commentBox.commentType.toLowerCase();
+
+        await Axios.post( `${host_origin()}/api/player-comment/${commentType}`, { 
+            playerId: this.$store.state.player.selectedPlayer.playerId,
+            author: this.userNickname,
+            createdDate: new Date(`${new Date().toString().split('GMT')[0]} UTC`).toISOString(),
+            content: this.commentContent,
+            commentLike: 0,
+            commentDislike: 0
+        },
+        axiosHeaders() ).then( res => {}, err => {
+            console.error(err);
+        });
+    }
+  }
 };
 </script>
 
@@ -48,6 +80,16 @@ export default {
     min-width: 100%;
     justify-self: center;
     align-self: center;
+
+    .btn-add-comment {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &__text {
+            margin: 5px 10px 0 0;
+        }
+    }
 }
 
 </style>

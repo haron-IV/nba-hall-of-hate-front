@@ -1,8 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { clearSelectedPlayer, showPlayerCommentBox } from '@/store/player';
+import { clearSelectedPlayer } from '@/store/player';
 import { playerSearcher, showSearcherList, hideSearcherList } from '@/store/playerSearcher';
+import { commentBox, showPlayerCommentBox } from '@/store/commentBox';
 
 Vue.use(Vuex);
 
@@ -16,11 +17,7 @@ export default new Vuex.Store({
     player: {
       playerCardFullView: false,
       selectedPlayer: null,
-      commentBox: {
-        hate: false,
-        respect: false,
-        isVisibleAddCommentModal: false
-      }
+      commentBox
     },
     playerSearcher
   },

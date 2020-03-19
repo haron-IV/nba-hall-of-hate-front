@@ -6,7 +6,7 @@
                 <span>
                     {{title}} comments
                 </span>
-                <button class="btn" :title="'add ' + title.toLowerCase() + ' comment'" @click="showAddCommentModal()">
+                <button class="btn" :title="'add ' + title.toLowerCase() + ' comment'" @click="showAddCommentModal(title.toLowerCase())">
                     <Icon name="add" />
                 </button>
             </h5>
@@ -48,9 +48,10 @@ export default {
     watch: {},
     
     methods:{
-        showAddCommentModal() {
+        showAddCommentModal(commentType) {
             if ( this.$store.state.player.commentBox.isVisibleAddCommentModal === false ) {
                 this.$store.state.player.commentBox.isVisibleAddCommentModal = true;
+                this.$store.state.player.commentBox.commentType = commentType;
             }
         }
     }
