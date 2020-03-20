@@ -14,16 +14,14 @@
             <a href="#" class="card-link">Card link</a>
             <a href="#" class="card-link">Another link</a>
         </div>
+
+        <Add-comment-modal />
     </div>
 </template>
 
 <script>
-// @ is an alias to /src
-
 export default {
   name: "Player-card",
-  components: {
-  
-  }
+  components: {}
 };
 </script>

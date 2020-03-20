@@ -3,42 +3,57 @@
     <div class="card">
         <div class="card-header" id="headingOne">
             <h5 class="mb-0">
-                <button class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    {{title}}
-                    <!-- TODO: click make full width for this column for better reading -->
+                <span>
+                    {{title}} comments
+                </span>
+                <button class="btn" :title="'add ' + title.toLowerCase() + ' comment'" @click="showAddCommentModal(title.toLowerCase())">
+                    <Icon name="add" />
                 </button>
             </h5>
-        </div>
-
-        <div id="" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
-                {{heading}}        
-            </div>
         </div>
     </div>
 
     <div class="card">
-        <!-- card will be generated -->
-        <!-- add specyfic id to each card -->
-        <Player-card-collapse-comment></Player-card-collapse-comment>
+        <Player-card-collapse-comment
+        v-for="comment in comments" 
+        :key="comment.commentId"
+        :comment="comment"
+        />
     </div>
 </div>
 </template>
 
 <script>
+import Axios from 'axios';
+import { axiosHeaders, host_origin } from '@/components/utility/config';
+
 import PlayerCardCollapseComment from '@/components/player/PlayerCardCollapseComment';
+import Icon from '@/components/utility/Icon';
 
 export default {
     name: 'Player-card-collapse', 
     components: {
-        "Player-card-collapse-comment": PlayerCardCollapseComment
+        "Player-card-collapse-comment": PlayerCardCollapseComment,
+        Icon
+    },
+    data() {
+        return {}
     },
     props: {
         spacer: { type: String },
         title: { type: String },
-        heading: { type: String }
+        comments: { type: Array }
     },
-    methods:{}
+    watch: {},
+    
+    methods:{
+        showAddCommentModal(commentType) {
+            if ( this.$store.state.player.commentBox.isVisibleAddCommentModal === false ) {
+                this.$store.state.player.commentBox.isVisibleAddCommentModal = true;
+                this.$store.state.player.commentBox.commentType = commentType;
+            }
+        }
+    }
 };
 </script>
 

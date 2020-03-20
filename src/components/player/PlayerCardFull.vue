@@ -1,5 +1,5 @@
 <template>
-    <div class="card text-center">
+    <div class="card text-center" @click="$store.commit('hideSearcherList')">
         <div class="card-header">
             <ul class="nav nav-pills card-header-pills">
             <li class="nav-item">
@@ -31,13 +31,13 @@
                         Hate Statistics:
                     </p>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <b>Hate:</b> {{player.hateCount}}
+                        <b>Hate:</b> {{hateCount}}
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <b>Respect:</b> {{player.respectCount}}
+                        <b>Respect:</b> {{respectCount}}
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <b>Followers:</b> {{player.followCount}}
+                        <b>Followers:</b> {{followCount}}
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <b>Hate points:</b> [in future]
@@ -49,63 +49,73 @@
 
                 <img :src="playerImg($store.state.player.selectedPlayer.firstName, $store.state.player.selectedPlayer.lastName)" alt="" class="img ml-3" style="max-height: 175px; align-self: center">
             </div>
-            <button class="btn btn-primary" @click="playerFeedBox = !playerFeedBox">Hate or Respect</button>
 
-            <!-- should be a separated component -->
-            <!-- container for 2 list like this (default hidden container) -->
-            <div class="container-fluid player-feed-box" v-show="playerFeedBox">
-                <Player-card-collapse 
+            <Player-button-comment-toggle /> 
+
+            <div class="container-fluid player-feed-box">
+                <Player-card-collapse
+                    v-show="$store.state.player.commentBox.hate"
                     spacer="mr-2"
                     title="Hate"
-                    heading="Here is throwing meat."
+                    :comments="$store.state.player.playerComments.hate"
                 />
                 
-                <Player-card-collapse 
+                <Player-card-collapse
+                    v-show="$store.state.player.commentBox.respect"
                     spacer="ml-2"
                     title="Respect"
-                    heading="Here is throwning respect."
+                    :comments="$store.state.player.playerComments.respect"
                 />
             </div>
         </div>
+
+        <Add-comment-modal />
     </div>
 </template>
 
 <script>
 import Axios from 'axios';
 
-import { axiosHeaders } from '@/components/utility/config';
-import PlayerCardCollapse from '@/components/player/PlayerCardCollapse';
+import Icon from '@/components/utility/Icon';
+import { axiosHeaders, host_origin } from '@/components/utility/config';
 import { getPlayerImg } from '@/components/utility/player.js';
+
+import PlayerCardCollapse from '@/components/player/PlayerCardCollapse';
+import PlayerButtonCommentToggle from '@/components/player/PlayerButtonCommentToggle';
+import AddCommentModal from '@/components/utility/AddCommentModal';
+
 
 export default {
   name: "Player-card",
   components: {
-    'Player-card-collapse': PlayerCardCollapse
+    'Player-card-collapse': PlayerCardCollapse,
+    Icon,
+    'Player-button-comment-toggle': PlayerButtonCommentToggle,
+    'Add-comment-modal': AddCommentModal
   },
   data() {
     return {
-        player: {
-            name: null,
-            lastName: null,
-            birth: null,
-            id: null,
-            height: null,
-            hateCount: null,
-            respectCount: null,
-            followCount: null
+        playerFeedBox: {
+            hate: false,
+            respect: false,
+            hateComments: null,
+            respectComments: null
         },
-        playerFeedBox: false
+        hateCount: null,
+        respectCount: null,
+        followCount: null
     }
   },
+  computed: {},
 
-  watch: {},
-  
-  async onrender(){
-    await this.getPlayer()
+  watch: {
+    async '$store.state.player.selectedPlayer'() {
+        await this.requestPack();
+    }
   },
-  async updated(){
-    await this.setPlayer();
-    await this.getPlayer();
+  
+  async created(){
+    await this.requestPack();
   },
   
   computed: {
@@ -132,7 +142,7 @@ export default {
         return getPlayerImg(name, lastName);
     },
     async setPlayer() {
-        Axios.post('http://localhost:8080/api/player', {
+        await Axios.post( `${host_origin()}/api/player`, {
             playerId: this.$store.state.player.selectedPlayer.playerId,
             name: this.$store.state.player.selectedPlayer.firstName,
             surname: this.$store.state.player.selectedPlayer.lastName,
@@ -142,30 +152,46 @@ export default {
             hateCount: 0,
             respectCount: 0,
             followCount: 0
-        }, axiosHeaders() );
+        }, axiosHeaders() ).then( res => {}, err => {
+            console.error(err);
+        });
     },
     async getPlayer() {
         const id = this.$store.state.player.selectedPlayer.playerId;
-
-        setTimeout(() => {
-            Axios.get(`http://localhost:8080/api/player/${id}`, axiosHeaders() ).then( res => {
+    
+        await Axios.get(`${host_origin()}/api/player/${id}`, axiosHeaders() ).then( 
+            res => {
                 const player = this.$store.state.player.selectedPlayer;
-                
 
-                player.hateCount = res.data.hateCount;
-                player.respectCount = res.data.respectCount;
-                player.followCount = res.data.followCount;
-
-                this.player.hateCount = res.data.hateCount;
-                this.player.respectCount = res.data.respectCount;
-                this.player.followCount = res.data.followCount;
-                
+                if (res.data) {
+                    this.hateCount = res.data.hateCount;
+                    this.respectCount = res.data.respectCount;
+                    this.followCount = res.data.followCount;
+                }
 
                 this.$store.commit("setSelectedPlayer", player);
-                console.log("PLAYER: ", this.$store.state.player.selectedPlayer);
-            });    
-        }, 550);
-        
+            },
+            err => {
+                console.error(err);
+            }
+        );
+    },
+    async getPlayerHateComments() {
+        await Axios.get(`${host_origin()}/api/player-comments/hate/${this.$store.state.player.selectedPlayer.playerId}`, axiosHeaders() ).then( res => {
+            this.$store.state.player.playerComments.hate = res.data;
+        });
+    },
+    async getPlayerRespectComments() {
+        await Axios.get(`${host_origin()}/api/player-comments/respect/${this.$store.state.player.selectedPlayer.playerId}`, axiosHeaders() ).then( res => {
+            this.$store.state.player.playerComments.respect = res.data;
+        });
+    },
+    async requestPack() {
+        // all request needed for update player components
+        await this.setPlayer();
+        await this.getPlayer();
+        await this.getPlayerHateComments();
+        await this.getPlayerRespectComments();
     }
   }
 };
@@ -173,17 +199,17 @@ export default {
 
 <style lang="scss">
 .card-body {
+    .collapse-box {
+        .card {
+            flex-direction: column-reverse;
+        }
+    }
     .card-text {
         display: flex;
-
-        .list-group {
-            
-        }   
     }
 
     .player-feed-box {
-        display: flex;
+        display: flex;   
     }
 }
-
 </style>

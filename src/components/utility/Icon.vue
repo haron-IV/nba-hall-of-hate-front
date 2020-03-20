@@ -1,14 +1,15 @@
 <template>
-  <img :src="src" :style="externalStyle">
+  <img 
+  :src="src" 
+  :style="externalStyle" 
+  ref="icon"
+  :width="width"
+  :height="height"
+  >
 </template>
 
 <script>
 export default {
-    computed: {
-      src() {
-        return require(`@/assets/img/icons/${this.name}.png`)
-      }
-    },
   props: {
     name: {
       //name should be same as icon file name
@@ -16,6 +17,9 @@ export default {
       default: 'box'
     },
     externalStyle: {
+      type: String
+    },
+    parentStyle: {
       type: String
     },
     width: {
@@ -30,6 +34,25 @@ export default {
       type: String,
       default: 'currentColor'
     }
+  },
+  computed: {
+    src() {
+      return require(`@/assets/img/icons/${this.name}.png`)
+    },
+
+    iconParent(){
+      return this.$refs.icon.parentNode;
+    }
+  },
+  mounted() {
+    this.addParentStyle();
+  },
+
+  methods: {
+    addParentStyle() {
+      this.iconParent.style = this.parentStyle;
+    }
   }
+  
 }
 </script>
