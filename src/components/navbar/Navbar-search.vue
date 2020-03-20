@@ -13,7 +13,7 @@
 
         <button class="btn btn-outline-success my-2 my-sm-0" @click="searchPlayers()">Search player</button>
 
-        <ul class="list-group list-group--search" v-if="$store.state.playerSearcher.searcherList">
+        <ul class="list-group list-group--search" v-if="$store.state.playerSearcher.searcherList" ref="searcherList">
             <Loader :visible="showLoader" />
 
             <a class="list-group-item list-group-item--player-searcher" v-for="player in response" 
@@ -113,11 +113,19 @@ export default {
 
         switch(event.key) {
             case "ArrowDown": {
-                this.arrowsList.counter++;
+                if(this.arrowsList.counter < this.response.length - 1){
+                    this.arrowsList.counter++;
+                } else {
+                    this.arrowsList.counter = 0;
+                }
                 break;
             };
             case "ArrowUp": {
-                this.arrowsList.counter--;
+                if(this.arrowsList.counter > -1 ){
+                    this.arrowsList.counter--;
+                } else {
+                    this.arrowsList.counter = this.response.length - 1;
+                }
                 break;
             };
             case "Enter": {
@@ -128,8 +136,9 @@ export default {
             };
         }
 
-        if (this.arrowsList.counter > -1) {
+        if (this.arrowsList.counter >= -1 ) {
             this.arrowsList.actualElement = this.response[vm.arrowsList.counter];
+            this.scrollToSelectedElement()
         }
         
         this.removeHiglihtFromListElements();
@@ -146,6 +155,22 @@ export default {
         for (const element of list) {
             element.classList.remove("list-group-item--selected");
         }
+    },
+
+    scrollToSelectedElement() {
+        if (this.arrowsList.counter > 5){
+            const increasedScrollTop = this.$refs.searcherList.scrollTop + this.$refs.searcherList.scrollHeight;
+
+            this.$refs.searcherList.scrollTo({
+                top: increasedScrollTop
+            })
+        }else {
+            const increasedScrollTop = 0;
+
+            this.$refs.searcherList.scrollTo({
+                top: increasedScrollTop
+            })
+        }
     }
   }
 }
@@ -154,12 +179,16 @@ export default {
 <style lang="scss">
 .list-group {
     &--search{
+        padding-bottom: 0;
+        max-height: 80vh;
+        overflow: scroll;
         background-color:rgba(64, 208, 191, 0.02);
         min-width: 233px;
         position: absolute;
         top: 3rem;
         border: 1px solid gray;
         border-width: 0px 0px 1px;
+        transition: none;
     }
 
     .list-group-item {
@@ -170,7 +199,7 @@ export default {
         transition: all ease-in-out 450ms;
 
         &--selected {
-            transition: all ease 100ms;
+            transition: all ease 200ms;
             background-color: darken(rgba(64, 208, 191, 0.08), 50%);
             border: 1px solid rgba(64, 208, 191, 0.5);
             border-width: 1px 0 1px 0;
