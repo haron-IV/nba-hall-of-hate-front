@@ -209,34 +209,36 @@ export default {
     }
 
     .list-group-item {
-        font-family: Helvetica;
-        justify-content: center;
-        border-radius: 2px;
-        cursor: pointer;
-        transition: all ease-in-out 450ms;
-
-        &--selected {
-           @include selectedListItem();
-        }
-
-        &:hover {
-            @include selectedListItem();
-        }
-        .list-group-item-heading {
+        &--player-searcher {
+            font-family: Helvetica;
+            justify-content: center;
+            border-radius: 2px;
+            cursor: pointer;
             transition: all ease-in-out 450ms;
-        }
 
-        .item-info{
-            flex-direction: row;
-
-            .information {
-                width: 180px;
+            &--selected {
+            @include selectedListItem();
             }
 
-            .img {
+            &:hover {
+                @include selectedListItem();
+            }
+            .list-group-item-heading {
                 transition: all ease-in-out 450ms;
-                max-width: 65px;
-                height: auto;
+            }
+
+            .item-info{
+                flex-direction: row;
+
+                .information {
+                    width: 180px;
+                }
+
+                .img {
+                    transition: all ease-in-out 450ms;
+                    max-width: 65px;
+                    height: auto;
+                }
             }
         }
     }
