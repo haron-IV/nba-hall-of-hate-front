@@ -4,6 +4,7 @@ import Vuex from "vuex";
 import { playerComments, clearSelectedPlayer } from '@/store/player';
 import { playerSearcher, showSearcherList, hideSearcherList } from '@/store/playerSearcher';
 import { commentBox, showPlayerCommentBox } from '@/store/commentBox';
+import { errors, showError, hideError } from "@/store/errors";
 
 Vue.use(Vuex);
 
@@ -20,7 +21,8 @@ export default new Vuex.Store({
       commentBox,
       playerComments
     },
-    playerSearcher
+    playerSearcher,
+    errors
   },
   mutations: {
     showPlayerCardFullView(state) {
@@ -35,7 +37,10 @@ export default new Vuex.Store({
     showPlayerCommentBox: (state, which) => showPlayerCommentBox(state, which),
 
     showSearcherList: state => showSearcherList(state),
-    hideSearcherList: state => hideSearcherList(state)
+    hideSearcherList: state => hideSearcherList(state),
+
+    showError: state => showError(state),
+    hideError: state => hideError(state)
   },
 
   getters: {},

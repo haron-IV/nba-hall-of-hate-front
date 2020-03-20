@@ -9,7 +9,6 @@
 
 <script>
 /* eslint-disable */
-
 import Navbar from '@/components/navbar/Navbar';
 
 export default {
