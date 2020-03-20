@@ -5,7 +5,6 @@
         type="text"
         placeholder="Search player by last name"
         aria-label="Search"
-        v-on:keyup.enter.prevent="searchPlayers()"
         v-on:keyup="navigateListWithArrows($event)"
         @click="selectSearchText($event)"
         @focus="$store.commit('showSearcherList')"
@@ -50,7 +49,8 @@ export default {
         showLoader: false,
         arrowsList: {
             counter: -1,
-            actualElement: null
+            actualElement: null,
+            openFromKeyboard: false
         }
     }
   },
@@ -90,7 +90,7 @@ export default {
         return [...new Map(players.map(item => [item['dateOfBirth'], item])).values()];
     },
 
-    showSearchList() {
+    showSearchList() {        
         this.$store.commit("showSearcherList");
     },
 
@@ -113,6 +113,8 @@ export default {
 
         switch(event.key) {
             case "ArrowDown": {
+                this.showSearchList();
+                
                 if(this.arrowsList.counter < this.response.length - 1){
                     this.arrowsList.counter++;
                 } else {
@@ -130,8 +132,9 @@ export default {
             };
             case "Enter": {
                 this.showPlayerCard(this.response[vm.arrowsList.counter]);
-                this.closeSearchList();
                 this.arrowsList.counter = -1;
+                this.arrowsList.openFromKeyboard = true;
+                this.closeSearchList();
                 break;
             };
         }
