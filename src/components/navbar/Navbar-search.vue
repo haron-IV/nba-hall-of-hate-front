@@ -177,6 +177,20 @@ export default {
 </script>
 
 <style lang="scss">
+@mixin selectedListItem(){
+    transition: all ease 200ms;
+    background-color: darken(rgba(64, 208, 191, 0.08), 50%);
+    border: 1px solid rgba(64, 208, 191, 0.5);
+    border-width: 1px 0 1px 0;
+    box-shadow: -1px 3px 6px -2px rgba(0,0,0,0.75);
+    .list-group-item-heading {
+        text-shadow: 1px 1px 3px rgba(#000, .65);
+    }
+    .img {
+        transform: scale(1.1);
+    }
+}
+
 .list-group {
     &--search{
         padding-bottom: 0;
@@ -199,21 +213,11 @@ export default {
         transition: all ease-in-out 450ms;
 
         &--selected {
-            transition: all ease 200ms;
-            background-color: darken(rgba(64, 208, 191, 0.08), 50%);
-            border: 1px solid rgba(64, 208, 191, 0.5);
-            border-width: 1px 0 1px 0;
-            box-shadow: -1px 3px 6px -2px rgba(0,0,0,0.75);
+           @include selectedListItem();
         }
 
         &:hover {
-            background: lighten(rgba(gray, .50), 40%);
-            .list-group-item-heading {
-                text-shadow: 1px 1px 3px rgba(#000, .65);
-            }
-            .img {
-                transform: scale(1.1);
-            }
+            @include selectedListItem();
         }
         .list-group-item-heading {
             transition: all ease-in-out 450ms;
