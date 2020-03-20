@@ -83,11 +83,11 @@ export default {
     }, 1000),
 
     playerImg(name, lastName) {
-        return getPlayerImg(name, lastName)
+        return getPlayerImg(name, lastName);
     },
 
     removeDoubledPlayers(players) {
-        return [...new Map(players.map(item => [item['dateOfBirth'], item])).values()]
+        return [...new Map(players.map(item => [item['dateOfBirth'], item])).values()];
     },
 
     showSearchList() {
@@ -221,6 +221,10 @@ export default {
 
         .item-info{
             flex-direction: row;
+
+            .information {
+                width: 180px;
+            }
 
             .img {
                 transition: all ease-in-out 450ms;
