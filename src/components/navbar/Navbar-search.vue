@@ -5,6 +5,7 @@
         placeholder="Search player by last name"
         aria-label="Search"
         v-on:keyup.enter.prevent="searchPlayers()"
+        @click="selectSearchText($event)"
         @focus="$store.commit('showSearcherList')"
         v-model="searchingContent">
 
@@ -92,13 +93,16 @@ export default {
         this.$store.commit("showPlayerCardFullView");
         this.$store.commit('clearSelectedPlayer');
         this.$store.commit("setSelectedPlayer", player);
+    },
+
+    selectSearchText(event) {
+        event.target.select();
     }
   }
 }
 </script>
 
 <style lang="scss">
-
 .list-group {
     &--search{
         min-width: 233px;
