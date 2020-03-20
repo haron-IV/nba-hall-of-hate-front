@@ -1,6 +1,7 @@
 <template>
     <div class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2 width-15rem"
+        id="player-searcher"
         type="text"
         placeholder="Search player by last name"
         aria-label="Search"

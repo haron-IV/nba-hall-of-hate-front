@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" @click="hidePlayerSearcher($event)">
     <main class="container-fluid">
       <Navbar />
       <router-view />
@@ -15,6 +15,13 @@ import Navbar from '@/components/navbar/Navbar';
 export default {
   components: {
     Navbar
+  },
+  methods: {
+    hidePlayerSearcher(event) {
+      if (event.target.id !== "player-searcher") {
+        this.$store.commit('hideSearcherList')
+      }
+    }
   }
 }
 </script>
