@@ -6,6 +6,7 @@
         placeholder="Search player by last name"
         aria-label="Search"
         v-on:keyup.enter.prevent="searchPlayers()"
+        v-on:keyup="navigateListWithArrows($event)"
         @click="selectSearchText($event)"
         @focus="$store.commit('showSearcherList')"
         v-model="searchingContent">
@@ -15,7 +16,10 @@
         <ul class="list-group list-group--search" v-if="$store.state.playerSearcher.searcherList">
             <Loader :visible="showLoader" />
 
-            <a class="list-group-item" v-for="player in response" :key="player.playerId" @click="showPlayerCard(player), closeSearchList()">
+            <a class="list-group-item" v-for="player in response" 
+            :key="player.playerId" 
+            @click="showPlayerCard(player), closeSearchList()"
+            :id="'searcher-list-el__' + player.playerId">
                 <div class="bmd-list-group-col item-info">
                     <img :src="playerImg(player.firstName, player.lastName)" class="img" v-show="playerImg(player.firstName, player.lastName)">
                     <div class="information">
@@ -43,7 +47,11 @@ export default {
         searchingContent: null,
         searcherList: false,
         response: null,
-        showLoader: false
+        showLoader: false,
+        arrowsList: {
+            counter: -1,
+            actualElement: null
+        }
     }
   },
   watch: {
@@ -98,6 +106,36 @@ export default {
 
     selectSearchText(event) {
         event.target.select();
+    },
+
+    navigateListWithArrows(event) {
+        const vm = this;
+
+        switch(event.key) {
+            case "ArrowDown": {
+                this.arrowsList.counter++;
+                break;
+            };
+            case "ArrowUp": {
+                this.arrowsList.counter--;
+                break;
+            };
+            case "Enter": {
+                this.showPlayerCard(this.response[vm.arrowsList.counter]);
+                this.closeSearchList();
+                this.arrowsList.counter = -1;
+                break;
+            };
+        }
+
+        if (this.arrowsList.counter > -1) {
+            this.arrowsList.actualElement = this.response[vm.arrowsList.counter];
+        }
+        
+        this.addHiglihtFromListElement(vm.arrowsList.actualElement.playerId);
+    },
+    addHiglihtFromListElement(playerId){
+        document.querySelector(`#searcher-list-el__${playerId}`).style.backgroundColor = "red";
     }
   }
 }
