@@ -16,7 +16,7 @@
         <ul class="list-group list-group--search" v-if="$store.state.playerSearcher.searcherList">
             <Loader :visible="showLoader" />
 
-            <a class="list-group-item" v-for="player in response" 
+            <a class="list-group-item list-group-item--player-searcher" v-for="player in response" 
             :key="player.playerId" 
             @click="showPlayerCard(player), closeSearchList()"
             :id="'searcher-list-el__' + player.playerId">
@@ -132,10 +132,20 @@ export default {
             this.arrowsList.actualElement = this.response[vm.arrowsList.counter];
         }
         
+        this.removeHiglihtFromListElements();
         this.addHiglihtFromListElement(vm.arrowsList.actualElement.playerId);
     },
+
     addHiglihtFromListElement(playerId){
-        document.querySelector(`#searcher-list-el__${playerId}`).style.backgroundColor = "red";
+        document.querySelector(`#searcher-list-el__${playerId}`).classList.add("list-group-item--selected");
+    },
+
+    removeHiglihtFromListElements(){
+        const list = [... document.querySelectorAll(".list-group-item--player-searcher")];
+        
+        for (const element of list) {
+            element.classList.remove("list-group-item--selected");
+        }
     }
   }
 }
@@ -144,6 +154,7 @@ export default {
 <style lang="scss">
 .list-group {
     &--search{
+        background-color:rgba(64, 208, 191, 0.02);
         min-width: 233px;
         position: absolute;
         top: 3rem;
@@ -157,6 +168,14 @@ export default {
         border-radius: 2px;
         cursor: pointer;
         transition: all ease-in-out 450ms;
+
+        &--selected {
+            transition: all ease 100ms;
+            background-color: darken(rgba(64, 208, 191, 0.08), 50%);
+            border: 1px solid rgba(64, 208, 191, 0.5);
+            border-width: 1px 0 1px 0;
+            box-shadow: -1px 3px 6px -2px rgba(0,0,0,0.75);
+        }
 
         &:hover {
             background: lighten(rgba(gray, .50), 40%);
