@@ -2,6 +2,7 @@
   <div id="app" @click="hidePlayerSearcher($event)">
     <main class="container-fluid">
       <Navbar />
+      <Error-modal />
       <router-view />
     </main>
   </div>
@@ -10,10 +11,12 @@
 <script>
 /* eslint-disable */
 import Navbar from '@/components/navbar/Navbar';
+import ErrorModal from "@/components/modals/ErrorModal";
 
 export default {
   components: {
-    Navbar
+    Navbar,
+    "Error-modal": ErrorModal
   },
   methods: {
     hidePlayerSearcher(event) {

@@ -1,6 +1,6 @@
 <template>
  <div class="alert alert-danger" role="alert" v-if="$store.state.errors.error.isVisible">
-    This is a danger alert—check it out!
+    {{$store.state.errors.error.content}}
 </div>
 </template>
  
@@ -14,8 +14,16 @@
     computed: {},
     watch: {},
     mounted() {},
-    created() {},
-    methods: {}
+    created() {
+        this.autoRemoveError();
+    },
+    methods: {
+        autoRemoveError() {
+            setTimeout(() => {
+                this.$store.commit("hideError")    
+            }, 1000 * 15);
+        }
+    }
 }
 </script>
 

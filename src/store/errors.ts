@@ -1,11 +1,14 @@
 const errors = {
     error: {
-        isVisible: false
+        isVisible: false,
+        content: null,
+        status: null
     }
 };
 
-const showError = (state: any) => {
+const showError = (state: any, message: String) => {
     state.errors.error.isVisible = true;
+    state.errors.error.content = message;
 };
 
 const hideError = (state: any) => {

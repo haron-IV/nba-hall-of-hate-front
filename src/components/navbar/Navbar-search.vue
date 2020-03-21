@@ -75,7 +75,9 @@ export default {
                     this.response = this.removeDoubledPlayers(res.data.api.players);
                     this.showLoader = false;
                 }
-            }).catch((err) => {});
+            }).catch((err) => {
+                // this.$store.commit('showError', err);
+            });
         } else if (this.searchingContent == ""){
             this.showLoader = false;
         }

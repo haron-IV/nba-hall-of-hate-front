@@ -153,7 +153,7 @@ export default {
             respectCount: 0,
             followCount: 0
         }, axiosHeaders() ).then( res => {}, err => {
-            console.error(err);
+            this.$store.commit('showError', "You cannot add this card. Plaeyer exist.");
         });
     },
     async getPlayer() {

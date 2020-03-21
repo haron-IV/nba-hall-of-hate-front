@@ -39,7 +39,7 @@ export default new Vuex.Store({
     showSearcherList: state => showSearcherList(state),
     hideSearcherList: state => hideSearcherList(state),
 
-    showError: state => showError(state),
+    showError: (state, data) => showError(state, data),
     hideError: state => hideError(state)
   },
 
