@@ -32,12 +32,7 @@
                     </p>
                     <li class="list-group-item list-group-item--statistics d-flex justify-content-between align-items-center">
                         <header class="header">Hate:</header>
-                        <div class="content">
-                            <button class="btn btn-add btn-add--hate">
-                                <Icon name="add" />
-                            </button>
-                            <span class="number">{{hateCount}}</span>
-                        </div>
+                        <Add-statistics-button :hateCount="hateCount"/>
                     </li>
                     <li class="list-group-item list-group-item--statistics d-flex justify-content-between align-items-center">
                         <b>Respect:</b> {{respectCount}}
@@ -89,6 +84,7 @@ import { getPlayerImg } from '@/components/utility/player.js';
 import PlayerCardCollapse from '@/components/player/PlayerCardCollapse';
 import PlayerButtonCommentToggle from '@/components/player/PlayerButtonCommentToggle';
 import AddCommentModal from '@/components/utility/AddCommentModal';
+import AddStatisticsButton from "@/components/player/AddStatisticsButton";
 
 
 export default {
@@ -97,7 +93,8 @@ export default {
     'Player-card-collapse': PlayerCardCollapse,
     Icon,
     'Player-button-comment-toggle': PlayerButtonCommentToggle,
-    'Add-comment-modal': AddCommentModal
+    'Add-comment-modal': AddCommentModal,
+    'Add-statistics-button': AddStatisticsButton
   },
   data() {
     return {
