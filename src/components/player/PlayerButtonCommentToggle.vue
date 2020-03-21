@@ -91,7 +91,7 @@ export default {
 
         .title {
             transition: opacity ease-in-out 800ms;
-            margin: $margin-vertical-small;
+            margin: $margin-horizontal-small;
             background-color: rgba(0, 0, 0, .1);
             padding: .3rem .5rem;
         }
