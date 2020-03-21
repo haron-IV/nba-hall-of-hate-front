@@ -152,9 +152,7 @@ export default {
             hateCount: 0,
             respectCount: 0,
             followCount: 0
-        }, axiosHeaders() ).then( res => {}, err => {
-            this.$store.commit('showError', "You cannot add this card. Plaeyer exist.");
-        });
+        }, axiosHeaders() ).then( res => {}, err => {});
     },
     async getPlayer() {
         const id = this.$store.state.player.selectedPlayer.playerId;

@@ -75,9 +75,7 @@ export default {
                     this.response = this.removeDoubledPlayers(res.data.api.players);
                     this.showLoader = false;
                 }
-            }).catch((err) => {
-                // this.$store.commit('showError', err);
-            });
+            }).catch((err) => {});
         } else if (this.searchingContent == ""){
             this.showLoader = false;
         }
@@ -142,12 +140,12 @@ export default {
         }
 
         if (this.arrowsList.counter >= -1 ) {
-            this.arrowsList.actualElement = this.response[vm.arrowsList.counter];
+            if (vm.arrowsList.counter >= 0 ) this.arrowsList.actualElement = this.response[vm.arrowsList.counter];
             this.scrollToSelectedElement()
         }
         
         this.removeHiglihtFromListElements();
-        this.addHiglihtFromListElement(vm.arrowsList.actualElement.playerId);
+        if (vm.arrowsList.counter >= 0 ) this.addHiglihtFromListElement(vm.arrowsList.actualElement.playerId);
     },
 
     addHiglihtFromListElement(playerId){
