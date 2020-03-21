@@ -30,19 +30,25 @@
                     <p>
                         Hate Statistics:
                     </p>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <b>Hate:</b> {{hateCount}}
+                    <li class="list-group-item list-group-item--statistics d-flex justify-content-between align-items-center">
+                        <header class="header">Hate:</header>
+                        <div class="content">
+                            <button class="btn btn-add btn-add--hate">
+                                <Icon name="add" />
+                            </button>
+                            <span class="number">{{hateCount}}</span>
+                        </div>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <li class="list-group-item list-group-item--statistics d-flex justify-content-between align-items-center">
                         <b>Respect:</b> {{respectCount}}
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <li class="list-group-item list-group-item--statistics d-flex justify-content-between align-items-center">
                         <b>Followers:</b> {{followCount}}
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <li class="list-group-item list-group-item--statistics d-flex justify-content-between align-items-center">
                         <b>Hate points:</b> [in future]
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <li class="list-group-item list-group-item--statistics d-flex justify-content-between align-items-center">
                         <b>Hate lvl:</b> [in future]
                     </li>
                 </ul>
@@ -200,6 +206,30 @@ export default {
     .collapse-box {
         .card {
             flex-direction: column-reverse;
+        }
+    }
+    .list-group {
+        .list-group-item {
+            &--statistics {
+                .header {
+                    font-weight: 900;
+                }
+                .content {
+                    display: flex;
+                    align-items: center;
+
+                    .btn-add {
+                        img {
+                            padding: 0;
+                            margin: 0;
+                        }
+
+                        &--hate{
+                            padding: .3rem .5rem;
+                        }       
+                    }
+                }
+            }
         }
     }
     .card-text {
