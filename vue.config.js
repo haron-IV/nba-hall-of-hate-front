@@ -1,29 +1,27 @@
+const path = require("path");
+
 module.exports = {
-    css: {
-      loaderOptions: {
-        // pass options to sass-loader
-        // @/ is an alias to src/
-        // so this assumes you have a file named `src/variables.sass`
-        // Note: this option is named as "data" in sass-loader v7
-        sass: {
-          prependData: `@import "~@/variables.sass"`
-        },
-        // by default the `sass` option will apply to both syntaxes
-        // because `scss` syntax is also processed by sass-loader underlyingly
-        // but when configuring the `data` option
-        // `scss` syntax requires an semicolon at the end of a statement, while `sass` syntax requires none
-        // in that case, we can target the `scss` syntax separately using the `scss` option
-        scss: {
-          prependData: `@import "~@/assets/styles/variables.scss";`
-        },
-        // pass Less.js Options to less-loader
-        less:{
-          // http://lesscss.org/usage/#less-options-strict-units `Global Variables`
-          // `primary` is global variables fields name
-          globalVars: {
-            primary: '#fff'
-          }
-        }
-      }
-    }
+  chainWebpack: config => {
+    const types = ["vue-modules", "vue", "normal-modules", "normal"];
+    types.forEach(type =>
+      addStyleResource(config.module.rule("scss").oneOf(type))
+    );
   }
+};
+
+function addStyleResource(rule) {
+  rule
+    .use("style-resource")
+    .loader("style-resources-loader")
+    .options({
+      patterns: [
+        // path.resolve(__dirname, "./src/styles/settings/*.scss"),
+        // path.resolve(__dirname, "./src/styles/functions/*.scss"),
+        // path.resolve(__dirname, "./src/styles/mixins/*.scss"),
+        // path.resolve(__dirname, "./src/styles/variables/*.scss")
+
+
+        path.resolve(__dirname, "./src/assets/styles/main.scss")
+      ]
+    });
+}
