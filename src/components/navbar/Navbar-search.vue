@@ -183,7 +183,7 @@ export default {
 @mixin selectedListItem(){
     transition: all ease 200ms;
     background-color: darken($selected-list-gray, 50%);
-    border: 1px solid rgba(64, 208, 191, 0.5);
+    border: 1px solid $selected-list-border-gray;
     border-width: 1px 0 1px 0;
     box-shadow: -1px 3px 6px -2px $box-shadow-light;
     .list-group-item-heading {
@@ -199,7 +199,7 @@ export default {
         padding-bottom: 0;
         max-height: 80vh;
         overflow: scroll;
-        background-color:rgba(64, 208, 191, 0.02);
+        background-color: $search-list-light-green;
         min-width: 233px;
         position: absolute;
         top: 3rem;
@@ -212,7 +212,7 @@ export default {
         &--selected {
             @include selectedListItem();
         }
-        
+
         &--player-searcher {
             font-family: Helvetica;
             justify-content: center;

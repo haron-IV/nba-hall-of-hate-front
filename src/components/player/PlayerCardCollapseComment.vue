@@ -67,8 +67,8 @@ export default {
 <style lang="scss" scoped>
 .comment {
     margin-bottom: .5rem;
-    border-bottom: 1px solid rgba(0, 0, 0, .2);
-    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.30);
+    border-bottom: 1px solid $light-border-black;
+    box-shadow: 0px 3px 5px 0px $box-shadow-super-light;
 
     &:first-child {
         margin-bottom: 0;
@@ -82,7 +82,7 @@ export default {
             flex-direction: column;
             justify-content: center;
 
-            border: 1px solid rgba(#000, .1);
+            border: 1px solid $light-border-black;
             border-width: 0 1px 0 0;
             padding-right: 1rem;
         }
@@ -108,7 +108,7 @@ export default {
 
             .like-section {
                 display: flex;
-                justify-content: center;;
+                justify-content: center;
 
                 .btn {
                     display: flex;
@@ -122,7 +122,7 @@ export default {
                     
                     .count {
                         margin-top: .3rem;
-                        color: rgba(0, 0, 0, .5);
+                        color: $half-black;
                         width: -webkit-fill-available;
                     }
                 }
