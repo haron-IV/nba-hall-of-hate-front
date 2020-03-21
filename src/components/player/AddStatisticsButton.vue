@@ -1,9 +1,9 @@
 <template>
 <div class="content">
-    <button class="btn btn-add btn-add--hate">
+    <button class="btn btn-add btn-add--hate" v-if="!disabledButton">
         <Icon name="add" />
     </button>
-    <span class="number">{{hateCount}}</span>
+    <span class="number" :style="{margin: disabledButtonMargin}">{{count}}</span>
 </div> 
 </template>
  
@@ -13,13 +13,16 @@ import Icon from "@/components/utility/Icon";
 export default {
 name: '',
 data() {
-    return {}
+    return {
+        disabledButtonMargin: 0
+    }
 },
 components: {
     Icon
 },
 props: {
-    hateCount: { type: Number }
+    count: { type: Number },
+    disabledButton: { type: Boolean, default: false }
 },
 computed: {},
 watch: {},

@@ -32,13 +32,15 @@
                     </p>
                     <li class="list-group-item list-group-item--statistics d-flex justify-content-between align-items-center">
                         <header class="header">Hate:</header>
-                        <Add-statistics-button :hateCount="hateCount"/>
+                        <Add-statistics-button :count="hateCount"/>
                     </li>
                     <li class="list-group-item list-group-item--statistics d-flex justify-content-between align-items-center">
-                        <b>Respect:</b> {{respectCount}}
+                        <header class="header">Respect:</header> 
+                        <Add-statistics-button :count="respectCount" />
                     </li>
                     <li class="list-group-item list-group-item--statistics d-flex justify-content-between align-items-center">
-                        <b>Followers:</b> {{followCount}}
+                        <header class="header">Followers:</header> 
+                        <Add-statistics-button :count="followCount" :disabledButton="true"/>
                     </li>
                     <li class="list-group-item list-group-item--statistics d-flex justify-content-between align-items-center">
                         <b>Hate points:</b> [in future]
