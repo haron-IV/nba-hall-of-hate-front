@@ -182,12 +182,12 @@ export default {
 <style lang="scss">
 @mixin selectedListItem(){
     transition: all ease 200ms;
-    background-color: darken(rgba(64, 208, 191, 0.08), 50%);
+    background-color: darken($selected-list-gray, 50%);
     border: 1px solid rgba(64, 208, 191, 0.5);
     border-width: 1px 0 1px 0;
-    box-shadow: -1px 3px 6px -2px rgba(0,0,0,0.75);
+    box-shadow: -1px 3px 6px -2px $box-shadow-light;
     .list-group-item-heading {
-        text-shadow: 1px 1px 3px rgba(#000, .65);
+        text-shadow: 1px 1px 3px $box-shadow-light;
     }
     .img {
         transform: scale(1.1);
@@ -203,12 +203,16 @@ export default {
         min-width: 233px;
         position: absolute;
         top: 3rem;
-        border: 1px solid gray;
+        border: 1px solid $gray;
         border-width: 0px 0px 1px;
         transition: none;
     }
 
     .list-group-item {
+        &--selected {
+            @include selectedListItem();
+        }
+        
         &--player-searcher {
             font-family: Helvetica;
             justify-content: center;
@@ -216,9 +220,7 @@ export default {
             cursor: pointer;
             transition: all ease-in-out 450ms;
 
-            &--selected {
-            @include selectedListItem();
-            }
+            
 
             &:hover {
                 @include selectedListItem();
