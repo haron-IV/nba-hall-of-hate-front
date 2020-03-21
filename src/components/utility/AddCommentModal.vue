@@ -27,8 +27,8 @@
         </div>
 
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-add-comment">
-                <span class="btn-add-comment__text" @click="addComment()">Add comment</span>
+            <button type="button" class="btn btn-primary btn-add-comment" @click="addComment()">
+                <span class="btn-add-comment__text">Add comment</span>
                 <Icon :name="$store.state.player.commentBox.commentType" v-if="$store.state.player.commentBox.commentType" width="30" height="30" />
             </button>
         </div>
