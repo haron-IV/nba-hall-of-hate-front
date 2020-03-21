@@ -61,4 +61,9 @@ methods: {
 </script>
 
 <style lang='scss'>
+.content {
+    .number {
+        min-width: 50px;
+    }
+}
 </style>

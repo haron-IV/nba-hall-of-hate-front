@@ -214,6 +214,13 @@ export default {
     .list-group {
         .list-group-item {
             &--statistics {
+                &:hover {
+                    .content {
+                        .btn-add {
+                            opacity: 1;
+                        }
+                    }
+                }
                 .header {
                     font-weight: 900;
                 }
@@ -222,6 +229,9 @@ export default {
                     align-items: center;
 
                     .btn-add {
+                        transition: opacity ease-in-out 400ms;
+                        opacity: 1;
+
                         img {
                             padding: 0;
                             margin: 0;
