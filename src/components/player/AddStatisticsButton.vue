@@ -11,6 +11,7 @@
  
 <script>
 import Axios from "axios";
+import debounce from "lodash/debounce";
 import { axiosHeaders, host_origin } from '@/components/utility/config';
 
 import Icon from "@/components/utility/Icon";
@@ -35,7 +36,7 @@ watch: {},
 mounted() {},
 created() {},
 methods: {
-    addPoint(type) {
+    addPoint: debounce(async function(type) {
         switch(type) {
             case "Hate": {
                 Axios.put( `${host_origin()}/api/player/addHate`, {
@@ -45,7 +46,7 @@ methods: {
                 }, err => {});
                 break;
             };
-
+            
             case "Respect": {
                 Axios.put( `${host_origin()}/api/player/addRespect`, {
                     playerId: this.$store.state.player.selectedPlayer.playerId
@@ -53,11 +54,12 @@ methods: {
                     this.count = res.data.respectCount;
                 }, err => {});
                 break;
-            };
-        }
-    }
+            }
+        };
+    }, 1000)
 }
 }
+
 </script>
 
 <style lang='scss'>
