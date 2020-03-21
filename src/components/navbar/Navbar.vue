@@ -48,6 +48,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/styles/variables';
+
     .navbar {
         justify-content: space-between;
 
