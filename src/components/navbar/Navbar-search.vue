@@ -197,10 +197,10 @@ export default {
 .list-group {
     &--search{
         padding-bottom: 0;
-        max-height: 80vh;
+        max-height: $list-group-height;
         overflow: scroll;
         background-color: $search-list-light-green;
-        min-width: 233px;
+        min-width: $list-group-item-min-width;
         position: absolute;
         top: 3rem;
         border: 1px solid $gray;
@@ -216,7 +216,7 @@ export default {
         &--player-searcher {
             font-family: Helvetica;
             justify-content: center;
-            border-radius: 2px;
+            border-radius: $border-radius-small;
             cursor: pointer;
             transition: all ease-in-out 450ms;
 
@@ -238,7 +238,7 @@ export default {
 
                 .img {
                     transition: all ease-in-out 450ms;
-                    max-width: 65px;
+                    max-width: $list-group-image-width;
                     height: auto;
                 }
             }

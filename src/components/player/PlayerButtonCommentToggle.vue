@@ -70,7 +70,7 @@ export default {
 .comment-toggle-button {
     display: flex;
     justify-content: center;
-    margin: 1rem 0;
+    margin: $margin-vertical-small;
 
     &:hover{
         background-color: transparent !important;
@@ -86,12 +86,12 @@ export default {
         .visibleButton {
             visibility: inherit;
             opacity: 1;
-            background-color: #fff !important;
+            background-color: $white !important;
         }
 
         .title {
             transition: opacity ease-in-out 800ms;
-            margin: 0 .7rem;
+            margin: $margin-vertical-small;
             background-color: rgba(0, 0, 0, .1);
             padding: .3rem .5rem;
         }

@@ -100,18 +100,18 @@ export default {
 <style lang="scss">
 .add-comment-modal {
     position: fixed;
-    min-width: 100%;
+    min-width: $full-width;
     justify-self: center;
     align-self: center;
 
     .btn-change-comment-type {
         text-transform: lowercase;
         font-family: Arial, sans-serif;
-        font-size: 1.15rem;
+        font-size: $regular-font-size;
         font-weight: 400;
         opacity: .85;
         margin-top: 1px;
-        padding: 0 .5rem;
+        padding: $margin-horizontal-small;
     }
 
     .btn-add-comment {

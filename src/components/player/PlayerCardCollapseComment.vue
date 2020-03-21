@@ -66,7 +66,7 @@ export default {
 
 <style lang="scss" scoped>
 .comment {
-    margin-bottom: .5rem;
+    margin-bottom: $margin-bottom-small;
     border-bottom: 1px solid $light-border-black;
     box-shadow: 0px 3px 5px 0px $box-shadow-super-light;
 
@@ -84,7 +84,7 @@ export default {
 
             border: 1px solid $light-border-black;
             border-width: 0 1px 0 0;
-            padding-right: 1rem;
+            padding-right: $padding-right-small;
         }
         .comment-date {
             width: max-content;
