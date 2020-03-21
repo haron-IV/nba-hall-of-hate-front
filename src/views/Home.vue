@@ -11,7 +11,6 @@ import PlayerCardFull from '@/components/player/PlayerCardFull';
 export default {
   name: "Home",
   components: {
-    'Player-card': PlayerCard,
     'Player-card-full': PlayerCardFull
   }
 };
