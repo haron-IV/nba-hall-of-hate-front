@@ -30,7 +30,7 @@ export default new Vuex.Store({
     },
 
     setSelectedPlayer(state, player) {
-      state.player.selectedPlayer = player; 
+      state.player.selectedPlayer = player;
     },
 
     clearSelectedPlayer: state => clearSelectedPlayer(state),
