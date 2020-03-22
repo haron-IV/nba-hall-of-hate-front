@@ -12,7 +12,7 @@
                     <a class="nav-link disabled" title="This feature will be added soon :)" href="#">Follow</a>
                 </li>
             </ul>
-            <button class="btn btn--close">
+            <button class="btn btn--close" @click="closePlayerCard()">
                 <Icon name="add" style="transform: rotate(45deg)"/>
             </button>
         </div>
@@ -212,6 +212,10 @@ export default {
         await this.getPlayer();
         await this.getPlayerHateComments();
         await this.getPlayerRespectComments();
+    },
+
+    closePlayerCard() {
+        this.$store.state.player.playerCardFullView = false;
     }
   }
 };
