@@ -27,7 +27,7 @@
         </div>
 
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-add-comment" @click="addComment()">
+            <button type="button" class="btn btn-primary btn-add-comment" @click="addComment(), getCommentsCount()">
                 <span class="btn-add-comment__text">Add comment</span>
                 <Icon :name="$store.state.player.commentBox.commentType" v-if="$store.state.player.commentBox.commentType" width="30" height="30" />
             </button>
@@ -42,6 +42,7 @@ import Axios from 'axios';
 
 import { axiosHeaders, host_origin } from '@/components/utility/config';
 import Icon from "@/components/utility/Icon";
+import { getCommentsCount } from "@/components/utility/comment.js";
 
 export default {
   name: "Add-comment-modal",
@@ -83,7 +84,6 @@ export default {
     },
 
     toggleCommentType(commentType) {
-        
         switch(commentType) {
             case 'hate':
                 this.$store.state.player.commentBox.commentType = "respect";
@@ -92,6 +92,11 @@ export default {
                 this.$store.state.player.commentBox.commentType = "hate";
                 break;
         }
+    },
+
+    getCommentsCount(){
+        // TODO: fix this. counting load after seond click
+        getCommentsCount(this.$store.state.player.selectedPlayer.playerId, this);
     }
   }
 };

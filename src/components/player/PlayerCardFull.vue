@@ -65,7 +65,7 @@
                     spacer="mr-2"
                     title="Hate"
                     :comments="$store.state.player.playerComments.hate"
-                    :commentsCount="playerFeedBox.commentsCountHate"
+                    :commentsCount="$store.state.player.playerComments.count.hate"
                 />
                 
                 <Player-card-collapse
@@ -73,7 +73,7 @@
                     spacer="ml-2"
                     title="Respect"
                     :comments="$store.state.player.playerComments.respect"
-                    :commentsCount="playerFeedBox.commentsCountRespect"
+                    :commentsCount="$store.state.player.playerComments.count.respect"
                 />
             </div>
         </div>
@@ -88,6 +88,7 @@ import Axios from 'axios';
 import Icon from '@/components/utility/Icon';
 import { axiosHeaders, host_origin } from '@/components/utility/config';
 import { getPlayerImg } from '@/components/utility/player.js';
+import { getCommentsCount } from "@/components/utility/comment.js"
 
 import PlayerCardCollapse from '@/components/player/PlayerCardCollapse';
 import PlayerButtonCommentToggle from '@/components/player/PlayerButtonCommentToggle';
@@ -110,9 +111,7 @@ export default {
             hate: false,
             respect: false,
             hateComments: null,
-            respectComments: null,
-            commentsCountHate: 0,
-            commentsCountRespect: 0
+            respectComments: null
         },
         hateCount: null,
         respectCount: null,
@@ -202,16 +201,7 @@ export default {
     async getCommentsCount() {
         const id = this.$store.state.player.selectedPlayer.playerId;
         
-        await Axios.get(`${host_origin()}/api/player-comments/${id}/count`, axiosHeaders() ).then( 
-            res => {
-                this.playerFeedBox.commentsCountHate = res.data.hateCount;
-                this.playerFeedBox.commentsCountRespect = res.data.respectCount;
-                console.log(this.playerFeedBox.commentsCountRespect);
-            },
-            err => {
-                console.error(err);
-            }
-        );
+        getCommentsCount(id, this);
     },
     async requestPack() {
         // all request needed for update player components

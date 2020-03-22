@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { playerComments, clearSelectedPlayer } from '@/store/player';
+import { playerComments, clearSelectedPlayer, setPlayerCommentsHateCount, setPlayerCommentsRespectCount } from '@/store/player';
 import { playerSearcher, showSearcherList, hideSearcherList } from '@/store/playerSearcher';
 import { commentBox, showPlayerCommentBox } from '@/store/commentBox';
 import { errors, showError, hideError } from "@/store/errors";
@@ -35,6 +35,8 @@ export default new Vuex.Store({
 
     clearSelectedPlayer: state => clearSelectedPlayer(state),
     showPlayerCommentBox: (state, which) => showPlayerCommentBox(state, which),
+    setPlayerCommentsHateCount: (state, count) => setPlayerCommentsHateCount(state, count),
+    setPlayerCommentsRespectCount: (state, count) => setPlayerCommentsRespectCount(state, count),
 
     showSearcherList: state => showSearcherList(state),
     hideSearcherList: state => hideSearcherList(state),
