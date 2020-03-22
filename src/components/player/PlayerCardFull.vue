@@ -32,7 +32,7 @@
                     </p>
                     <li class="list-group-item list-group-item--statistics d-flex justify-content-between align-items-center">
                         <header class="header">Hate:</header>
-                        <Add-statistics-button 
+                        <Add-statistics-button class="btn--add" 
                         :count="hateCount"
                         type="Hate"/>
                     </li>
@@ -240,7 +240,7 @@ export default {
 
                     .btn-add {
                         transition: opacity ease-in-out 400ms;
-                        opacity: 1;
+                        opacity: 0;
 
                         img {
                             padding: 0;
