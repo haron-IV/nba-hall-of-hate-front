@@ -13,7 +13,7 @@
       />
     </div>
     
-    <button type="button" class="btn btn-outline-success btn--load-more" >
+    <button type="button" class="btn btn-outline-success btn--load-more" @click="loadMorePlayers()">
       <Icon name="down-arrow" width="12" height="12" class="icon" style="margin: 0 5px;"/>
       <span>Load more</span>
       <Icon name="down-arrow" width="12" height="12" class="icon" style="margin: 0 5px;"/>
@@ -62,6 +62,11 @@ export default {
 
     imgSrc(name, surname) {
       return getPlayerImg(name, surname)
+    },
+
+    async loadMorePlayers() {
+      this.playersCount = this.playersCount + (this.playersCount / 2);
+      await this.getPlayers();
     }
   }
 };
