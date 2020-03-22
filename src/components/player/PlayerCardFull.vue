@@ -65,6 +65,7 @@
                     spacer="mr-2"
                     title="Hate"
                     :comments="$store.state.player.playerComments.hate"
+                    :commentsCount="playerFeedBox.commentsCountHate"
                 />
                 
                 <Player-card-collapse
@@ -72,6 +73,7 @@
                     spacer="ml-2"
                     title="Respect"
                     :comments="$store.state.player.playerComments.respect"
+                    :commentsCount="playerFeedBox.commentsCountRespect"
                 />
             </div>
         </div>
@@ -108,7 +110,9 @@ export default {
             hate: false,
             respect: false,
             hateComments: null,
-            respectComments: null
+            respectComments: null,
+            commentsCountHate: 0,
+            commentsCountRespect: 0
         },
         hateCount: null,
         respectCount: null,
@@ -125,6 +129,7 @@ export default {
   
   async created(){
     await this.requestPack();
+    await this.getCommentsCount();
   },
   
   computed: {
@@ -192,6 +197,21 @@ export default {
         await Axios.get(`${host_origin()}/api/player-comments/respect/${this.$store.state.player.selectedPlayer.playerId}`, axiosHeaders() ).then( res => {
             this.$store.state.player.playerComments.respect = res.data;
         });
+    },
+
+    async getCommentsCount() {
+        const id = this.$store.state.player.selectedPlayer.playerId;
+        
+        await Axios.get(`${host_origin()}/api/player-comments/${id}/count`, axiosHeaders() ).then( 
+            res => {
+                this.playerFeedBox.commentsCountHate = res.data.hateCount;
+                this.playerFeedBox.commentsCountRespect = res.data.respectCount;
+                console.log(this.playerFeedBox.commentsCountRespect);
+            },
+            err => {
+                console.error(err);
+            }
+        );
     },
     async requestPack() {
         // all request needed for update player components
