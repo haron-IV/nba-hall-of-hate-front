@@ -2,16 +2,19 @@
     <div class="card text-center" @click="$store.commit('hideSearcherList')">
         <div class="card-header">
             <ul class="nav nav-pills card-header-pills">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">Show Statistics</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" title="This feature will be added soon :)" href="#">Follow</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Show Statistics</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" title="This feature will be added soon :)" href="#">Follow</a>
+                </li>
             </ul>
+            <button class="btn btn--close">
+                <Icon name="add" style="transform: rotate(45deg)"/>
+            </button>
         </div>
         <div class="card-body">
             <h5 class="card-title">{{$store.state.player.selectedPlayer.firstName}} {{$store.state.player.selectedPlayer.lastName}}</h5>
@@ -215,6 +218,14 @@ export default {
 </script>
 
 <style lang="scss">
+.card-header {
+    .btn--close {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}
+
 .card-body {
     .collapse-box {
         .card {
