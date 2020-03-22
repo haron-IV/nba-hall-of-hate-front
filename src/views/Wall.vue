@@ -5,11 +5,10 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import PlayerCardFull from '@/components/player/PlayerCardFull';
 
 export default {
-  name: "Home",
+  name: "Wall",
   components: {
     'Player-card-full': PlayerCardFull
   }
