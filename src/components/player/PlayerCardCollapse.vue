@@ -37,7 +37,7 @@ export default {
     },
     data() {
         return {
-            commentCount: 0
+            commentCount: 0,
         }
     },
     props: {

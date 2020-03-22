@@ -114,7 +114,8 @@ export default {
             hate: false,
             respect: false,
             hateComments: null,
-            respectComments: null
+            respectComments: null,
+            commentsLimit: 20
         },
         hateCount: null,
         respectCount: null,
@@ -191,12 +192,12 @@ export default {
         );
     },
     async getPlayerHateComments() {
-        await Axios.get(`${host_origin()}/api/player-comments/hate/${this.$store.state.player.selectedPlayer.playerId}`, axiosHeaders() ).then( res => {
+        await Axios.get(`${host_origin()}/api/player-comments/hate/${this.$store.state.player.selectedPlayer.playerId}/${this.playerFeedBox.commentsLimit}`, axiosHeaders() ).then( res => {
             this.$store.state.player.playerComments.hate = res.data;
         });
     },
     async getPlayerRespectComments() {
-        await Axios.get(`${host_origin()}/api/player-comments/respect/${this.$store.state.player.selectedPlayer.playerId}`, axiosHeaders() ).then( res => {
+        await Axios.get(`${host_origin()}/api/player-comments/respect/${this.$store.state.player.selectedPlayer.playerId}/${this.playerFeedBox.commentsLimit}`, axiosHeaders() ).then( res => {
             this.$store.state.player.playerComments.respect = res.data;
         });
     },
