@@ -6,7 +6,11 @@
         <b>{{playerName}} {{playerSurname}}</b>
     </h5>
 
-    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+    <div class="card-text">
+        <p>
+            
+        </p> 
+    </div>
     <a class="btn btn-primary" @click="openPlayer()">Go to player</a>
   </div>
 </div>
@@ -14,6 +18,7 @@
  
 <script>
 import { getPlayerImg } from "@/components/utility/player";
+import { getCommentsCount } from "@/components/utility/comment.js";
 
 export default {
 name: 'Player-card-wall',
@@ -30,7 +35,9 @@ computed: {
 },
 watch: {},
 mounted() {},
-created() {},
+async created() {
+    await this.getPlayerCommentsCount()
+},
 methods: {
     openPlayer(player = this.player) {
         const mappedPlayer = {

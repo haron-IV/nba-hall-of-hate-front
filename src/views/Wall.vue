@@ -19,6 +19,7 @@
 import Axios from "axios";
 import { axiosHeaders, host_origin } from '@/components/utility/config';
 
+import { getCommentsCount } from "@/components/utility/comment.js";
 import PlayerCardFull from '@/components/player/PlayerCardFull';
 import PlayerCardWall from "@/components/player/PlayerCardWall";
 import { getPlayerImg } from "@/components/utility/player";
@@ -31,7 +32,8 @@ export default {
   },
   data() {
     return {
-      playersCount: 20,
+      vm: this,
+      playersCount: 24,
       wall: {
         players: null
       }
@@ -45,8 +47,6 @@ export default {
     async getPlayers() {
       await Axios.get( `${host_origin()}/api/players/${this.playersCount}`,axiosHeaders() ).then( 
         res => {
-          console.log("res", res);
-          
           this.wall.players = res.data;
         }, err => {console.error(err);}
       );
