@@ -12,6 +12,12 @@
       :playerSurname="card.surname"
       />
     </div>
+    
+    <button type="button" class="btn btn-outline-success btn--load-more" >
+      <Icon name="down-arrow" width="12" height="12" class="icon" style="margin: 0 5px;"/>
+      <span>Load more</span>
+      <Icon name="down-arrow" width="12" height="12" class="icon" style="margin: 0 5px;"/>
+    </button>
   </article>
 </template>
 
@@ -19,6 +25,7 @@
 import Axios from "axios";
 import { axiosHeaders, host_origin } from '@/components/utility/config';
 
+import Icon from "@/components/utility/Icon";
 import { getCommentsCount } from "@/components/utility/comment.js";
 import PlayerCardFull from '@/components/player/PlayerCardFull';
 import PlayerCardWall from "@/components/player/PlayerCardWall";
@@ -28,7 +35,8 @@ export default {
   name: "Wall",
   components: {
     'Player-card-full': PlayerCardFull,
-    'Player-card-wall': PlayerCardWall
+    'Player-card-wall': PlayerCardWall,
+    Icon
   },
   data() {
     return {
@@ -63,5 +71,26 @@ export default {
 .card-columns {
   // TODO: breakepoints
   column-count: 6;
+}
+@keyframes bounce {
+  0% { transform: translateY(-1px) }
+  100% { transform: translateY(1px) }
+}
+
+.icon {
+  animation-name: bounce;
+  animation-duration: 700ms;
+  animation-timing-function: ease;
+  animation-iteration-count: infinite;
+
+  animation-play-state: paused; 
+}
+
+.btn--load-more {
+  &:hover {
+    .icon {
+      animation-play-state: running; 
+    }
+  }
 }
 </style>
