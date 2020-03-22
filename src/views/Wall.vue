@@ -65,7 +65,7 @@ export default {
     },
 
     async loadMorePlayers() {
-      this.playersCount = this.playersCount + (this.playersCount / 2);
+      this.playersCount = this.playersCount + Math.round(this.playersCount / 2);
       await this.getPlayers();
     }
   }
