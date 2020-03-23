@@ -79,6 +79,11 @@
                     :commentsCount="$store.state.player.playerComments.count.respect"
                 />
             </div>
+
+            <Load-more-info-button
+            which="playerComments"
+            :function="getPlayerComments"/>
+
         </div>
 
         <Add-comment-modal />
@@ -97,6 +102,7 @@ import PlayerCardCollapse from '@/components/player/PlayerCardCollapse';
 import PlayerButtonCommentToggle from '@/components/player/PlayerButtonCommentToggle';
 import AddCommentModal from '@/components/utility/AddCommentModal';
 import AddStatisticsButton from "@/components/player/AddStatisticsButton";
+import LoadMoreInfoButton from "@/components/utility/LoadMoreInfoButton";
 
 
 export default {
@@ -106,7 +112,8 @@ export default {
     Icon,
     'Player-button-comment-toggle': PlayerButtonCommentToggle,
     'Add-comment-modal': AddCommentModal,
-    'Add-statistics-button': AddStatisticsButton
+    'Add-statistics-button': AddStatisticsButton,
+    'Load-more-info-button': LoadMoreInfoButton
   },
   data() {
     return {
@@ -200,6 +207,12 @@ export default {
         await Axios.get(`${host_origin()}/api/player-comments/respect/${this.$store.state.player.selectedPlayer.playerId}/${this.playerFeedBox.commentsLimit}`, axiosHeaders() ).then( res => {
             this.$store.state.player.playerComments.respect = res.data;
         });
+    },
+
+    async getPlayerComments() {
+        this.playerFeedBox.commentsLimit = this.playerFeedBox.commentsLimit + 20;
+        await this.getPlayerHateComments();
+        await this.getPlayerRespectComments();
     },
 
     async getCommentsCount() {

@@ -2,6 +2,10 @@ const loadMoreInfo = {
     wallPlayers: {
         playersOnPage: 24,
         players: null
+    },
+
+    commentPlayers: {
+        
     }
 };
 

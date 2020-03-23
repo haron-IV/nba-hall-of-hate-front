@@ -29,12 +29,20 @@ export default {
                 case "wallPlayers": {
                     await this.loadMorePlayers();
                     break;
+                };
+                case "playerComments": {
+                    await this.loadMoreComments();
+                    break;
                 }
-            }
+            }            
         },
         async loadMorePlayers() {
             const count = this.$store.state.loadMoreInfo.wallPlayers.playersOnPage;
             this.$store.commit("setPlayersOnPage", count + Math.round(count / 2));
+            await this.function();
+        },
+
+        async loadMoreComments() {
             await this.function();
         }
     }

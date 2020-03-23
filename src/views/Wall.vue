@@ -13,7 +13,9 @@
       />
     </div>
     
-    <Load-more-info-button which="wallPlayers" :function="getPlayers"/>
+    <Load-more-info-button v-if="!$store.state.player.playerCardFullView"
+    which="wallPlayers"
+    :function="getPlayers"/>
   </article>
 </template>
 
