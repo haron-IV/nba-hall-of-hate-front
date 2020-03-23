@@ -1,8 +1,8 @@
 <template>
 <div class="btn btn-primary comment-toggle-button">
     <div class="hate" @click="showHateComments()">
-        <span class="title" :class="{ hideTitle: buttonVisibility.hate }">Hate</span>
-        <button type="button" class="btn btn-primary bmd-btn-fab comment-toggle-button--hate" :class="{ visibleButton: buttonVisibility.hate }">
+        <span class="title" :class="{ hideTitle: $store.state.player.commentBox.buttonVisibility.hate }">Hate</span>
+        <button type="button" class="btn btn-primary bmd-btn-fab comment-toggle-button--hate" :class="{ visibleButton: $store.state.player.commentBox.buttonVisibility.hate }">
             <Icon
             name="hate"
             externalStyle=""
@@ -14,8 +14,8 @@
     </div>
     or
     <div class="respect" @click="showRespectComments()">
-        <span class="title" :class="{ hideTitle: buttonVisibility.respect }">Respect</span>
-        <button type="button" class="btn btn-primary bmd-btn-fab comment-toggle-button--respect" :class="{ visibleButton: buttonVisibility.respect }">
+        <span class="title" :class="{ hideTitle: $store.state.player.commentBox.buttonVisibility.respect }">Respect</span>
+        <button type="button" class="btn btn-primary bmd-btn-fab comment-toggle-button--respect" :class="{ visibleButton: $store.state.player.commentBox.buttonVisibility.respect }">
             <Icon
             name="respect"
             externalStyle=""
@@ -38,8 +38,7 @@ export default {
   },
   data() {
     return {
-        activeCommentBox: [],
-        buttonVisibility: { hate: false, respect: false }
+        activeCommentBox: []
     }
   },
 
@@ -56,11 +55,11 @@ export default {
   methods: {
     showHateComments() {
         this.$store.commit('showPlayerCommentBox', 'hate');
-        this.buttonVisibility.hate = !this.buttonVisibility.hate;
+        this.$store.state.player.commentBox.buttonVisibility.hate = !this.$store.state.player.commentBox.buttonVisibility.hate;
     },
     showRespectComments() {
         this.$store.commit('showPlayerCommentBox', 'respect');
-        this.buttonVisibility.respect = !this.buttonVisibility.respect;
+        this.$store.state.player.commentBox.buttonVisibility.respect = !this.$store.state.player.commentBox.buttonVisibility.respect;
     }
   }
 };

@@ -12,6 +12,7 @@
                     <a class="nav-link disabled" title="This feature will be added soon :)" href="#">Follow</a>
                 </li>
             </ul>
+
             <button class="btn btn--close" @click="closePlayerCard()">
                 <Icon name="add" style="transform: rotate(45deg)"/>
             </button>
@@ -81,6 +82,7 @@
             </div>
 
             <Load-more-info-button
+            v-if="$store.state.player.commentBox.hate || $store.state.player.commentBox.respect"
             which="playerComments"
             :function="getPlayerComments"/>
 
@@ -230,6 +232,8 @@ export default {
 
     closePlayerCard() {
         this.$store.state.player.playerCardFullView = false;
+        this.buttonVisibility.hate = false;
+        this.buttonVisibility.respect = false;
     }
   }
 };
