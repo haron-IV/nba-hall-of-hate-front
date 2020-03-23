@@ -232,8 +232,10 @@ export default {
 
     closePlayerCard() {
         this.$store.state.player.playerCardFullView = false;
-        this.buttonVisibility.hate = false;
-        this.buttonVisibility.respect = false;
+        this.$store.state.player.commentBox.buttonVisibility.hate = false;
+        this.$store.state.player.commentBox.buttonVisibility.respect = false;
+        this.$store.state.player.commentBox.hate = false;
+        this.$store.state.player.commentBox.respect = false;
     }
   }
 };
