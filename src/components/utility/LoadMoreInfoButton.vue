@@ -1,5 +1,5 @@
 <template>
-<button type="button" class="btn btn-outline-success btn--load-more" @click="loadMorePlayers()">
+<button type="button" class="btn btn-outline-success btn--load-more" @click="loadMore()">
     <Icon name="down-arrow" width="12" height="12" class="icon" style="margin: 0 5px;"/>
     <span>Load more</span>
     <Icon name="down-arrow" width="12" height="12" class="icon" style="margin: 0 5px;"/>
@@ -7,13 +7,16 @@
 </template>
  
 <script>
-    export default {
+import Icon from "@/components/utility/Icon";
+
+export default {
     name: 'Load-more-info-button',
+    components: { Icon },
     data() {
         return {}
     },
     props: {
-        playersCount: { type: Number },
+        which: { type: String },
         function: { type: Function }
     },
     computed: {},
@@ -21,6 +24,14 @@
     mounted() {},
     created() {},
     methods: {
+        async loadMore(){
+            switch(this.which){
+                case "wallPlayers": {
+                    await this.loadMorePlayers();
+                    break;
+                }
+            }
+        },
         async loadMorePlayers() {
             const count = this.$store.state.loadMoreInfo.wallPlayers.playersOnPage;
             this.$store.commit("setPlayersOnPage", count + Math.round(count / 2));
@@ -31,4 +42,25 @@
 </script>
 
 <style lang='scss'>
-</style>   
+@keyframes bounce {
+  0% { transform: translateY(-1px) }
+  100% { transform: translateY(1px) }
+}
+
+.icon {
+  animation-name: bounce;
+  animation-duration: 700ms;
+  animation-timing-function: ease;
+  animation-iteration-count: infinite;
+
+  animation-play-state: paused; 
+}
+
+.btn--load-more {
+  &:hover {
+    .icon {
+      animation-play-state: running; 
+    }
+  }
+}
+</style>

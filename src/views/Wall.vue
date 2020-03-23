@@ -13,7 +13,7 @@
       />
     </div>
     
-    <Load-more-info-button :function="getPlayers"/>
+    <Load-more-info-button which="wallPlayers" :function="getPlayers"/>
   </article>
 </template>
 
@@ -69,26 +69,5 @@ export default {
 .card-columns {
   // TODO: breakepoints
   column-count: 6;
-}
-@keyframes bounce {
-  0% { transform: translateY(-1px) }
-  100% { transform: translateY(1px) }
-}
-
-.icon {
-  animation-name: bounce;
-  animation-duration: 700ms;
-  animation-timing-function: ease;
-  animation-iteration-count: infinite;
-
-  animation-play-state: paused; 
-}
-
-.btn--load-more {
-  &:hover {
-    .icon {
-      animation-play-state: running; 
-    }
-  }
 }
 </style>
