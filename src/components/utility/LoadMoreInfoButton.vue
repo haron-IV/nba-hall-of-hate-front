@@ -1,5 +1,5 @@
 <template>
-<button type="button" class="btn btn-outline-success btn--load-more" @click="loadMorePlayers(playersCount)">
+<button type="button" class="btn btn-outline-success btn--load-more" @click="loadMorePlayers()">
     <Icon name="down-arrow" width="12" height="12" class="icon" style="margin: 0 5px;"/>
     <span>Load more</span>
     <Icon name="down-arrow" width="12" height="12" class="icon" style="margin: 0 5px;"/>
@@ -8,30 +8,24 @@
  
 <script>
     export default {
-    name: '',
+    name: 'Load-more-info-button',
     data() {
         return {}
     },
     props: {
-        playersCount: { type: Number }
+        playersCount: { type: Number },
+        function: { type: Function }
     },
     computed: {},
     watch: {},
     mounted() {},
     created() {},
     methods: {
-        async loadMorePlayers(playersCount) {
-            this.playersCount = playersCount + (playersCount / 2);
-            await this.getPlayers();
-        },
-
-        async getPlayers() {
-            await Axios.get( `${host_origin()}/api/players/${this.playersCount}`,axiosHeaders() ).then( 
-                res => {
-                this.wall.players = res.data;
-                }, err => {console.error(err);}
-            );
-        },
+        async loadMorePlayers() {
+            const count = this.$store.state.loadMoreInfo.wallPlayers.playersOnPage;
+            this.$store.commit("setPlayersOnPage", count + Math.round(count / 2));
+            await this.function();
+        }
     }
 }
 </script>

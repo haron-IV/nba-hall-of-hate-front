@@ -4,7 +4,7 @@
 
     <div class="card-columns" v-if="!$store.state.player.playerCardFullView">
       <Player-card-wall
-      v-for="card in wall.players" 
+      v-for="card in $store.state.loadMoreInfo.wallPlayers.players"
       :key="card.playerId"
       :player="card"
       :imgSrc="imgSrc(card.name, card.surname)"
@@ -13,11 +13,7 @@
       />
     </div>
     
-    <button type="button" class="btn btn-outline-success btn--load-more" @click="loadMorePlayers()">
-      <Icon name="down-arrow" width="12" height="12" class="icon" style="margin: 0 5px;"/>
-      <span>Load more</span>
-      <Icon name="down-arrow" width="12" height="12" class="icon" style="margin: 0 5px;"/>
-    </button>
+    <Load-more-info-button :function="getPlayers"/>
   </article>
 </template>
 
@@ -30,13 +26,15 @@ import { getCommentsCount } from "@/components/utility/comment.js";
 import PlayerCardFull from '@/components/player/PlayerCardFull';
 import PlayerCardWall from "@/components/player/PlayerCardWall";
 import { getPlayerImg } from "@/components/utility/player";
+import LoadMoreInfoButton from "@/components/utility/LoadMoreInfoButton";
 
 export default {
   name: "Wall",
   components: {
     'Player-card-full': PlayerCardFull,
     'Player-card-wall': PlayerCardWall,
-    Icon
+    Icon,
+    'Load-more-info-button': LoadMoreInfoButton
   },
   data() {
     return {
@@ -52,22 +50,17 @@ export default {
   },
 
   methods: {
-    async getPlayers() {
-      await Axios.get( `${host_origin()}/api/players/${this.playersCount}`,axiosHeaders() ).then( 
-        res => {
-          this.wall.players = res.data;
-        }, err => {console.error(err);}
-      );
-    },
-
     imgSrc(name, surname) {
       return getPlayerImg(name, surname)
     },
 
-    async loadMorePlayers() {
-      this.playersCount = this.playersCount + Math.round(this.playersCount / 2);
-      await this.getPlayers();
-    }
+    async getPlayers() {
+      await Axios.get( `${host_origin()}/api/players/${this.$store.state.loadMoreInfo.wallPlayers.playersOnPage}`,axiosHeaders() ).then( 
+        res => {
+        this.$store.commit("setWallPlayers", res.data);
+        }, err => {console.error(err);}
+      );
+    },
   }
 };
 </script>

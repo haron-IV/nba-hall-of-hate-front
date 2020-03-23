@@ -5,6 +5,7 @@ import { playerComments, clearSelectedPlayer, setPlayerCommentsHateCount, setPla
 import { playerSearcher, showSearcherList, hideSearcherList } from '@/store/playerSearcher';
 import { commentBox, showPlayerCommentBox } from '@/store/commentBox';
 import { errors, showError, hideError } from "@/store/errors";
+import { loadMoreInfo, setPlayersOnPage, setWallPlayers } from "@/store/loadMoreInfoStates";
 
 Vue.use(Vuex);
 
@@ -22,7 +23,8 @@ export default new Vuex.Store({
       playerComments
     },
     playerSearcher,
-    errors
+    errors,
+    loadMoreInfo
   },
   mutations: {
     showPlayerCardFullView(state) {
@@ -37,6 +39,9 @@ export default new Vuex.Store({
     showPlayerCommentBox: (state, which) => showPlayerCommentBox(state, which),
     setPlayerCommentsHateCount: (state, count) => setPlayerCommentsHateCount(state, count),
     setPlayerCommentsRespectCount: (state, count) => setPlayerCommentsRespectCount(state, count),
+    setPlayersOnPage: (state, count) => setPlayersOnPage(state, count),
+    setWallPlayers: (state, players) => setWallPlayers(state, players),
+  
 
     showSearcherList: state => showSearcherList(state),
     hideSearcherList: state => hideSearcherList(state),
