@@ -88,6 +88,7 @@
 
         </div>
 
+        <Scroll-top-button />
         <Add-comment-modal />
     </div>
 </template>
@@ -105,7 +106,7 @@ import PlayerButtonCommentToggle from '@/components/player/PlayerButtonCommentTo
 import AddCommentModal from '@/components/utility/AddCommentModal';
 import AddStatisticsButton from "@/components/player/AddStatisticsButton";
 import LoadMoreInfoButton from "@/components/utility/LoadMoreInfoButton";
-
+import ScrollTopButton from "@/components/utility/ScrollTopButton";
 
 export default {
   name: "Player-card",
@@ -115,7 +116,8 @@ export default {
     'Player-button-comment-toggle': PlayerButtonCommentToggle,
     'Add-comment-modal': AddCommentModal,
     'Add-statistics-button': AddStatisticsButton,
-    'Load-more-info-button': LoadMoreInfoButton
+    'Load-more-info-button': LoadMoreInfoButton,
+    'Scroll-top-button': ScrollTopButton
   },
   data() {
     return {
