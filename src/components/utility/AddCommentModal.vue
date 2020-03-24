@@ -27,8 +27,8 @@
         </div>
 
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-add-comment">
-                <span class="btn-add-comment__text" @click="addComment()">Add comment</span>
+            <button type="button" class="btn btn-primary btn-add-comment" @click="addComment(), getCommentsCount()">
+                <span class="btn-add-comment__text">Add comment</span>
                 <Icon :name="$store.state.player.commentBox.commentType" v-if="$store.state.player.commentBox.commentType" width="30" height="30" />
             </button>
         </div>
@@ -42,6 +42,7 @@ import Axios from 'axios';
 
 import { axiosHeaders, host_origin } from '@/components/utility/config';
 import Icon from "@/components/utility/Icon";
+import { getCommentsCount } from "@/components/utility/comment.js";
 
 export default {
   name: "Add-comment-modal",
@@ -83,7 +84,6 @@ export default {
     },
 
     toggleCommentType(commentType) {
-        
         switch(commentType) {
             case 'hate':
                 this.$store.state.player.commentBox.commentType = "respect";
@@ -92,6 +92,11 @@ export default {
                 this.$store.state.player.commentBox.commentType = "hate";
                 break;
         }
+    },
+
+    getCommentsCount(){
+        // TODO: fix this. counting load after seond click
+        getCommentsCount(this.$store.state.player.selectedPlayer.playerId, this);
     }
   }
 };
@@ -100,18 +105,18 @@ export default {
 <style lang="scss">
 .add-comment-modal {
     position: fixed;
-    min-width: 100%;
+    min-width: $full-width;
     justify-self: center;
     align-self: center;
 
     .btn-change-comment-type {
         text-transform: lowercase;
         font-family: Arial, sans-serif;
-        font-size: 1.15rem;
+        font-size: $regular-font-size;
         font-weight: 400;
         opacity: .85;
         margin-top: 1px;
-        padding: 0 .5rem;
+        padding: $margin-horizontal-small;
     }
 
     .btn-add-comment {

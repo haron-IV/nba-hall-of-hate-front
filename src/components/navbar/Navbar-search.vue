@@ -140,12 +140,12 @@ export default {
         }
 
         if (this.arrowsList.counter >= -1 ) {
-            this.arrowsList.actualElement = this.response[vm.arrowsList.counter];
+            if (vm.arrowsList.counter >= 0 ) this.arrowsList.actualElement = this.response[vm.arrowsList.counter];
             this.scrollToSelectedElement()
         }
         
         this.removeHiglihtFromListElements();
-        this.addHiglihtFromListElement(vm.arrowsList.actualElement.playerId);
+        if (vm.arrowsList.counter >= 0 ) this.addHiglihtFromListElement(vm.arrowsList.actualElement.playerId);
     },
 
     addHiglihtFromListElement(playerId){
@@ -182,12 +182,12 @@ export default {
 <style lang="scss">
 @mixin selectedListItem(){
     transition: all ease 200ms;
-    background-color: darken(rgba(64, 208, 191, 0.08), 50%);
-    border: 1px solid rgba(64, 208, 191, 0.5);
+    background-color: darken($selected-list-gray, 50%);
+    border: 1px solid $selected-list-border-gray;
     border-width: 1px 0 1px 0;
-    box-shadow: -1px 3px 6px -2px rgba(0,0,0,0.75);
+    box-shadow: -1px 3px 6px -2px $box-shadow-light;
     .list-group-item-heading {
-        text-shadow: 1px 1px 3px rgba(#000, .65);
+        text-shadow: 1px 1px 3px $box-shadow-light;
     }
     .img {
         transform: scale(1.1);
@@ -197,46 +197,50 @@ export default {
 .list-group {
     &--search{
         padding-bottom: 0;
-        max-height: 80vh;
+        max-height: $list-group-height;
         overflow: scroll;
-        background-color:rgba(64, 208, 191, 0.02);
-        min-width: 233px;
+        background-color: $search-list-light-green;
+        min-width: $list-group-item-min-width;
         position: absolute;
         top: 3rem;
-        border: 1px solid gray;
+        border: 1px solid $gray;
         border-width: 0px 0px 1px;
         transition: none;
     }
 
     .list-group-item {
-        font-family: Helvetica;
-        justify-content: center;
-        border-radius: 2px;
-        cursor: pointer;
-        transition: all ease-in-out 450ms;
-
         &--selected {
-           @include selectedListItem();
-        }
-
-        &:hover {
             @include selectedListItem();
         }
-        .list-group-item-heading {
+
+        &--player-searcher {
+            font-family: Helvetica;
+            justify-content: center;
+            border-radius: $border-radius-small;
+            cursor: pointer;
             transition: all ease-in-out 450ms;
-        }
 
-        .item-info{
-            flex-direction: row;
+            
 
-            .information {
-                width: 180px;
+            &:hover {
+                @include selectedListItem();
+            }
+            .list-group-item-heading {
+                transition: all ease-in-out 450ms;
             }
 
-            .img {
-                transition: all ease-in-out 450ms;
-                max-width: 65px;
-                height: auto;
+            .item-info{
+                flex-direction: row;
+
+                .information {
+                    width: 180px;
+                }
+
+                .img {
+                    transition: all ease-in-out 450ms;
+                    max-width: $list-group-image-width;
+                    height: auto;
+                }
             }
         }
     }

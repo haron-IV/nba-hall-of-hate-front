@@ -28,8 +28,8 @@ export default {
 .spinner {
   height: 5vh;
   width: 5vh;
-  border: 6px solid rgba(0, 174, 239, 0.2);
-  border-top-color: rgba(0, 174, 239, 0.8);
+  border: 6px solid $loader-spinner-blue;
+  border-top-color: $loader-spinner-border-blue;
   border-radius: 100%;
   animation: rotation 0.6s infinite linear 0.25s;
   opacity: 0;

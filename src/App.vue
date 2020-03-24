@@ -2,6 +2,7 @@
   <div id="app" @click="hidePlayerSearcher($event)">
     <main class="container-fluid">
       <Navbar />
+      <Error-modal />
       <router-view />
     </main>
   </div>
@@ -9,12 +10,13 @@
 
 <script>
 /* eslint-disable */
-
 import Navbar from '@/components/navbar/Navbar';
+import ErrorModal from "@/components/modals/ErrorModal";
 
 export default {
   components: {
-    Navbar
+    Navbar,
+    "Error-modal": ErrorModal
   },
   methods: {
     hidePlayerSearcher(event) {
@@ -32,7 +34,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: $link--dark-blue;
 }
 
 #nav {
@@ -40,10 +42,10 @@ export default {
 
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: $link--dark-blue;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: $link--green;
     }
   }
 }
