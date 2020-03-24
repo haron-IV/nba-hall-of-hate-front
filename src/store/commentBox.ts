@@ -1,9 +1,14 @@
 const commentBox = {
-    hate: false,
-    respect: false,
-    isVisibleAddCommentModal: false,
-    commentType: null
+  hate: false,
+  respect: false,
+  isVisibleAddCommentModal: false,
+  commentType: null,
+  buttonVisibility: { 
+    hate: false, 
+    respect: false 
+  }
 };
+
 
 const showPlayerCommentBox = (state: any, which: any) => {
     if (which === "hate") {

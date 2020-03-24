@@ -3,9 +3,8 @@
     <div class="card">
         <div class="card-header" id="headingOne">
             <h5 class="mb-0">
-                <span>
-                    {{title}} comments
-                </span>
+                <span class="coment-count-info">({{commentsCount}})</span>
+                <span>{{title}} comments</span>
                 <button class="btn" :title="'add ' + title.toLowerCase() + ' comment'" @click="showAddCommentModal(title.toLowerCase())">
                     <Icon name="add" />
                 </button>
@@ -37,12 +36,17 @@ export default {
         Icon
     },
     data() {
-        return {}
+        return {
+            commentCount: 0,
+        }
     },
     props: {
         spacer: { type: String },
         title: { type: String },
-        comments: { type: Array }
+        comments: { type: Array },
+        commentsCount: { type: Number }
+    },
+    created(){
     },
     watch: {},
     
@@ -60,5 +64,14 @@ export default {
 <style lang="scss">
 .collapse-box {
     flex-grow: 1;
+
+    .card {
+        .card-header {
+            .coment-count-info {
+                font-size: 10px;
+                margin-right: 5px;
+            }
+        }
+    }
 }
 </style>

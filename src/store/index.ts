@@ -1,9 +1,11 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { playerComments, clearSelectedPlayer } from '@/store/player';
+import { playerComments, clearSelectedPlayer, setPlayerCommentsHateCount, setPlayerCommentsRespectCount } from '@/store/player';
 import { playerSearcher, showSearcherList, hideSearcherList } from '@/store/playerSearcher';
 import { commentBox, showPlayerCommentBox } from '@/store/commentBox';
+import { errors, showError, hideError } from "@/store/errors";
+import { loadMoreInfo, setPlayersOnPage, setWallPlayers } from "@/store/loadMoreInfoStates";
 
 Vue.use(Vuex);
 
@@ -20,7 +22,9 @@ export default new Vuex.Store({
       commentBox,
       playerComments
     },
-    playerSearcher
+    playerSearcher,
+    errors,
+    loadMoreInfo
   },
   mutations: {
     showPlayerCardFullView(state) {
@@ -28,14 +32,22 @@ export default new Vuex.Store({
     },
 
     setSelectedPlayer(state, player) {
-      state.player.selectedPlayer = player; 
+      state.player.selectedPlayer = player;
     },
 
     clearSelectedPlayer: state => clearSelectedPlayer(state),
     showPlayerCommentBox: (state, which) => showPlayerCommentBox(state, which),
+    setPlayerCommentsHateCount: (state, count) => setPlayerCommentsHateCount(state, count),
+    setPlayerCommentsRespectCount: (state, count) => setPlayerCommentsRespectCount(state, count),
+    setPlayersOnPage: (state, count) => setPlayersOnPage(state, count),
+    setWallPlayers: (state, players) => setWallPlayers(state, players),
+  
 
     showSearcherList: state => showSearcherList(state),
-    hideSearcherList: state => hideSearcherList(state)
+    hideSearcherList: state => hideSearcherList(state),
+
+    showError: (state, data) => showError(state, data),
+    hideError: state => hideError(state)
   },
 
   getters: {},
