@@ -88,7 +88,7 @@
 
         </div>
 
-        <Scroll-top-button />
+        <Scroll-top-button :limit="playerFeedBox.commentsLimit"/>
         <Add-comment-modal />
     </div>
 </template>

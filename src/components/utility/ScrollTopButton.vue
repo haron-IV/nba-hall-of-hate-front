@@ -1,5 +1,5 @@
 <template>
-    <button class="btn bmd-btn-fab btn--scroll-top">
+    <button class="btn bmd-btn-fab btn--scroll-top" @click="scrollTop()" v-if="limit > 35 && showScrollButton">
         <Icon name="down-arrow" 
         width="12" 
         height="12" 
@@ -14,14 +14,26 @@ export default {
     name: 'Scroll-top-button',
     components: { Icon },
     data() {
-        return {}
+        return {
+            showScrollButton: true
+        }
     },
-    props: {},
+    props: {
+        limit: { type: Number }
+    },
     computed: {},
     watch: {},
     mounted() {},
     created() {},
-    methods: {}
+    methods: {
+        scrollTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+            this.showScrollButton = false;
+        }
+    }
 }
 </script>
 
