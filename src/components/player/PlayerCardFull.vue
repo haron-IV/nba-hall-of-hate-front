@@ -58,7 +58,10 @@
                     </li>
                 </ul>
 
-                <img :src="playerImg($store.state.player.selectedPlayer.firstName, $store.state.player.selectedPlayer.lastName)" alt="" class="img ml-3" style="max-height: 175px; align-self: center">
+                <div style="max-height: 175px; align-self: center">
+                    <img :src="playerImg($store.state.player.selectedPlayer.firstName, $store.state.player.selectedPlayer.lastName)" alt="" class="img ml-3" >
+                    <p style="font-size: .6rem">Views: {{views}}</p>
+                </div>
             </div>
 
             <Player-button-comment-toggle /> 
@@ -130,7 +133,8 @@ export default {
         },
         hateCount: null,
         respectCount: null,
-        followCount: null
+        followCount: null,
+        views: null
     }
   },
   computed: {},
@@ -194,6 +198,7 @@ export default {
                     this.hateCount = res.data.hateCount;
                     this.respectCount = res.data.respectCount;
                     this.followCount = res.data.followCount;
+                    this.views = res.data.views;
                 }
 
                 this.$store.commit("setSelectedPlayer", player);
