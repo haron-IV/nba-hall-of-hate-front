@@ -196,9 +196,9 @@ export default {
                 const player = this.$store.state.player.selectedPlayer;
 
                 if (res.data) {
-                    this.hateCount = res.data.hateCount;
-                    this.respectCount = res.data.respectCount;
-                    this.followCount = res.data.followCount;
+                    this.hateCount = formatNumbers(res.data.hateCount);
+                    this.respectCount = formatNumbers(res.data.respectCount)
+                    this.followCount = formatNumbers(res.data.followCount);
                     this.views = formatNumbers(res.data.views);
                 }
 
