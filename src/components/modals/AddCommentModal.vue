@@ -8,7 +8,7 @@
                 <button class="btn btn-change-comment-type" @click="toggleCommentType($store.state.player.commentBox.commentType)">{{$store.state.player.commentBox.commentType}}</button>
                 <span>comment</span>
             </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="$store.state.player.commentBox.isVisibleAddCommentModal = false">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closeModal()">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -104,6 +104,10 @@ export default {
         getCommentsCount(this.$store.state.player.selectedPlayer.playerId, this);
     },
 
+    closeModal() {
+        this.$store.state.player.commentBox.isVisibleAddCommentModal = false;
+    },
+
     checkIsEmpty() {
         if (this.userNickname === null || this.userNickname === "") {
             this.$store.commit("showError", "Your nickname can't be empty.");
@@ -112,7 +116,9 @@ export default {
             this.$store.commit("showError", "Comment can't be empty.");
             return false
         }
-
+        this.closeModal();
+        this.$store.commit("hideError");
+        
         return true;
     }
   }
