@@ -107,7 +107,7 @@ import { formatNumbers } from "@/components/utility/formatBigNumbers.js";
 
 import PlayerCardCollapse from '@/components/player/PlayerCardCollapse';
 import PlayerButtonCommentToggle from '@/components/player/PlayerButtonCommentToggle';
-import AddCommentModal from '@/components/utility/AddCommentModal';
+import AddCommentModal from '@/components/modals/AddCommentModal';
 import AddStatisticsButton from "@/components/player/AddStatisticsButton";
 import LoadMoreInfoButton from "@/components/utility/LoadMoreInfoButton";
 import ScrollTopButton from "@/components/utility/ScrollTopButton";
