@@ -41,12 +41,15 @@
 import Axios from 'axios';
 
 import { axiosHeaders, host_origin } from '@/components/utility/config';
-import Icon from "@/components/utility/Icon";
 import { getCommentsCount } from "@/components/utility/comment.js";
+
+import Icon from "@/components/utility/Icon";
 
 export default {
   name: "Add-comment-modal",
-  components: { Icon },
+  components: { 
+    Icon
+  },
   data() {
     return {
         userNickname: null,
@@ -61,26 +64,28 @@ export default {
     async addComment() {
         const commentType = this.$store.state.player.commentBox.commentType;
 
-        await Axios.post( `${host_origin()}/api/player-comment/${commentType}`, { 
-            playerId: this.$store.state.player.selectedPlayer.playerId,
-            author: this.userNickname,
-            createdDate: new Date(`${new Date().toString().split('GMT')[0]} UTC`).toISOString(),
-            content: this.commentContent,
-            commentLike: 0,
-            commentDislike: 0
-        },
-        axiosHeaders() ).then( res => {
-            switch(commentType) {
-                case 'hate':
-                    this.$store.state.player.playerComments.hate.push(res.data);
-                    break;
-                case 'respect':
-                    this.$store.state.player.playerComments.respect.push(res.data);
-                    break;
-            }
-        }, err => {
-            console.error(err);
-        });
+        if (this.checkIsEmpty()) {
+            await Axios.post( `${host_origin()}/api/player-comment/${commentType}`, { 
+                playerId: this.$store.state.player.selectedPlayer.playerId,
+                author: this.userNickname,
+                createdDate: new Date(`${new Date().toString().split('GMT')[0]} UTC`).toISOString(),
+                content: this.commentContent,
+                commentLike: 0,
+                commentDislike: 0
+            },
+            axiosHeaders() ).then( res => {
+                switch(commentType) {
+                    case 'hate':
+                        this.$store.state.player.playerComments.hate.push(res.data);
+                        break;
+                    case 'respect':
+                        this.$store.state.player.playerComments.respect.push(res.data);
+                        break;
+                }
+            }, err => {
+                console.error(err);
+            });
+        }
     },
 
     toggleCommentType(commentType) {
@@ -97,6 +102,18 @@ export default {
     getCommentsCount(){
         // TODO: fix this. counting load after seond click
         getCommentsCount(this.$store.state.player.selectedPlayer.playerId, this);
+    },
+
+    checkIsEmpty() {
+        if (this.userNickname === null || this.userNickname === "") {
+            this.$store.commit("showError", "Your nickname can't be empty.");
+            return false;
+        } else if (this.commentContent === null || this.commentContent === "") {
+            this.$store.commit("showError", "Comment can't be empty.");
+            return false
+        }
+
+        return true;
     }
   }
 };
