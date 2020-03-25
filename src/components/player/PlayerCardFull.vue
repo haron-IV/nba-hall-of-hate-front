@@ -172,6 +172,7 @@ export default {
     async setPlayer() {
         await Axios.post( `${host_origin()}/api/player`, {
             playerId: this.$store.state.player.selectedPlayer.playerId,
+            views: 0,
             name: this.$store.state.player.selectedPlayer.firstName,
             surname: this.$store.state.player.selectedPlayer.lastName,
             jerseyNumber: this.playerNumber, 
