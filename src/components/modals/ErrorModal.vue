@@ -10,7 +10,7 @@
 <script>
 export default {
 name: 'Error-modal',
-components: { Icon },
+components: {},
 data() {
     return {}
 },

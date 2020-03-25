@@ -8,8 +8,8 @@
 
     <div class="card-text">
         <p>
-            
-        </p> 
+            <!-- player short info -->
+        </p>
     </div>
     <a class="btn btn-primary" @click="openPlayer()">Go to player</a>
   </div>
