@@ -103,6 +103,7 @@ import Icon from '@/components/utility/Icon';
 import { axiosHeaders, host_origin } from '@/components/utility/config';
 import { getPlayerImg } from '@/components/utility/player.js';
 import { getCommentsCount } from "@/components/utility/comment.js"
+import { formatNumbers } from "@/components/utility/formatBigNumbers.js";
 
 import PlayerCardCollapse from '@/components/player/PlayerCardCollapse';
 import PlayerButtonCommentToggle from '@/components/player/PlayerButtonCommentToggle';
@@ -198,7 +199,7 @@ export default {
                     this.hateCount = res.data.hateCount;
                     this.respectCount = res.data.respectCount;
                     this.followCount = res.data.followCount;
-                    this.views = res.data.views;
+                    this.views = formatNumbers(res.data.views);
                 }
 
                 this.$store.commit("setSelectedPlayer", player);
