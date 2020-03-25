@@ -1,5 +1,5 @@
 <template>
- <div class="alert alert-danger" role="alert" v-if="$store.state.errors.error.isVisible">
+ <div class="alert alert-danger modal--error" role="alert" v-if="$store.state.errors.error.isVisible">
     {{$store.state.errors.error.content}}
 </div>
 </template>
@@ -28,4 +28,11 @@
 </script>
 
 <style lang='scss'>
+.modal {
+    &--error {
+        position: sticky;
+        top: 65px;
+        z-index: $zMax;
+    }
+}
 </style>
