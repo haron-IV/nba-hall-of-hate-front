@@ -13,7 +13,7 @@
       />
     </div>
     
-    <Load-more-info-button v-if="!$store.state.player.playerCardFullView"
+    <Load-more-info-button v-if="!$store.state.player.playerCardFullView && $store.state.loadMoreInfo.wallPlayers.players.length >= 24"
     which="wallPlayers"
     :function="getPlayers"/>
   </article>
@@ -41,10 +41,7 @@ export default {
   data() {
     return {
       vm: this,
-      playersCount: 24,
-      wall: {
-        players: null
-      }
+      playersCount: 24
     }
   },
   async created(){

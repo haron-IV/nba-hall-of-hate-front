@@ -50,6 +50,8 @@ export default {
 <style lang="scss">
     .navbar {
         justify-content: space-between;
+        position: sticky;
+        top: 0;
 
         .navbar-collapse {
             flex-grow: 0;

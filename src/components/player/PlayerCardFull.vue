@@ -58,7 +58,10 @@
                     </li>
                 </ul>
 
-                <img :src="playerImg($store.state.player.selectedPlayer.firstName, $store.state.player.selectedPlayer.lastName)" alt="" class="img ml-3" style="max-height: 175px; align-self: center">
+                <div style="max-height: 175px; align-self: center">
+                    <img :src="playerImg($store.state.player.selectedPlayer.firstName, $store.state.player.selectedPlayer.lastName)" alt="" class="img ml-3" >
+                    <p style="font-size: .6rem">Views: {{views}}</p>
+                </div>
             </div>
 
             <Player-button-comment-toggle /> 
@@ -100,10 +103,11 @@ import Icon from '@/components/utility/Icon';
 import { axiosHeaders, host_origin } from '@/components/utility/config';
 import { getPlayerImg } from '@/components/utility/player.js';
 import { getCommentsCount } from "@/components/utility/comment.js"
+import { formatNumbers } from "@/components/utility/formatBigNumbers.js";
 
 import PlayerCardCollapse from '@/components/player/PlayerCardCollapse';
 import PlayerButtonCommentToggle from '@/components/player/PlayerButtonCommentToggle';
-import AddCommentModal from '@/components/utility/AddCommentModal';
+import AddCommentModal from '@/components/modals/AddCommentModal';
 import AddStatisticsButton from "@/components/player/AddStatisticsButton";
 import LoadMoreInfoButton from "@/components/utility/LoadMoreInfoButton";
 import ScrollTopButton from "@/components/utility/ScrollTopButton";
@@ -130,7 +134,8 @@ export default {
         },
         hateCount: null,
         respectCount: null,
-        followCount: null
+        followCount: null,
+        views: null
     }
   },
   computed: {},
@@ -172,6 +177,7 @@ export default {
     async setPlayer() {
         await Axios.post( `${host_origin()}/api/player`, {
             playerId: this.$store.state.player.selectedPlayer.playerId,
+            views: 0,
             name: this.$store.state.player.selectedPlayer.firstName,
             surname: this.$store.state.player.selectedPlayer.lastName,
             jerseyNumber: this.playerNumber, 
@@ -190,9 +196,10 @@ export default {
                 const player = this.$store.state.player.selectedPlayer;
 
                 if (res.data) {
-                    this.hateCount = res.data.hateCount;
-                    this.respectCount = res.data.respectCount;
-                    this.followCount = res.data.followCount;
+                    this.hateCount = formatNumbers(res.data.hateCount);
+                    this.respectCount = formatNumbers(res.data.respectCount)
+                    this.followCount = formatNumbers(res.data.followCount);
+                    this.views = formatNumbers(res.data.views);
                 }
 
                 this.$store.commit("setSelectedPlayer", player);

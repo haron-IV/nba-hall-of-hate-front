@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-header" id="headingOne">
             <h5 class="mb-0">
-                <span class="coment-count-info">({{commentsCount}})</span>
+                <span class="coment-count-info">({{replacedCommentsCount}})</span>
                 <span>{{title}} comments</span>
                 <button class="btn" :title="'add ' + title.toLowerCase() + ' comment'" @click="showAddCommentModal(title.toLowerCase())">
                     <Icon name="add" />
@@ -25,6 +25,7 @@
 <script>
 import Axios from 'axios';
 import { axiosHeaders, host_origin } from '@/components/utility/config';
+import { formatNumbers } from "@/components/utility/formatBigNumbers.js";
 
 import PlayerCardCollapseComment from '@/components/player/PlayerCardCollapseComment';
 import Icon from '@/components/utility/Icon';
@@ -36,8 +37,11 @@ export default {
         Icon
     },
     data() {
-        return {
-            commentCount: 0,
+        return {}
+    },
+    computed: {
+        replacedCommentsCount() {
+            return formatNumbers(this.commentsCount);
         }
     },
     props: {

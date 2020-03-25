@@ -5,7 +5,7 @@
     @click="addPoint(type)">
         <Icon name="add" />
     </button>
-    <span class="number" :style="{margin: disabledButtonMargin}">{{count}}</span>
+    <span class="number" :style="{margin: disabledButtonMargin}">{{formatedCount}}</span>
 </div> 
 </template>
  
@@ -13,6 +13,7 @@
 import Axios from "axios";
 import debounce from "lodash/debounce";
 import { axiosHeaders, host_origin } from '@/components/utility/config';
+import { formatNumbers } from "@/components/utility/formatBigNumbers.js";
 
 import Icon from "@/components/utility/Icon";
 
@@ -26,12 +27,16 @@ data() {
 components: {
     Icon
 },
+computed: {
+    formatedCount() {
+        return formatNumbers(this.count);
+    }
+},
 props: {
     count: { type: Number },
     type: { type: String },
     disabledButton: { type: Boolean, default: false },
 },
-computed: {},
 watch: {},
 mounted() {},
 created() {},
