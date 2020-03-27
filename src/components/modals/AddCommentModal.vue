@@ -15,8 +15,9 @@
 
         <div class="modal-body">
             <form @submit.prevent>
-                <div class="form-group">
+                <div class="form-group" v-if="withSetNickname">
                     <label for="recipient-name" class="col-form-label">Set nickname:</label>
+                    <Icon name="question" width="12" height="12" style="margin: 0 0 2px 2px; cursor: help" title="this nickname will be stored and reusable in future for your actions."/>
                     <input type="text" class="form-control" id="recipient-name" v-model="userNickname" >
                 </div>
                 <div class="form-group">
@@ -56,7 +57,9 @@ export default {
         commentContent: null
     }
   },
-  props: {},
+  props: {
+    withSetNickname: { type: Boolean, default: true }
+  },
   watch: {},
   created(){},
   computed: {},

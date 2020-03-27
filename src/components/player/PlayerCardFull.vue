@@ -92,7 +92,7 @@
         </div>
 
         <Scroll-top-button :limit="playerFeedBox.commentsLimit"/>
-        <Add-comment-modal />
+        <Add-comment-modal :withSetNickname="$store.state.user.nickname === null"/>
     </div>
 </template>
 
