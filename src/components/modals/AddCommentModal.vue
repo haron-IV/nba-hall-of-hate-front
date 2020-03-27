@@ -62,7 +62,11 @@ export default {
     withSetNickname: { type: Boolean, default: true }
   },
   watch: {},
-  created(){},
+  created(){
+    if (this.$store.state.user.nickname !== null) {
+        this.userNickname = this.$store.state.user.nickname;
+    }
+  },
   computed: {},
   methods: {
     async addComment() {
@@ -129,7 +133,7 @@ export default {
     },
 
     setUserNickname() {
-
+        setUserNickname(this.userNickname);
     }
   }
 };

@@ -29,8 +29,8 @@ export default {
   },
   created() {
     identifier();
-    console.log(getUserObject());
     this.$store.commit("setUserId", getUserObject().id);
+    this.$store.commit("setUserNickname", getUserObject().nickname);
   }
 }
 </script>
