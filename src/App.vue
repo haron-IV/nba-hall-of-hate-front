@@ -13,6 +13,8 @@
 import Navbar from '@/components/navbar/Navbar';
 import ErrorModal from "@/components/modals/ErrorModal";
 
+import { identifier } from "@/components/utility/identifier.js";
+
 export default {
   components: {
     Navbar,
@@ -24,6 +26,9 @@ export default {
         this.$store.commit('hideSearcherList')
       }
     }
+  },
+  created() {
+    identifier();
   }
 }
 </script>

@@ -1,11 +1,11 @@
-import uuid from "uuid/v4";
+import { v4 as uuid } from 'uuid';
 
 const generateId = () => {
     return uuid();
 };
 
 const createUserObject = () => {
-    return user = {
+    return {
         id: generateId(),
         nickname: null
     };
@@ -18,6 +18,7 @@ const setUserObject = (userObject) => {
 const setUserNickname = (nickname) => {
     const user = getUserObject();
     user.nickname = nickname;
+    setUserObject(user);
 };
 
 const checkIsUserExist = () => {
@@ -28,7 +29,7 @@ const checkIsUserExist = () => {
 const identifier = () => {
     if (checkIsUserExist() === false) {
         const user = JSON.stringify(createUserObject());
-        localStorage.setItem("user", user);
+        setUserObject(user);
     };
 };
 

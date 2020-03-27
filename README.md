@@ -42,6 +42,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 * lodash
 * sass/scss
 * TypeScript
+* UUID
 
 
 ### Configuration
