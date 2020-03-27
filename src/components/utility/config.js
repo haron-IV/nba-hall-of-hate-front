@@ -10,9 +10,9 @@ const axiosHeaders = () => {
 // Here you can set enpoints base usrl for nba hoh api
 const host_origin = () => {
     const dev = "http://localhost:8080";
-    const prod = null;
+    const prod = "https://nba-hoh.herokuapp.com";
 
-    return dev;
+    return prod;
 }
 
 export { axiosHeaders, host_origin };
