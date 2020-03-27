@@ -13,7 +13,7 @@
 import Navbar from '@/components/navbar/Navbar';
 import ErrorModal from "@/components/modals/ErrorModal";
 
-import { identifier } from "@/components/utility/identifier.js";
+import { identifier, getUserObject } from "@/components/utility/identifier.js";
 
 export default {
   components: {
@@ -29,6 +29,7 @@ export default {
   },
   created() {
     identifier();
+    this.$store.commit("setUserId", getUserObject().id);
   }
 }
 </script>

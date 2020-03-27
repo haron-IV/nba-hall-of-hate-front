@@ -6,6 +6,7 @@ import { playerSearcher, showSearcherList, hideSearcherList } from '@/store/play
 import { commentBox, showPlayerCommentBox } from '@/store/commentBox';
 import { errors, showError, hideError } from "@/store/errors";
 import { loadMoreInfo, setPlayersOnPage, setWallPlayers } from "@/store/loadMoreInfoStates";
+import { user, setUserId, setUserNickname } from "@/store/user";
 
 Vue.use(Vuex);
 
@@ -24,7 +25,8 @@ export default new Vuex.Store({
     },
     playerSearcher,
     errors,
-    loadMoreInfo
+    loadMoreInfo,
+    user
   },
   mutations: {
     showPlayerCardFullView(state) {
@@ -47,7 +49,10 @@ export default new Vuex.Store({
     hideSearcherList: state => hideSearcherList(state),
 
     showError: (state, data) => showError(state, data),
-    hideError: state => hideError(state)
+    hideError: state => hideError(state),
+
+    setUserId: (state, id) => setUserId(state, id),
+    setUserNickname: (state, nickname) => setUserNickname(state, nickname)
   },
 
   getters: {},
