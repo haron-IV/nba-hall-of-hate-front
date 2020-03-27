@@ -48,5 +48,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ```
 src/components/utility/config.js
 ```
-host_origin() -> here you can set your api base url.
+host_origin() -> here you can set your api base url.  
 axiosHeaders() -> set headers which will be append in each request
