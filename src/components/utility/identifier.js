@@ -18,7 +18,7 @@ const setUserObject = (userObject) => {
 const setUserNickname = (nickname) => {
     const user = getUserObject();
     user.nickname = nickname;
-    setUserObject(user);
+    setUserObject(JSON.stringify(user));
 };
 
 const checkIsUserExist = () => {
@@ -28,8 +28,8 @@ const checkIsUserExist = () => {
 
 const identifier = () => {
     if (checkIsUserExist() === false) {
-        const user = JSON.stringify(createUserObject());
-        setUserObject(user);
+        const user = createUserObject();
+        setUserObject(JSON.stringify(user));
     };
 };
 
@@ -37,4 +37,4 @@ const getUserObject = () => {
     return JSON.parse(localStorage.getItem("user"));
 };
 
-export { identifier, getUserObject };
+export { identifier, getUserObject, setUserNickname};

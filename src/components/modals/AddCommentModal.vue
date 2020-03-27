@@ -43,6 +43,7 @@ import Axios from 'axios';
 
 import { axiosHeaders, host_origin } from '@/components/utility/config';
 import { getCommentsCount } from "@/components/utility/comment.js";
+import { setUserNickname } from "@/components/utility/identifier.js";
 
 import Icon from "@/components/utility/Icon";
 
@@ -84,7 +85,9 @@ export default {
                     case 'respect':
                         this.$store.state.player.playerComments.respect.push(res.data);
                         break;
-                }
+                };
+
+                setUserNickname(this.userNickname);
             }, err => {
                 console.error(err);
             });
@@ -123,6 +126,10 @@ export default {
         this.$store.commit("hideError");
         
         return true;
+    },
+
+    setUserNickname() {
+
     }
   }
 };
