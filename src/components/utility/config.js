@@ -12,7 +12,7 @@ const host_origin = () => {
     const dev = "http://localhost:8080";
     const prod = "https://nba-hoh.herokuapp.com";
 
-    return prod;
+    return dev;
 }
 
 export { axiosHeaders, host_origin };
