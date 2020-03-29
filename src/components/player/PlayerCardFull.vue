@@ -85,7 +85,7 @@
             </div>
 
             <Load-more-info-button
-            v-if="$store.state.player.commentBox.hate || $store.state.player.commentBox.respect"
+            v-if="($store.state.player.commentBox.hate || $store.state.player.commentBox.respect) && ($store.state.player.playerComments.hate.length >= playerFeedBox.commentsLimit - 2 || $store.state.player.playerComments.respect.length >= playerFeedBox.commentsLimit - 2)"
             which="playerComments"
             :function="getPlayerComments"/>
 
@@ -245,6 +245,7 @@ export default {
         this.$store.state.player.commentBox.buttonVisibility.respect = false;
         this.$store.state.player.commentBox.hate = false;
         this.$store.state.player.commentBox.respect = false;
+
     }
   }
 };
