@@ -32,7 +32,6 @@ export default {
     // identifier();
     // this.$store.commit("setUserId", getUserObject().id);
     // this.$store.commit("setUserNickname", getUserObject().nickname);
-    GET(`/api/players/${2}`, (res) => {console.log(res)});
   }
 }
 </script>
