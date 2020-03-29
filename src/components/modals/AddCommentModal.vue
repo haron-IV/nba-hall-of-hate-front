@@ -71,11 +71,13 @@ export default {
   methods: {
     async addComment() {
         const commentType = this.$store.state.player.commentBox.commentType;
+        const user = JSON.parse( localStorage.getItem("user") );
 
         if (this.checkIsEmpty()) {
             await Axios.post( `${host_origin()}/api/player-comment/${commentType}`, { 
                 playerId: this.$store.state.player.selectedPlayer.playerId,
                 author: this.userNickname,
+                authorId: user.id,
                 createdDate: new Date(`${new Date().toString().split('GMT')[0]} UTC`).toISOString(),
                 content: this.commentContent,
                 commentLike: 0,
