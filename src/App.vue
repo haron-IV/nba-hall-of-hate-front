@@ -14,6 +14,7 @@ import Navbar from '@/components/navbar/Navbar';
 import ErrorModal from "@/components/modals/ErrorModal";
 
 import { identifier, getUserObject } from "@/components/utility/identifier.js";
+import { GET } from "@/components/utility/requests.js";
 
 export default {
   components: {
@@ -28,9 +29,10 @@ export default {
     }
   },
   created() {
-    identifier();
-    this.$store.commit("setUserId", getUserObject().id);
-    this.$store.commit("setUserNickname", getUserObject().nickname);
+    // identifier();
+    // this.$store.commit("setUserId", getUserObject().id);
+    // this.$store.commit("setUserNickname", getUserObject().nickname);
+    GET(`/api/players/${2}`, (res) => {console.log(res)});
   }
 }
 </script>
