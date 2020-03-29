@@ -20,4 +20,12 @@ const POST = async (path, requestBody, responseMethod, errorMethod) => {
     });
 };
 
-export { GET, POST };
+const PUT = async (path, requestBody, responseMethod, errorMethod) => {
+    await Axios.put( `${host_origin()}${path}`, requestBody, axiosHeaders() ).then( res => {
+        responseMethod(res);
+    }, err => {
+        errorMethod(err);
+    });
+};
+
+export { GET, POST, PUT };

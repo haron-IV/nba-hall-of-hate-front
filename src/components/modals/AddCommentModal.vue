@@ -93,7 +93,7 @@ export default {
                         break;
                 };
 
-                setUserNickname(this.userNickname);
+                setUserNickname( this.$store.state.user.id, this.userNickname);
             }, err => {
                 console.error(err);
             });
@@ -134,8 +134,10 @@ export default {
         return true;
     },
 
-    setUserNickname() {
-        setUserNickname(this.userNickname);
+    setUserNickname(id, nickname) {
+        setUserNickname(id, this.userNickname);
+        this.$store.commit("setUserId", JSON.parse(localStorage.getItem("user")).id);
+        this.$store.commit("setUserNickname", JSON.parse(localStorage.getItem("user")).nickname);
     }
   }
 };

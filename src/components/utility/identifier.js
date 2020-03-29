@@ -1,4 +1,5 @@
-import { GET, POST } from "./requests.js";
+import { v4 as uuid } from 'uuid';
+import { GET, POST, PUT } from "./requests.js";
 
 const createUserObject = () => {
     return {
@@ -11,7 +12,11 @@ const setUserObject = (userObject) => {
     localStorage.setItem("user", userObject);
 };
 
-const setUserNickname = (nickname) => {
+const setUserNickname = (id, nickname) => {
+    if (getUserObject().nickname !== null || getUserObject().nickname !== "") {
+        PUT(`/api/user/update/${id}/${nickname}`);
+    }
+    
     const user = getUserObject();
     user.nickname = nickname;
     setUserObject(JSON.stringify(user));
@@ -28,7 +33,7 @@ const getUserObject = () => {
 
 const addUser = async () => {
     if (checkIsUserExist() === false){
-        POST("/api/user/add", { username: "" }, 
+        POST("/api/user/add", { username: uuid().slice(0, 8) }, 
             res => {
                 const user = createUserObject();
                 user.id = res.data.userId;
@@ -38,20 +43,4 @@ const addUser = async () => {
     }
 };
 
-// const addNickname = async (id) => {
-//     GET(`/api/user/check/${id}`, 
-//         res => {
-//             if (res.data.userId) {
-
-//             }
-//         }
-//     )
-// };
-
 export { getUserObject, setUserNickname, addUser };
-
-
-// check if user exist in database
-// if exist do nothing
-// if not -> add then:
-// 1: get user id from response and sava it in ss

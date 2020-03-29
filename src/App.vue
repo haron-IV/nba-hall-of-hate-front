@@ -13,8 +13,7 @@
 import Navbar from '@/components/navbar/Navbar';
 import ErrorModal from "@/components/modals/ErrorModal";
 
-import { addUser } from "@/components/utility/identifier.js";
-// import { POST } from "@/components/utility/requests.js";
+import { addUser, getUserObject } from "@/components/utility/identifier.js";
 
 export default {
   components: {
@@ -29,9 +28,9 @@ export default {
     }
   },
   created() {
-    // this.$store.commit("setUserNickname", getUserObject().nickname);
-
     addUser();
+    this.$store.commit("setUserNickname", getUserObject().nickname);
+    this.$store.commit("setUserId", getUserObject().id);
   }
 }
 </script>
