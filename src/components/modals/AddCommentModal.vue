@@ -23,6 +23,10 @@
                 <div class="form-group">
                     <label for="message-text" class="col-form-label">Comment:</label>
                     <textarea class="form-control" id="message-text" v-model="commentContent" @keyup.enter="addComment()"></textarea>
+
+                    <div class="progress" v-if="commentContent && commentContent.length > 1">
+                        <div class="progress-bar" role="progressbar" :style="{width: commentProgress + '%'}"></div>
+                    </div>
                 </div>
             </form>
         </div>
@@ -55,13 +59,23 @@ export default {
   data() {
     return {
         userNickname: null,
-        commentContent: null
+        commentContent: null,
+        commentProgress: 0,
+        commentLengthMax: 500
     }
   },
   props: {
     withSetNickname: { type: Boolean, default: true }
   },
-  watch: {},
+  watch: {
+    commentContent() {
+        this.commentProgress = ( this.commentContent.length / this.commentLengthMax ) * 100;        
+
+        if (this.commentProgress >= 100) {
+            this.commentContent = this.commentContent.slice(0, this.commentLengthMax - 1);
+        }
+    }
+  },
   created(){
     if (this.$store.state.user.nickname !== null) {
         this.userNickname = this.$store.state.user.nickname;
