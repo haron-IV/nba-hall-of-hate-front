@@ -1,6 +1,10 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" @click="reload()">NBA Hall Of Hate</a>
+        <div style="display: flex; flex-direction: column;">
+            <span class="version">version: 0.0.4</span>
+            <a class="navbar-brand" @click="reload()">NBA Hall Of Hate</a>
+        </div>
+        
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -56,6 +60,11 @@ export default {
         justify-content: space-between;
         position: sticky;
         top: 0;
+
+        .version {
+            font-size: 8px;
+            position: absolute;
+        }
 
         .navbar-brand {
             cursor: pointer;
